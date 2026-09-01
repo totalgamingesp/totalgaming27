@@ -1,0 +1,4286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Total Gaming ESports</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+/* =========================
+   BASIC RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    background:#050510;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before{
+
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+
+    background:
+
+    radial-gradient(
+        circle at 20% 20%,
+        #4619a855,
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 80% 30%,
+        #008cff44,
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 50% 90%,
+        #ff006644,
+        transparent 35%
+    ),
+
+    linear-gradient(
+        135deg,
+        #050510,
+        #100526,
+        #031329
+    );
+
+    animation:
+    backgroundMove
+    12s
+    infinite
+    alternate
+    ease-in-out;
+}
+
+@keyframes backgroundMove{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.12);
+    }
+
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:75px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 7%;
+
+    background:
+    rgba(5,5,16,.75);
+
+    backdrop-filter:blur(15px);
+
+    border-bottom:
+    1px solid
+    rgba(255,255,255,.1);
+
+    z-index:1000;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:20px;
+
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        90deg,
+        #00eaff,
+        #ff00c8
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    letter-spacing:1px;
+
+    white-space:nowrap;
+}
+
+.logo-img{
+
+    width:55px;
+    height:55px;
+
+    object-fit:contain;
+
+    display:block;
+
+    flex-shrink:0;
+
+    background:transparent;
+}
+
+/* =========================
+   NAV RIGHT
+========================= */
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+/* Community */
+
+.community-btn{
+
+    padding:9px 15px;
+
+    border-radius:20px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        90deg,
+        #0077ff,
+        #d900ff
+    );
+
+    transition:.3s;
+
+    white-space:nowrap;
+}
+
+.community-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 20px
+    #00eaff66;
+}
+
+/* ADMIN POST BUTTON */
+
+.admin-post-btn{
+
+    padding:9px 15px;
+
+    border-radius:20px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    background:
+    linear-gradient(
+        90deg,
+        #ff1744,
+        #ff7a00
+    );
+
+    border:1px solid
+    rgba(255,255,255,.2);
+
+    box-shadow:
+    0 0 15px
+    rgba(255,70,0,.25);
+
+    transition:.3s;
+
+    white-space:nowrap;
+}
+
+.admin-post-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 25px
+    rgba(255,80,0,.55);
+}
+
+/* =========================
+   MENU BUTTON
+========================= */
+
+.menu-btn{
+
+    width:42px;
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.menu-btn:hover{
+
+    background:#00eaff;
+
+    color:#050510;
+
+    box-shadow:
+    0 0 20px
+    #00eaff88;
+}
+
+/* =========================
+   MENU PANEL
+========================= */
+
+.menu-panel{
+
+    position:fixed;
+
+    top:85px;
+    right:7%;
+
+    width:230px;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    background:
+    rgba(10,10,30,.96);
+
+    border:
+    1px solid
+    rgba(255,255,255,.15);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.5);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:
+    translateY(-10px)
+    scale(.96);
+
+    transition:.3s;
+
+    z-index:2000;
+}
+
+.menu-panel.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:
+    translateY(0)
+    scale(1);
+}
+
+.menu-panel a{
+
+    display:block;
+
+    padding:12px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    font-size:14px;
+
+    margin-bottom:5px;
+
+    transition:.3s;
+}
+
+.menu-panel a:hover{
+
+    background:
+    rgba(0,234,255,.12);
+
+    color:#00eaff;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:
+    100px
+    20px
+    60px;
+
+    position:relative;
+}
+
+.hero-content{
+    max-width:1000px;
+}
+
+.hero-small{
+
+    font-size:15px;
+
+    letter-spacing:6px;
+
+    color:#00eaff;
+
+    margin-bottom:20px;
+
+    text-transform:uppercase;
+}
+
+.hero h1{
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:
+    clamp(
+        45px,
+        8vw,
+        100px
+    );
+
+    line-height:1.05;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #00eaff,
+        #ffffff,
+        #ff00c8,
+        #00eaff
+    );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:
+    textGradient
+    6s
+    linear
+    infinite;
+}
+
+@keyframes textGradient{
+
+    0%{
+        background-position:0%;
+    }
+
+    100%{
+        background-position:300%;
+    }
+
+}
+
+.hero p{
+
+    margin-top:25px;
+
+    color:#c7c7d8;
+
+    font-size:17px;
+
+    max-width:700px;
+
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.hero-button{
+
+    display:inline-block;
+
+    margin-top:35px;
+
+    padding:
+    14px
+    30px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:600;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #0077ff,
+        #d900ff
+    );
+
+    transition:.3s;
+}
+
+.hero-button:hover{
+
+    transform:
+    translateY(-5px)
+    scale(1.03);
+}
+
+/* =========================
+   COMMON SECTION
+========================= */
+
+section{
+
+    padding:
+    100px 7%;
+}
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:60px;
+}
+
+.section-title span{
+
+    color:#00eaff;
+
+    font-size:14px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+}
+
+.section-title h2{
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:
+    clamp(
+        30px,
+        5vw,
+        50px
+    );
+
+    margin-top:10px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #00eaff,
+        white,
+        #ff00c8
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+/* =========================
+   PLAYERS
+========================= */
+
+.players-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:30px;
+
+    max-width:1300px;
+
+    margin:auto;
+}
+
+.player-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.09),
+        rgba(255,255,255,.025)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    backdrop-filter:blur(15px);
+
+    transition:.4s;
+
+    box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.35);
+}
+
+.player-card:hover{
+
+    transform:
+    translateY(-12px);
+
+    border-color:#00eaff;
+
+    box-shadow:
+    0 15px 50px
+    rgba(0,234,255,.25);
+}
+
+.player-image{
+
+    width:100%;
+
+    height:300px;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        135deg,
+        #14142a,
+        #252550
+    );
+}
+
+.player-image img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.player-card:hover
+.player-image img{
+
+    transform:scale(1.08);
+}
+
+.player-info{
+
+    padding:25px;
+}
+
+.player-number{
+
+    font-family:"Orbitron",sans-serif;
+
+    color:#00eaff;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+}
+
+.player-name{
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:23px;
+
+    margin:
+    8px 0 20px;
+}
+
+.player-details{
+
+    display:grid;
+
+    gap:10px;
+}
+
+.detail{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding-bottom:8px;
+
+    border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
+
+    font-size:13px;
+}
+
+.detail strong{
+
+    color:#9c9caf;
+
+    font-weight:400;
+}
+
+.detail span{
+
+    text-align:right;
+
+    color:white;
+}
+
+.social-links{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.social-links a{
+
+    flex:1;
+
+    text-align:center;
+
+    padding:9px;
+
+    border-radius:8px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    background:
+    rgba(255,255,255,.07);
+
+    transition:.3s;
+}
+
+.social-links a:hover{
+
+    background:#00eaff;
+
+    color:#050510;
+}
+
+/* =========================
+   TEAM
+========================= */
+
+.team-section{
+
+    position:relative;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    text-align:center;
+}
+
+.team-box{
+
+    padding:60px 8%;
+
+    border-radius:30px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(0,234,255,.09),
+        rgba(255,0,200,.09)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    backdrop-filter:blur(15px);
+}
+
+.team-box h3{
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:30px;
+
+    margin-bottom:20px;
+}
+
+.team-box p{
+
+    color:#c9c9d6;
+
+    line-height:1.9;
+
+    font-size:15px;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+
+    max-width:1300px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:25px;
+}
+
+.gallery-item{
+
+    position:relative;
+
+    height:300px;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    background:#111;
+}
+
+.gallery-item img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.gallery-item:hover img{
+
+    transform:scale(1.1);
+}
+
+.gallery-overlay{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:25px;
+
+    background:
+
+    linear-gradient(
+        transparent,
+        rgba(0,0,0,.9)
+    );
+}
+
+.gallery-overlay h3{
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:18px;
+}
+
+.gallery-overlay p{
+
+    color:#00eaff;
+
+    font-size:12px;
+
+    margin-top:5px;
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline-title{
+
+    text-align:center;
+
+    margin-top:100px;
+
+    margin-bottom:25px;
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:
+    clamp(
+        25px,
+        4vw,
+        42px
+    );
+
+    font-weight:800;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #00eaff,
+        #ffffff,
+        #ff00c8
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+.timeline-title-line{
+
+    width:240px;
+
+    height:3px;
+
+    margin:
+    0 auto 55px;
+
+    border-radius:10px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #00eaff,
+        #ff00c8
+    );
+}
+
+.timeline{
+
+    max-width:900px;
+
+    margin:0 auto;
+
+    position:relative;
+}
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    top:0;
+    bottom:0;
+
+    width:2px;
+
+    background:
+
+    linear-gradient(
+        #00eaff,
+        #ff00c8
+    );
+}
+
+.timeline-item{
+
+    width:50%;
+
+    padding:
+    20px 40px;
+
+    position:relative;
+}
+
+.timeline-item:nth-child(odd){
+
+    left:0;
+
+    text-align:right;
+}
+
+.timeline-item:nth-child(even){
+
+    left:50%;
+}
+
+.timeline-content{
+
+    padding:25px;
+
+    border-radius:15px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.08),
+        rgba(255,255,255,.03)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.1);
+
+    transition:.4s;
+}
+
+.timeline-content:hover{
+
+    transform:translateY(-5px);
+
+    border-color:#00eaff;
+}
+
+.timeline-content h3{
+
+    font-family:"Orbitron",sans-serif;
+
+    color:#00eaff;
+
+    margin-bottom:8px;
+
+    font-size:18px;
+}
+
+.timeline-tournament{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.timeline-trophy{
+
+    font-size:42px;
+
+    transition:.4s;
+}
+
+.timeline-content:hover
+.timeline-trophy{
+
+    transform:
+    scale(1.15)
+    rotate(-5deg);
+}
+
+/* ==================================================
+   COMMUNITY
+================================================== */
+
+.community-section{
+
+    max-width:1100px;
+
+    margin:auto;
+}
+
+.community-box{
+
+    padding:35px;
+
+    border-radius:25px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    backdrop-filter:blur(15px);
+}
+
+/* LOGIN AREA */
+
+.community-login{
+
+    padding:18px;
+
+    margin-bottom:25px;
+
+    border-radius:15px;
+
+    background:
+    rgba(0,234,255,.06);
+
+    border:
+    1px solid
+    rgba(0,234,255,.15);
+
+    text-align:center;
+}
+
+.community-login p{
+
+    color:#aaa;
+
+    font-size:13px;
+
+    margin-bottom:12px;
+}
+
+.google-login-btn{
+
+    padding:11px 20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        90deg,
+        #0077ff,
+        #8b00ff
+    );
+}
+
+/* COMMUNITY FORM */
+
+.community-form{
+
+    display:grid;
+
+    gap:12px;
+
+    margin-bottom:35px;
+}
+
+.community-form input,
+.community-form textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:white;
+
+    font-family:"Poppins",sans-serif;
+}
+
+.community-form textarea{
+
+    min-height:110px;
+
+    resize:vertical;
+}
+
+.community-form input::placeholder,
+.community-form textarea::placeholder{
+
+    color:#aaa;
+}
+
+.post-btn{
+
+    padding:13px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        90deg,
+        #0077ff,
+        #d900ff
+    );
+}
+
+/* PROFILE INFO */
+
+.user-info{
+
+    display:none;
+
+    margin-bottom:15px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    font-size:12px;
+
+    color:#aaa;
+}
+
+.user-info strong{
+
+    color:#00eaff;
+}
+
+/* POSTS */
+
+.posts-container{
+
+    display:grid;
+
+    gap:18px;
+}
+
+.post-card{
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,.06);
+
+    border:
+    1px solid
+    rgba(255,255,255,.1);
+}
+
+.post-card.admin-post-card{
+
+    border-color:
+    rgba(255,80,0,.35);
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,60,0,.08),
+        rgba(255,255,255,.04)
+    );
+}
+
+.post-card h4{
+
+    color:#00eaff;
+
+    margin-bottom:7px;
+}
+
+.admin-post-card h4{
+
+    color:#ff8a00;
+}
+
+.post-card p{
+
+    color:#ddd;
+
+    line-height:1.6;
+
+    white-space:pre-wrap;
+}
+
+.post-author{
+
+    color:#aaa;
+
+    font-size:12px;
+
+    margin-bottom:8px;
+}
+
+.post-date{
+
+    color:#777;
+
+    font-size:11px;
+
+    margin-top:10px;
+}
+
+/* ==================================================
+   ADMIN POST MODAL
+================================================== */
+
+.admin-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(0,0,0,.82);
+
+    backdrop-filter:blur(10px);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:5000;
+
+    padding:20px;
+}
+
+.admin-modal.show{
+
+    opacity:1;
+
+    visibility:visible;
+}
+
+.admin-modal-box{
+
+    width:100%;
+
+    max-width:600px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    background:#0d0d22;
+
+    border:
+    1px solid
+    rgba(255,255,255,.15);
+
+    box-shadow:
+    0 30px 100px
+    rgba(0,0,0,.7);
+}
+
+.admin-modal-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:8px;
+}
+
+.admin-modal-title h2{
+
+    font-family:"Orbitron",sans-serif;
+
+    color:#ff8a00;
+
+    font-size:22px;
+}
+
+.live-badge{
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    background:#ff1744;
+
+    color:white;
+
+    animation:
+    livePulse 1.5s
+    infinite;
+}
+
+@keyframes livePulse{
+
+    0%,100%{
+        box-shadow:0 0 0 rgba(255,23,68,0);
+    }
+
+    50%{
+        box-shadow:
+        0 0 18px
+        rgba(255,23,68,.7);
+    }
+}
+
+.admin-subtitle{
+
+    color:#999;
+
+    font-size:12px;
+
+    margin-bottom:20px;
+}
+
+/* Admin composer */
+
+.admin-composer{
+
+    display:none;
+
+    margin-top:25px;
+
+    padding-top:25px;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,.1);
+}
+
+.admin-composer input,
+.admin-composer textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-bottom:12px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:10px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:white;
+
+    font-family:"Poppins",sans-serif;
+}
+
+.admin-composer textarea{
+
+    min-height:130px;
+
+    resize:vertical;
+}
+
+.admin-buttons{
+
+    display:flex;
+
+    gap:10px;
+}
+
+.admin-buttons button{
+
+    flex:1;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+.publish-btn{
+
+    background:
+    linear-gradient(
+        90deg,
+        #ff1744,
+        #ff7a00
+    );
+
+    color:white;
+}
+
+.close-admin-btn{
+
+    background:
+    rgba(255,255,255,.1);
+
+    color:white;
+}
+
+#adminMessage{
+
+    margin-top:10px;
+
+    font-size:12px;
+
+    color:#00eaff;
+}
+
+/* ADMIN LOGIN */
+
+.admin-login-area{
+
+    display:none;
+
+    padding:20px;
+
+    text-align:center;
+
+    border-radius:15px;
+
+    background:
+    rgba(255,255,255,.04);
+}
+
+.admin-login-area p{
+
+    color:#aaa;
+
+    font-size:13px;
+
+    margin-bottom:15px;
+}
+
+.admin-login-button{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        90deg,
+        #0077ff,
+        #d900ff
+    );
+}
+
+/* Admin status */
+
+.admin-status{
+
+    display:none;
+
+    margin-bottom:20px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:
+    rgba(0,234,255,.07);
+
+    border:
+    1px solid
+    rgba(0,234,255,.15);
+
+    font-size:12px;
+
+    color:#aaa;
+}
+
+.admin-status strong{
+
+    color:#00eaff;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    padding:
+    50px 20px;
+
+    text-align:center;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,.1);
+
+    background:
+    rgba(0,0,0,.3);
+}
+
+footer h2{
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:22px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #00eaff,
+        #ff00c8
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+footer p{
+
+    color:#888;
+
+    font-size:12px;
+
+    margin-top:12px;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:.8s ease;
+}
+
+.reveal.active{
+
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:900px){
+
+    .players-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .gallery{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:650px){
+
+    nav{
+
+        padding:
+        0 12px;
+
+        height:70px;
+    }
+
+    .logo{
+
+        font-size:9px;
+
+        gap:4px;
+
+        letter-spacing:0;
+    }
+
+    .logo-img{
+
+        width:38px;
+        height:38px;
+    }
+
+    .nav-right{
+
+        gap:5px;
+    }
+
+    .community-btn{
+
+        padding:
+        7px 8px;
+
+        font-size:9px;
+    }
+
+    .admin-post-btn{
+
+        padding:
+        7px 8px;
+
+        font-size:9px;
+    }
+
+    .menu-btn{
+
+        width:36px;
+        height:36px;
+
+        font-size:18px;
+    }
+
+    .menu-panel{
+
+        right:12px;
+
+        top:78px;
+    }
+
+    section{
+
+        padding:
+        80px 20px;
+    }
+
+    .players-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+
+        grid-template-columns:1fr;
+    }
+
+    .player-image{
+
+        height:320px;
+    }
+
+    .timeline-title{
+
+        margin-top:70px;
+
+        font-size:25px;
+    }
+
+    .timeline-title-line{
+
+        width:180px;
+
+        margin-bottom:35px;
+    }
+
+    .timeline::before{
+
+        left:10px;
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(even){
+
+        width:100%;
+
+        left:0;
+
+        text-align:left;
+
+        padding-left:35px;
+
+        padding-right:0;
+    }
+
+    .hero h1{
+
+        font-size:45px;
+    }
+
+    .community-box{
+
+        padding:20px;
+    }
+
+    .admin-modal-box{
+
+        padding:22px;
+    }
+
+}
+
+/* Very small phones */
+
+@media(max-width:380px){
+
+    .logo span{
+
+        display:none;
+    }
+
+    .community-btn,
+    .admin-post-btn{
+
+        font-size:8px;
+
+        padding:
+        7px 6px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     NAVBAR
+================================================== -->
+
+<nav>
+
+<div class="logo">
+
+<img
+src="tg-logo.png"
+alt="Total Gaming Logo"
+class="logo-img"
+>
+
+<span>
+TOTAL GAMING ESPORTS
+</span>
+
+</div>
+
+
+<div class="nav-right">
+
+<!-- ONLY BUTTONS + MENU -->
+<a
+href="#community"
+class="community-btn"
+>
+💬 Community
+</a>
+
+
+<a
+href="javascript:void(0)"
+class="admin-post-btn"
+id="adminPostOpenBtn"
+>
+🔴 ADMIN POST
+</a>
+
+
+<button
+class="menu-btn"
+id="menuBtn"
+>
+☰
+</button>
+
+</div>
+
+</nav>
+
+
+<!-- ==================================================
+     MENU
+     All navigation links are INSIDE MENU
+================================================== -->
+
+<div
+class="menu-panel"
+id="menuPanel"
+>
+
+<a href="#home">
+🏠 Home
+</a>
+
+<a href="#players">
+👥 Players
+</a>
+
+<a href="#about">
+🏆 Team
+</a>
+
+<a href="#gallery">
+🖼 Gallery
+</a>
+
+<a href="#community">
+💬 Community
+</a>
+
+</div>
+
+
+<!-- ==================================================
+     HERO
+================================================== -->
+
+<section
+class="hero"
+id="home"
+>
+
+<div class="hero-content">
+
+<div class="hero-small">
+Official Esports Team
+</div>
+
+<h1>
+
+TOTAL GAMING
+
+<br>
+
+ESPORTS
+
+</h1>
+
+<p>
+
+Welcome to the world of Total Gaming Esports.
+Meet the players, explore their journey and
+discover the moments that made TG unforgettable.
+
+</p>
+
+<a
+href="#players"
+class="hero-button"
+>
+MEET THE PLAYERS
+</a>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     PLAYERS
+================================================== -->
+
+<section id="players">
+
+<div class="section-title reveal">
+
+<span>
+Meet The Squad
+</span>
+
+<h2>
+OUR PLAYERS
+</h2>
+
+</div>
+
+
+<div class="players-grid">
+
+
+<!-- PLAYER 1 -->
+
+<div class="player-card reveal">
+
+<div class="player-image">
+
+<img
+src="mafia.jpeg"
+alt="Player 1"
+>
+
+</div>
+
+<div class="player-info">
+
+<div class="player-number">
+TG PLAYER 01
+</div>
+
+<h3 class="player-name">
+iQOOTG.MAFIA
+</h3>
+
+<div class="player-details">
+
+<div class="detail">
+<strong>Real Name</strong>
+<span>DAKSH GARG</span>
+</div>
+
+<div class="detail">
+<strong>Game Name</strong>
+<span>iQOOTG.MAFIA7</span>
+</div>
+
+<div class="detail">
+<strong>Game ID</strong>
+<span>495094591</span>
+</div>
+
+<div class="detail">
+<strong>Role</strong>
+<span>SNIPER</span>
+</div>
+
+<div class="detail">
+<strong>DOB</strong>
+<span>20 June 2006</span>
+</div>
+
+</div>
+
+<div class="social-links">
+
+<a
+href="http://www.youtube.com/@TGMAFIAA"
+target="_blank"
+>
+YouTube
+</a>
+
+<a
+href="https://www.instagram.com/tg_mafiaa7"
+target="_blank"
+>
+Instagram
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PLAYER 2 -->
+
+<div class="player-card reveal">
+
+<div class="player-image">
+
+<img
+src="delete25.jpeg"
+alt="Player 2"
+>
+
+</div>
+
+<div class="player-info">
+
+<div class="player-number">
+TG PLAYER 02
+</div>
+
+<h3 class="player-name">
+iQOOTG.DELETE
+</h3>
+
+<div class="player-details">
+
+<div class="detail">
+<strong>Real Name</strong>
+<span>NARAI YADAV</span>
+</div>
+
+<div class="detail">
+<strong>Game Name</strong>
+<span>iQOOTG.DELETE25</span>
+</div>
+
+<div class="detail">
+<strong>Game ID</strong>
+<span>235249808</span>
+</div>
+
+<div class="detail">
+<strong>Role</strong>
+<span>RUSHER</span>
+</div>
+
+<div class="detail">
+<strong>DOB</strong>
+<span>24 Oct 200?</span>
+</div>
+
+</div>
+
+<div class="social-links">
+
+<a href="YOUR_YOUTUBE_LINK" target="_blank">
+YouTube
+</a>
+
+<a href="YOUR_INSTAGRAM_LINK" target="_blank">
+Instagram
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PLAYER 3 -->
+
+<div class="player-card reveal">
+
+<div class="player-image">
+
+<img
+src="aztec.jpeg"
+alt="Player 3"
+>
+
+</div>
+
+<div class="player-info">
+
+<div class="player-number">
+TG PLAYER 03
+</div>
+
+<h3 class="player-name">
+iQOOTG.AZTEC
+</h3>
+
+<div class="player-details">
+
+<div class="detail">
+<strong>Real Name</strong>
+<span>SOHAIL ALAM</span>
+</div>
+
+<div class="detail">
+<strong>Game Name</strong>
+<span>iQOOTG.AZTEC</span>
+</div>
+
+<div class="detail">
+<strong>Game ID</strong>
+<span>473328092</span>
+</div>
+
+<div class="detail">
+<strong>Role</strong>
+<span>IN GAME LEADER</span>
+</div>
+
+<div class="detail">
+<strong>DOB</strong>
+<span>06 Nov 2005</span>
+</div>
+
+</div>
+
+<div class="social-links">
+
+<a href="YOUR_YOUTUBE_LINK" target="_blank">
+YouTube
+</a>
+
+<a href="YOUR_INSTAGRAM_LINK" target="_blank">
+Instagram
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PLAYER 4 -->
+
+<div class="player-card reveal">
+
+<div class="player-image">
+
+<img
+src="shanky.jpeg"
+alt="Player 4"
+>
+
+</div>
+
+<div class="player-info">
+
+<div class="player-number">
+TG PLAYER 04
+</div>
+
+<h3 class="player-name">
+iQOOTG.SHANKY
+</h3>
+
+<div class="player-details">
+
+<div class="detail">
+<strong>Real Name</strong>
+<span>RAJ KIRAN</span>
+</div>
+
+<div class="detail">
+<strong>Game Name</strong>
+<span>iQOOTG.SHANKY</span>
+</div>
+
+<div class="detail">
+<strong>Game ID</strong>
+<span>1657606656</span>
+</div>
+
+<div class="detail">
+<strong>Role</strong>
+<span>RUSHER</span>
+</div>
+
+<div class="detail">
+<strong>DOB</strong>
+<span>10 Jan 2006</span>
+</div>
+
+</div>
+
+<div class="social-links">
+
+<a
+href="https://youtube.com/@tg_shanky27"
+target="_blank"
+>
+YouTube
+</a>
+
+<a
+href="https://www.instagram.com/tg.shanky"
+target="_blank"
+>
+Instagram
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PLAYER 5 -->
+
+<div class="player-card reveal">
+
+<div class="player-image">
+
+<img
+src="wota.jpeg"
+alt="Player 5"
+>
+
+</div>
+
+<div class="player-info">
+
+<div class="player-number">
+TG PLAYER 05
+</div>
+
+<h3 class="player-name">
+iQOOTG.WOTA
+</h3>
+
+<div class="player-details">
+
+<div class="detail">
+<strong>Real Name</strong>
+<span>KESHAV REDDY</span>
+</div>
+
+<div class="detail">
+<strong>Game Name</strong>
+<span>iQOOTG.WOTA</span>
+</div>
+
+<div class="detail">
+<strong>Game ID</strong>
+<span>2166313539</span>
+</div>
+
+<div class="detail">
+<strong>Role</strong>
+<span>RUSHER</span>
+</div>
+
+<div class="detail">
+<strong>DOB</strong>
+<span>07 Feb 2009</span>
+</div>
+
+</div>
+
+<div class="social-links">
+
+<a
+href="https://youtube.com/@wotaff-77"
+target="_blank"
+>
+YouTube
+</a>
+
+<a
+href="https://www.instagram.com/tg_wota07"
+target="_blank"
+>
+Instagram
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PLAYER 6 -->
+
+<div class="player-card reveal">
+
+<div class="player-image">
+
+<img
+src="fozyajay.jpeg"
+alt="Player 6"
+>
+
+</div>
+
+<div class="player-info">
+
+<div class="player-number">
+TG PLAYER 06
+</div>
+
+<h3 class="player-name">
+iQOOTG.FOZYAJAY
+</h3>
+
+<div class="player-details">
+
+<div class="detail">
+<strong>Real Name</strong>
+<span>AJAY SHARMA</span>
+</div>
+
+<div class="detail">
+<strong>Game Name</strong>
+<span>iQOOTG.FOZYAJAY</span>
+</div>
+
+<div class="detail">
+<strong>Game ID</strong>
+<span>29777293</span>
+</div>
+
+<div class="detail">
+<strong>Role</strong>
+<span>HEAD COACH & ANALYST</span>
+</div>
+
+<div class="detail">
+<strong>DOB</strong>
+<span>08 Oct 1998</span>
+</div>
+
+</div>
+
+<div class="social-links">
+
+<a
+href="https://youtube.com/@fozyajay"
+target="_blank"
+>
+YouTube
+</a>
+
+<a
+href="https://www.instagram.com/fozyajay"
+target="_blank"
+>
+Instagram
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     ABOUT
+================================================== -->
+
+<section id="about">
+
+<div class="section-title reveal">
+
+<span>
+The Legacy
+</span>
+
+<h2>
+ABOUT TG
+</h2>
+
+</div>
+
+<div class="team-section reveal">
+
+<div class="team-box">
+
+<h3>
+TOTAL GAMING ESPORTS
+</h3>
+
+<p>
+
+🔥 Welcome to TG Esports! 🔥
+
+<br><br>
+
+"We are more than just a team, we are a family of gamers, dreamers, and champions pushing the limits of competitive gaming. From intense tournament highlights to behind-the-scenes moments, this is where you'll find the true spirit of TG esports. We play to win, but we also play to inspire. Join us on our journey as we take TG from India to the global stage."
+
+<br><br>
+
+AJENDRA VARIYA (AKA AjjuBhai) the owner of total gaming.
+
+<br>
+
+AJAY SHARMA (AKA FozyBhai) the real mastermind of TG Esports.
+
+<br>
+
+SATTY GOD (Back-Bone of TG ESP) managing the whole team.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     GALLERY
+================================================== -->
+
+<section id="gallery">
+
+<div class="section-title reveal">
+
+<span>
+Memorable Moments
+</span>
+
+<h2>
+TG GALLERY
+</h2>
+
+</div>
+
+<div class="gallery">
+
+<div class="gallery-item reveal">
+
+<img
+src="tg photo21.jpeg"
+alt="TG Highlight 1"
+>
+
+<div class="gallery-overlay">
+
+<h3>
+FFMIC 2025
+</h3>
+
+<p>
+YEAR 2025
+</p>
+
+</div>
+
+</div>
+
+
+<div class="gallery-item reveal">
+
+<img
+src="tg photo52.jpeg"
+alt="TG Highlight 2"
+>
+
+<div class="gallery-overlay">
+
+<h3>
+FFMIC 2025 WINNING
+</h3>
+
+<p>
+YEAR 2025
+</p>
+
+</div>
+
+</div>
+
+
+<div class="gallery-item reveal">
+
+<img
+src="tg photo33.jpeg"
+alt="TG Highlight 3"
+>
+
+<div class="gallery-overlay">
+
+<h3>
+FFMIC 2025
+</h3>
+
+<p>
+YEAR 2025
+</p>
+
+</div>
+
+</div>
+
+
+<div class="gallery-item reveal">
+
+<img
+src="tg photo14.jpeg"
+alt="TG Highlight 4"
+>
+
+<div class="gallery-overlay">
+
+<h3>
+FFMIC 2025
+</h3>
+
+<p>
+YEAR 2025
+</p>
+
+</div>
+
+</div>
+
+
+<div class="gallery-item reveal">
+
+<img
+src="tg photo65.jpeg"
+alt="TG Highlight 5"
+>
+
+<div class="gallery-overlay">
+
+<h3>
+FFMIC BLACK SQURD
+</h3>
+
+<p>
+YEAR 2025
+</p>
+
+</div>
+
+</div>
+
+
+<div class="gallery-item reveal">
+
+<img
+src="tg photo4.jpeg"
+alt="TG Highlight 6"
+>
+
+<div class="gallery-overlay">
+
+<h3>
+FFMIC 2025
+</h3>
+
+<p>
+YEAR 2025
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ==================================================
+     WINNING TOURNAMENTS
+================================================== -->
+
+<div class="timeline-title reveal">
+
+TG OFFICIAL WINNING TOURNAMENTS
+
+</div>
+
+<div class="timeline-title-line"></div>
+
+<div class="timeline">
+
+
+<div class="timeline-item reveal">
+
+<div class="timeline-content">
+
+<h3>YEAR 2025</h3>
+
+<div class="timeline-tournament">
+
+<span>
+FFMIC 2025 BATTLE ROYALE
+</span>
+
+<span class="timeline-trophy">
+🏆
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item reveal">
+
+<div class="timeline-content">
+
+<h3>YEAR 2025</h3>
+
+<div class="timeline-tournament">
+
+<span>
+FFMIC 2025 CLASH SQURD
+</span>
+
+<span class="timeline-trophy">
+🏆
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item reveal">
+
+<div class="timeline-content">
+
+<h3>YEAR 2021</h3>
+
+<div class="timeline-tournament">
+
+<span>
+FF TITAN CLASH SQURD
+</span>
+
+<span class="timeline-trophy">
+🏆
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item reveal">
+
+<div class="timeline-content">
+
+<h3>YEAR 2021</h3>
+
+<div class="timeline-tournament">
+
+<span>
+FFPL SUMMER 2021
+</span>
+
+<span class="timeline-trophy">
+🏆
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item reveal">
+
+<div class="timeline-content">
+
+<h3>YEAR 2020</h3>
+
+<div class="timeline-tournament">
+
+<span>
+FFIC 2020
+</span>
+
+<span class="timeline-trophy">
+🏆
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item reveal">
+
+<div class="timeline-content">
+
+<h3>YEAR 2020</h3>
+
+<div class="timeline-tournament">
+
+<span>
+BRAWLER BASH FF 2020
+</span>
+
+<span class="timeline-trophy">
+🏆
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     COMMUNITY
+================================================== -->
+
+<section id="community">
+
+<div class="section-title reveal">
+
+<span>
+TG Community
+</span>
+
+<h2>
+COMMUNITY POSTS
+</h2>
+
+</div>
+
+
+<div class="community-section reveal">
+
+<div class="community-box">
+
+
+<!-- GOOGLE LOGIN -->
+
+<div
+class="community-login"
+id="communityLoginArea"
+>
+
+<p>
+Login with Google to join the TG Community.
+</p>
+
+<button
+class="google-login-btn"
+id="googleLoginBtn"
+>
+🔐 LOGIN WITH GOOGLE
+</button>
+
+</div>
+
+
+<!-- USER INFO -->
+
+<div
+class="user-info"
+id="userInfo"
+>
+
+Logged in as:
+<strong id="userEmail">
+</strong>
+
+</div>
+
+
+<!-- COMMUNITY FORM -->
+
+<div
+class="community-form"
+id="communityForm"
+style="display:none;"
+>
+
+<input
+type="text"
+id="communityName"
+placeholder="Your Community Name"
+maxlength="40"
+>
+
+<textarea
+id="communityText"
+placeholder="Write something for the TG Community..."
+maxlength="500"
+></textarea>
+
+<button
+class="post-btn"
+id="communityPostBtn"
+>
+POST TO COMMUNITY
+</button>
+
+</div>
+
+
+<div
+class="posts-container"
+id="postsContainer"
+>
+
+<p style="color:#777;text-align:center;">
+Loading community posts...
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     ADMIN POST MODAL
+================================================== -->
+
+<div
+class="admin-modal"
+id="adminModal"
+>
+
+<div class="admin-modal-box">
+
+
+<div class="admin-modal-title">
+
+<h2>
+🔴 TG LIVE UPDATES
+</h2>
+
+<span class="live-badge">
+LIVE
+</span>
+
+</div>
+
+
+<p class="admin-subtitle">
+
+Official announcements and important updates
+from TG Esports.
+
+</p>
+
+
+<!-- Admin status -->
+
+<div
+class="admin-status"
+id="adminStatus"
+>
+
+👑 You are logged in as:
+
+<strong id="adminEmailDisplay">
+</strong>
+
+</div>
+
+
+<!-- Normal user login -->
+
+<div
+class="admin-login-area"
+id="adminLoginArea"
+>
+
+<p>
+Only authorised TG Admin accounts can publish
+official updates.
+</p>
+
+<button
+class="admin-login-button"
+id="adminLoginButton"
+>
+🔐 LOGIN WITH GOOGLE
+</button>
+
+</div>
+
+
+<!-- ADMIN COMPOSER -->
+
+<div
+class="admin-composer"
+id="adminComposer"
+>
+
+<input
+type="text"
+id="adminPostTitle"
+placeholder="Important Update Title"
+maxlength="100"
+>
+
+<textarea
+id="adminPostText"
+placeholder="Write your official TG live update..."
+maxlength="1000"
+></textarea>
+
+
+<div class="admin-buttons">
+
+<button
+class="publish-btn"
+id="publishBtn"
+>
+🚀 PUBLISH LIVE UPDATE
+</button>
+
+<button
+class="close-admin-btn"
+id="closeAdminBtn"
+>
+CLOSE
+</button>
+
+</div>
+
+
+<p id="adminMessage"></p>
+
+</div>
+
+
+<!-- Admin posts only -->
+
+<div
+class="posts-container"
+id="adminPostsContainer"
+>
+
+<p style="color:#777;text-align:center;">
+Loading official updates...
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer>
+
+<h2>
+TOTAL GAMING ESPORTS
+</h2>
+
+<p>
+|| © Presented By "@TG.Universe-07" ||
+</p>
+
+</footer>
+
+
+<!-- ==================================================
+     FIREBASE + JAVASCRIPT
+================================================== -->
+
+<script type="module">
+
+
+/* ==================================================
+   FIREBASE IMPORTS
+================================================== */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    setDoc,
+    doc,
+    getDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* ==================================================
+   FIREBASE CONFIG
+================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyChF016PV2A8EeHYu54KMZDDvvLDSvvDQE",
+
+    authDomain:
+    "tg-esports-community.firebaseapp.com",
+
+    projectId:
+    "tg-esports-community",
+
+    storageBucket:
+    "tg-esports-community.firebasestorage.app",
+
+    messagingSenderId:
+    "905506453361",
+
+    appId:
+    "1:905506453361:web:4b4437b089b3987c3528d0",
+
+    measurementId:
+    "G-6WVQEP1HD5"
+
+};
+
+
+/* ==================================================
+   INITIALIZE
+================================================== */
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+const googleProvider =
+new GoogleAuthProvider();
+
+
+/* ==================================================
+   ADMIN SETTINGS
+================================================== */
+
+const ADMIN_EMAILS = [
+
+    "fozyajay27@gmail.com"
+
+];
+
+
+/*
+   Future me secondary admin add karna ho to
+   yaha email add kar dena.
+
+   Example:
+
+   const ADMIN_EMAILS = [
+       "fozyajay27@gmail.com",
+       "secondadmin@gmail.com"
+   ];
+*/
+
+
+function isAdmin(user){
+
+    if(!user || !user.email){
+
+        return false;
+
+    }
+
+    return ADMIN_EMAILS
+    .map(email =>
+        email.toLowerCase()
+    )
+    .includes(
+        user.email.toLowerCase()
+    );
+
+}
+
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+const menuPanel =
+document.getElementById("menuPanel");
+
+const googleLoginBtn =
+document.getElementById("googleLoginBtn");
+
+const communityLoginArea =
+document.getElementById("communityLoginArea");
+
+const communityForm =
+document.getElementById("communityForm");
+
+const userInfo =
+document.getElementById("userInfo");
+
+const userEmail =
+document.getElementById("userEmail");
+
+const communityName =
+document.getElementById("communityName");
+
+const communityText =
+document.getElementById("communityText");
+
+const communityPostBtn =
+document.getElementById("communityPostBtn");
+
+const postsContainer =
+document.getElementById("postsContainer");
+
+
+/* Admin */
+
+const adminPostOpenBtn =
+document.getElementById("adminPostOpenBtn");
+
+const adminModal =
+document.getElementById("adminModal");
+
+const closeAdminBtn =
+document.getElementById("closeAdminBtn");
+
+const adminLoginArea =
+document.getElementById("adminLoginArea");
+
+const adminLoginButton =
+document.getElementById("adminLoginButton");
+
+const adminComposer =
+document.getElementById("adminComposer");
+
+const adminStatus =
+document.getElementById("adminStatus");
+
+const adminEmailDisplay =
+document.getElementById("adminEmailDisplay");
+
+const adminPostsContainer =
+document.getElementById("adminPostsContainer");
+
+const publishBtn =
+document.getElementById("publishBtn");
+
+const adminMessage =
+document.getElementById("adminMessage");
+
+
+/* ==================================================
+   MENU
+================================================== */
+
+menuBtn.addEventListener(
+    "click",
+    () => {
+
+        menuPanel.classList.toggle("show");
+
+    }
+);
+
+
+document.querySelectorAll(
+    ".menu-panel a"
+).forEach(link => {
+
+    link.addEventListener(
+        "click",
+        () => {
+
+            menuPanel.classList.remove(
+                "show"
+            );
+
+        }
+    );
+
+});
+
+
+/* ==================================================
+   GOOGLE LOGIN
+================================================== */
+
+async function googleLogin(){
+
+    try{
+
+        await signInWithPopup(
+            auth,
+            googleProvider
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Google login failed. Please try again."
+        );
+
+    }
+
+}
+
+
+googleLoginBtn.addEventListener(
+    "click",
+    googleLogin
+);
+
+adminLoginButton.addEventListener(
+    "click",
+    googleLogin
+);
+
+
+/* ==================================================
+   AUTH STATE
+================================================== */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        if(user){
+
+            /*
+              User logged in
+            */
+
+            communityLoginArea.style.display =
+            "none";
+
+            userInfo.style.display =
+            "block";
+
+            communityForm.style.display =
+            "grid";
+
+            userEmail.textContent =
+            user.email;
+
+
+            /*
+              Load saved community name
+            */
+
+            await loadUserProfile(user);
+
+
+            /*
+              If admin
+            */
+
+            if(isAdmin(user)){
+
+                adminLoginArea.style.display =
+                "none";
+
+                adminComposer.style.display =
+                "block";
+
+                adminStatus.style.display =
+                "block";
+
+                adminEmailDisplay.textContent =
+                user.email;
+
+            }
+
+            else{
+
+                /*
+                  Normal user
+                */
+
+                adminLoginArea.style.display =
+                "block";
+
+                adminComposer.style.display =
+                "none";
+
+                adminStatus.style.display =
+                "none";
+
+            }
+
+        }
+
+        else{
+
+            /*
+              No user logged in
+            */
+
+            communityLoginArea.style.display =
+            "block";
+
+            userInfo.style.display =
+            "none";
+
+            communityForm.style.display =
+            "none";
+
+
+            /*
+              Admin section
+            */
+
+            adminLoginArea.style.display =
+            "block";
+
+            adminComposer.style.display =
+            "none";
+
+            adminStatus.style.display =
+            "none";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   USER PROFILE / NAME
+================================================== */
+
+async function loadUserProfile(user){
+
+    try{
+
+        const profileRef =
+        doc(
+            db,
+            "users",
+            user.uid
+        );
+
+        const profileSnap =
+        await getDoc(profileRef);
+
+
+        if(profileSnap.exists()){
+
+            const data =
+            profileSnap.data();
+
+            communityName.value =
+            data.communityName || "";
+
+        }
+
+        else{
+
+            /*
+              First login:
+              use Google display name
+            */
+
+            communityName.value =
+            user.displayName || "";
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Profile load error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   COMMUNITY POST
+================================================== */
+
+communityPostBtn.addEventListener(
+    "click",
+    async () => {
+
+        const user =
+        auth.currentUser;
+
+
+        if(!user){
+
+            alert(
+                "Please login with Google first."
+            );
+
+            return;
+
+        }
+
+
+        const name =
+        communityName.value.trim();
+
+
+        const text =
+        communityText.value.trim();
+
+
+        if(!name){
+
+            alert(
+                "Please enter your community name."
+            );
+
+            return;
+
+        }
+
+
+        if(!text){
+
+            alert(
+                "Please write something."
+            );
+
+            return;
+
+        }
+
+
+        try{
+
+            /*
+              Save / update user's name.
+
+              One Gmail =
+              One Firebase UID =
+              One saved community name.
+            */
+
+            await setDoc(
+
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                ),
+
+                {
+
+                    communityName:name,
+
+                    email:user.email,
+
+                    updatedAt:
+                    serverTimestamp()
+
+                },
+
+                {
+                    merge:true
+                }
+
+            );
+
+
+            /*
+              Create community post
+            */
+
+            await addDoc(
+
+                collection(
+                    db,
+                    "posts"
+                ),
+
+                {
+
+                    title:
+                    "Community Post",
+
+                    text:text,
+
+                    author:name,
+
+                    type:
+                    "community",
+
+                    uid:
+                    user.uid,
+
+                    createdAt:
+                    serverTimestamp()
+
+                }
+
+            );
+
+
+            communityText.value = "";
+
+
+            alert(
+                "Community post published!"
+            );
+
+        }
+
+        catch(error){
+
+            console.error(error);
+
+            alert(
+                "Could not publish post. Check Firebase Firestore setup."
+            );
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   COMMUNITY POSTS
+================================================== */
+
+const postsQuery =
+query(
+    collection(
+        db,
+        "posts"
+    ),
+    orderBy(
+        "createdAt",
+        "desc"
+    )
+);
+
+
+onSnapshot(
+
+    postsQuery,
+
+    snapshot => {
+
+        postsContainer.innerHTML = "";
+
+
+        let count = 0;
+
+
+        snapshot.forEach(
+            postDoc => {
+
+                const post =
+                postDoc.data();
+
+
+                /*
+                  Only community posts
+                */
+
+                if(
+                    post.type !==
+                    "community"
+                ){
+
+                    return;
+
+                }
+
+
+                count++;
+
+
+                createCommunityPostCard(
+                    post
+                );
+
+            }
+        );
+
+
+        if(count === 0){
+
+            postsContainer.innerHTML =
+            `
+            <p style="color:#777;text-align:center;">
+                No community posts yet.
+            </p>
+            `;
+
+        }
+
+    },
+
+    error => {
+
+        console.error(error);
+
+        postsContainer.innerHTML =
+        `
+        <p style="color:#ff6b6b;text-align:center;">
+            Unable to load community posts.
+        </p>
+        `;
+
+    }
+
+);
+
+
+/* ==================================================
+   COMMUNITY POST CARD
+================================================== */
+
+function createCommunityPostCard(post){
+
+    const card =
+    document.createElement(
+        "div"
+    );
+
+    card.className =
+    "post-card";
+
+
+    const title =
+    document.createElement(
+        "h4"
+    );
+
+    title.textContent =
+    "💬 Community Post";
+
+
+    const author =
+    document.createElement(
+        "div"
+    );
+
+    author.className =
+    "post-author";
+
+    author.textContent =
+    "By " +
+    (
+        post.author ||
+        "TG Community Member"
+    );
+
+
+    const text =
+    document.createElement(
+        "p"
+    );
+
+    text.textContent =
+    post.text || "";
+
+
+    const date =
+    document.createElement(
+        "div"
+    );
+
+    date.className =
+    "post-date";
+
+
+    if(
+        post.createdAt &&
+        post.createdAt.toDate
+    ){
+
+        date.textContent =
+        post.createdAt
+        .toDate()
+        .toLocaleString();
+
+    }
+
+
+    card.appendChild(title);
+
+    card.appendChild(author);
+
+    card.appendChild(text);
+
+    card.appendChild(date);
+
+
+    postsContainer.appendChild(
+        card
+    );
+
+}
+
+
+/* ==================================================
+   OPEN ADMIN POST
+================================================== */
+
+adminPostOpenBtn.addEventListener(
+    "click",
+    () => {
+
+        adminModal.classList.add(
+            "show"
+        );
+
+        loadAdminPosts();
+
+        const user =
+        auth.currentUser;
+
+
+        if(user && isAdmin(user)){
+
+            adminLoginArea.style.display =
+            "none";
+
+            adminComposer.style.display =
+            "block";
+
+            adminStatus.style.display =
+            "block";
+
+            adminEmailDisplay.textContent =
+            user.email;
+
+        }
+
+        else{
+
+            adminLoginArea.style.display =
+            "block";
+
+            adminComposer.style.display =
+            "none";
+
+            adminStatus.style.display =
+            "none";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   CLOSE ADMIN POST
+================================================== */
+
+closeAdminBtn.addEventListener(
+    "click",
+    () => {
+
+        adminModal.classList.remove(
+            "show"
+        );
+
+        adminMessage.textContent = "";
+
+    }
+);
+
+
+/* ==================================================
+   ADMIN PUBLISH
+================================================== */
+
+publishBtn.addEventListener(
+    "click",
+    async () => {
+
+        const user =
+        auth.currentUser;
+
+
+        /*
+          IMPORTANT:
+          Only authorised admin can publish.
+        */
+
+        if(!user){
+
+            adminMessage.textContent =
+            "Please login first.";
+
+            return;
+
+        }
+
+
+        if(!isAdmin(user)){
+
+            adminMessage.textContent =
+            "Admin permission required.";
+
+            return;
+
+        }
+
+
+        const title =
+        document.getElementById(
+            "adminPostTitle"
+        ).value.trim();
+
+
+        const text =
+        document.getElementById(
+            "adminPostText"
+        ).value.trim();
+
+
+        if(!title || !text){
+
+            adminMessage.textContent =
+            "Please enter title and message.";
+
+            return;
+
+        }
+
+
+        try{
+
+            await addDoc(
+
+                collection(
+                    db,
+                    "posts"
+                ),
+
+                {
+
+                    title:title,
+
+                    text:text,
+
+                    author:
+                    "TG ADMIN",
+
+                    type:
+                    "admin",
+
+                    uid:
+                    user.uid,
+
+                    adminEmail:
+                    user.email,
+
+                    createdAt:
+                    serverTimestamp()
+
+                }
+
+            );
+
+
+            document.getElementById(
+                "adminPostTitle"
+            ).value = "";
+
+
+            document.getElementById(
+                "adminPostText"
+            ).value = "";
+
+
+            adminMessage.textContent =
+            "🔴 Live update published successfully!";
+
+        }
+
+        catch(error){
+
+            console.error(error);
+
+            adminMessage.textContent =
+            "Publish failed. Check Firestore rules.";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   ADMIN POSTS
+================================================== */
+
+function loadAdminPosts(){
+
+    adminPostsContainer.innerHTML =
+    `
+    <p style="color:#777;text-align:center;">
+        Loading official updates...
+    </p>
+    `;
+
+}
+
+
+/*
+   Real-time listener for admin posts
+*/
+
+onSnapshot(
+
+    postsQuery,
+
+    snapshot => {
+
+        adminPostsContainer.innerHTML = "";
+
+
+        let count = 0;
+
+
+        snapshot.forEach(
+            postDoc => {
+
+                const post =
+                postDoc.data();
+
+
+                if(
+                    post.type !==
+                    "admin"
+                ){
+
+                    return;
+
+                }
+
+
+                count++;
+
+
+                createAdminPostCard(
+                    post
+                );
+
+            }
+        );
+
+
+        if(count === 0){
+
+            adminPostsContainer.innerHTML =
+            `
+            <p style="color:#777;text-align:center;">
+                No official live updates yet.
+            </p>
+            `;
+
+        }
+
+    },
+
+    error => {
+
+        console.error(error);
+
+        adminPostsContainer.innerHTML =
+        `
+        <p style="color:#ff6b6b;text-align:center;">
+            Unable to load official updates.
+        </p>
+        `;
+
+    }
+
+);
+
+
+/* ==================================================
+   ADMIN POST CARD
+================================================== */
+
+function createAdminPostCard(post){
+
+    const card =
+    document.createElement(
+        "div"
+    );
+
+    card.className =
+    "post-card admin-post-card";
+
+
+    const title =
+    document.createElement(
+        "h4"
+    );
+
+    title.textContent =
+    "🔴 " +
+    (
+        post.title ||
+        "TG Official Update"
+    );
+
+
+    const author =
+    document.createElement(
+        "div"
+    );
+
+    author.className =
+    "post-author";
+
+    author.textContent =
+    "👑 Official TG Admin";
+
+
+    const text =
+    document.createElement(
+        "p"
+    );
+
+    text.textContent =
+    post.text || "";
+
+
+    const date =
+    document.createElement(
+        "div"
+    );
+
+    date.className =
+    "post-date";
+
+
+    if(
+        post.createdAt &&
+        post.createdAt.toDate
+    ){
+
+        date.textContent =
+        "LIVE UPDATE • " +
+        post.createdAt
+        .toDate()
+        .toLocaleString();
+
+    }
+
+
+    card.appendChild(title);
+
+    card.appendChild(author);
+
+    card.appendChild(text);
+
+    card.appendChild(date);
+
+
+    adminPostsContainer.appendChild(
+        card
+    );
+
+}
+
+
+/* ==================================================
+   SCROLL REVEAL
+================================================== */
+
+const revealElements =
+document.querySelectorAll(
+    ".reveal"
+);
+
+
+function revealOnScroll(){
+
+    const windowHeight =
+    window.innerHeight;
+
+
+    revealElements.forEach(
+        element => {
+
+            const elementTop =
+            element
+            .getBoundingClientRect()
+            .top;
+
+
+            if(
+                elementTop <
+                windowHeight - 80
+            ){
+
+                element.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    revealOnScroll
+);
+
+
+revealOnScroll();
+
+
+</script>
+
+</body>
+
+</html>
