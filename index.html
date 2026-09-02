@@ -1492,7 +1492,11 @@ section{
 
     width:100%;
 
-    max-width:550px;
+    max-width:900px;
+
+    max-height:88vh;
+
+    overflow-y:auto;
 
     padding:30px;
 
@@ -1605,6 +1609,50 @@ section{
     color:#00eaff;
 }
 
+
+/* =========================
+   ADMIN HISTORY
+========================= */
+
+.admin-history-title{
+    font-family:"Orbitron",sans-serif;
+    font-size:15px;
+    color:#00eaff;
+    margin:22px 0 12px;
+}
+
+.admin-history-container{
+    display:grid;
+    gap:12px;
+    max-height:300px;
+    overflow-y:auto;
+    margin-bottom:25px;
+    padding-right:4px;
+}
+
+.admin-history-card{
+    padding:15px;
+    border-radius:14px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,100,50,.18);
+}
+
+.admin-history-card h4{
+    color:#ff7043;
+    margin-bottom:6px;
+}
+
+.admin-history-card p{
+    color:#d0d0dd;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:7px;
+}
+
+.admin-history-card small{
+    color:#777;
+    font-size:10px;
+}
 
 /* =========================
    ADMIN UPDATES MODAL
@@ -3150,9 +3198,16 @@ id="adminPanel"
 
 <div class="admin-box">
 
+<button
+class="updates-close"
+id="adminPanelCloseBtn"
+type="button"
+>
+❌
+</button>
 
 <h2>
-🔴 ADMIN UPDATE
+🔴 ADMIN PANEL
 </h2>
 
 <p
@@ -3162,6 +3217,12 @@ id="adminUser"
 Admin
 </p>
 
+<h3 class="admin-history-title">🔴 PAST ADMIN UPDATES</h3>
+<div id="adminHistoryContainer" class="admin-history-container">
+    <p style="color:#777;text-align:center;">Loading past admin updates...</p>
+</div>
+
+<h3 class="admin-history-title">➕ CREATE NEW ADMIN UPDATE</h3>
 
 <input
 type="text"
@@ -3429,6 +3490,11 @@ document.getElementById("updatesModal");
 const updatesCloseBtn =
 document.getElementById("updatesCloseBtn");
 
+const adminPanelCloseBtn =
+document.getElementById("adminPanelCloseBtn");
+const adminHistoryContainer =
+document.getElementById("adminHistoryContainer");
+
 
 const loginModal =
 document.getElementById("loginModal");
@@ -3519,9 +3585,12 @@ adminUpdatesBtn.addEventListener(
     "click",
     () => {
 
-        updatesModal.classList.add(
-            "show"
-        );
+        if(isAdmin(auth.currentUser)){
+            updatesModal.classList.remove("show");
+            adminPanel.classList.add("show");
+        }else{
+            updatesModal.classList.add("show");
+        }
 
     }
 );
@@ -3539,6 +3608,13 @@ updatesCloseBtn.addEventListener(
             "show"
         );
 
+    }
+);
+
+adminPanelCloseBtn.addEventListener(
+    "click",
+    () => {
+        adminPanel.classList.remove("show");
     }
 );
 
@@ -3589,10 +3665,9 @@ onAuthStateChanged(auth, user => {
 
         if(isAdmin(user)){
             adminUser.textContent = "Logged in as: " + user.email;
-            adminPanel.classList.add("show");
-        }else{
-            adminPanel.classList.remove("show");
         }
+
+        adminPanel.classList.remove("show");
 
         closeLogin();
     }else{
@@ -4094,6 +4169,67 @@ onSnapshot(
 
 
 /* ==================================================
+   ADMIN HISTORY FOR LOGGED-IN ADMIN
+================================================== */
+
+const adminHistoryQuery =
+query(
+    collection(db, "posts"),
+    where("type", "==", "admin"),
+    orderBy("createdAt", "desc")
+);
+
+onSnapshot(
+    adminHistoryQuery,
+    snapshot => {
+        adminHistoryContainer.innerHTML = "";
+
+        if(snapshot.empty){
+            adminHistoryContainer.innerHTML = `
+                <p style="color:#777;text-align:center;">
+                    No admin updates yet.
+                </p>
+            `;
+            return;
+        }
+
+        snapshot.forEach(docSnap => {
+            const post = docSnap.data();
+
+            const card = document.createElement("div");
+            card.className = "admin-history-card";
+
+            const title = document.createElement("h4");
+            title.textContent = "🔴 " + (post.title || "TG Official Update");
+
+            const text = document.createElement("p");
+            text.textContent = post.text || "";
+
+            const meta = document.createElement("small");
+            if(post.createdAt && post.createdAt.toDate){
+                meta.textContent = "TG ADMIN • " + post.createdAt.toDate().toLocaleString();
+            }else{
+                meta.textContent = "TG ADMIN • Just now";
+            }
+
+            card.appendChild(title);
+            card.appendChild(text);
+            card.appendChild(meta);
+            adminHistoryContainer.appendChild(card);
+        });
+    },
+    error => {
+        console.error(error);
+        adminHistoryContainer.innerHTML = `
+            <p style="color:#ff6b6b;text-align:center;">
+                Unable to load past admin updates.
+            </p>
+        `;
+    }
+);
+
+
+/* ==================================================
    SCROLL REVEAL
 ================================================== */
 
@@ -4180,6 +4316,15 @@ updatesModal.addEventListener(
 
         }
 
+    }
+);
+
+adminPanel.addEventListener(
+    "click",
+    event => {
+        if(event.target === adminPanel){
+            adminPanel.classList.remove("show");
+        }
     }
 );
 
