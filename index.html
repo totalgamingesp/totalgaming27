@@ -1288,7 +1288,9 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
     onAuthStateChanged,
-    signOut
+    signOut,
+    setPersistence,
+    browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
@@ -1586,7 +1588,10 @@ loginBtn.addEventListener("click", async () => {
         await signInWithPopup(auth, googleProvider);
     }catch(error){
         console.error(error);
-        loginMessage.textContent = "Google login failed. Please try again.";
+        loginMessage.textContent =
+            error?.code === "auth/unauthorized-domain"
+            ? "Login blocked: add totalgamingesp.github.io in Firebase Authorized Domains."
+            : "Google login failed: " + (error?.message || "Please try again.");
     }
 });
 
@@ -1604,6 +1609,9 @@ onAuthStateChanged(auth, user => {
         communityLoginBtn.textContent = "LOGGED IN WITH GOOGLE";
         communityLoginBtn.disabled = true;
 
+        // Use the Google account name for community posts.
+        document.getElementById("communityName").readOnly = true;
+
         if(isAdmin(user)){
             adminUser.textContent = "Logged in as: " + user.email;
         }
@@ -1615,6 +1623,8 @@ onAuthStateChanged(auth, user => {
         communityAuthStatus.textContent = "Not logged in • Google login required to post";
         communityLoginBtn.textContent = "LOGIN WITH GOOGLE";
         communityLoginBtn.disabled = false;
+        document.getElementById("communityName").readOnly = false;
+        document.getElementById("communityName").value = "";
         adminPanel.classList.remove("show");
     }
 });
