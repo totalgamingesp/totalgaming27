@@ -83,6 +83,10 @@ class="menu-panel"
 id="menuPanel"
 >
 
+<a href="javascript:void(0)" id="myProfileBtn">
+👤 My Profile
+</a>
+
 <a href="#home">
 🏠 Home
 </a>
@@ -1074,6 +1078,63 @@ Loading community posts...
 
 
 <!-- =========================
+     MY PROFILE MODAL
+========================= -->
+
+<div
+class="modal"
+id="profileModal"
+>
+
+<div class="modal-box">
+
+<button
+class="login-close"
+id="profileCloseBtn"
+type="button"
+>
+❌
+</button>
+
+<h2>
+👤 MY PROFILE
+</h2>
+
+<div id="profileLoggedOut" style="text-align:center;">
+    <div style="font-size:42px;margin:10px 0;">🔐</div>
+    <h3 style="margin:8px 0;">Login First with Google</h3>
+    <p style="color:#aaa;line-height:1.6;">
+        Login with your Google account to see your profile.
+    </p>
+    <button
+        class="login-submit"
+        id="profileLoginBtn"
+        type="button"
+    >
+        🔐 LOGIN WITH GOOGLE
+    </button>
+</div>
+
+<div id="profileLoggedIn" style="display:none;text-align:center;">
+    <div style="font-size:55px;margin:8px 0;">👤</div>
+    <h3 id="profileName" style="margin:8px 0;">TG Member</h3>
+    <p id="profileEmail" style="color:#aaa;word-break:break-word;margin:8px 0 18px;">
+        email@example.com
+    </p>
+    <button
+        class="logout-btn"
+        id="profileLogoutBtn"
+        type="button"
+    >
+        LOGOUT FROM GOOGLE
+    </button>
+</div>
+
+</div>
+</div>
+
+
+<!-- =========================
      LOGIN MODAL
 ========================= -->
 
@@ -1422,6 +1483,17 @@ document.getElementById("menuBtn");
 const menuPanel =
 document.getElementById("menuPanel");
 
+const myProfileBtn =
+document.getElementById("myProfileBtn");
+const profileModal = document.getElementById("profileModal");
+const profileCloseBtn = document.getElementById("profileCloseBtn");
+const profileLoginBtn = document.getElementById("profileLoginBtn");
+const profileLogoutBtn = document.getElementById("profileLogoutBtn");
+const profileLoggedOut = document.getElementById("profileLoggedOut");
+const profileLoggedIn = document.getElementById("profileLoggedIn");
+const profileName = document.getElementById("profileName");
+const profileEmail = document.getElementById("profileEmail");
+
 
 const adminUpdatesBtn =
 document.getElementById("adminUpdatesBtn");
@@ -1521,12 +1593,62 @@ document.querySelectorAll(
 
 
 /* ==================================================
+   MY PROFILE
+================================================== */
+
+function openProfile(){
+    menuPanel.classList.remove("show");
+    profileModal.classList.add("show");
+
+    const user = auth.currentUser;
+
+    if(user){
+        const name = user.displayName || user.email?.split("@")[0] || "TG Member";
+        profileName.textContent = name;
+        profileEmail.textContent = user.email || "Google account";
+        profileLoggedOut.style.display = "none";
+        profileLoggedIn.style.display = "block";
+    }else{
+        profileLoggedOut.style.display = "block";
+        profileLoggedIn.style.display = "none";
+    }
+}
+
+function closeProfile(){
+    profileModal.classList.remove("show");
+}
+
+myProfileBtn.addEventListener("click", openProfile);
+profileCloseBtn.addEventListener("click", closeProfile);
+
+profileLoginBtn.addEventListener("click", () => {
+    closeProfile();
+    openLogin();
+});
+
+profileLogoutBtn.addEventListener("click", async () => {
+    try{
+        await signOut(auth);
+        closeProfile();
+    }catch(error){
+        console.error(error);
+        alert("Logout failed. Please try again.");
+    }
+});
+
+
+/* ==================================================
    ADMIN UPDATES OPEN
 ================================================== */
 
 adminUpdatesBtn.addEventListener(
     "click",
     () => {
+
+        if(!auth.currentUser){
+            openLogin();
+            return;
+        }
 
         if(isAdmin(auth.currentUser)){
             updatesModal.classList.remove("show");
@@ -1607,6 +1729,11 @@ onAuthStateChanged(auth, user => {
     if(user){
         const displayName = user.displayName || user.email?.split("@")[0] || "TG Member";
 
+        profileName.textContent = displayName;
+        profileEmail.textContent = user.email || "Google account";
+        profileLoggedOut.style.display = "none";
+        profileLoggedIn.style.display = "block";
+
         nameInput.value = displayName;
         nameInput.readOnly = true;
         nameInput.setAttribute("aria-readonly", "true");
@@ -1628,6 +1755,11 @@ onAuthStateChanged(auth, user => {
         adminPanel.classList.remove("show");
         closeLogin();
     }else{
+        profileLoggedOut.style.display = "block";
+        profileLoggedIn.style.display = "none";
+        profileName.textContent = "TG Member";
+        profileEmail.textContent = "Not logged in";
+
         communityAuthStatus.textContent = "🔒 Google login required to view or post in the TG Community";
         communityLoginBtn.textContent = "LOGIN WITH GOOGLE";
         communityLoginBtn.disabled = false;
@@ -2043,6 +2175,16 @@ revealOnScroll();
 /* ==================================================
    CLOSE MODALS BY CLICKING OUTSIDE
 ================================================== */
+
+profileModal.addEventListener(
+    "click",
+    event => {
+        if(event.target === profileModal){
+            closeProfile();
+        }
+    }
+);
+
 
 loginModal.addEventListener(
     "click",
