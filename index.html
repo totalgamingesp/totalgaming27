@@ -1585,6 +1585,7 @@ communityLoginBtn.addEventListener("click", openLogin);
 loginBtn.addEventListener("click", async () => {
     loginMessage.textContent = "Opening Google login...";
     try{
+        await setPersistence(auth, browserLocalPersistence);
         await signInWithPopup(auth, googleProvider);
     }catch(error){
         console.error(error);
@@ -1601,30 +1602,54 @@ loginBtn.addEventListener("click", async () => {
 ================================================== */
 
 onAuthStateChanged(auth, user => {
+    const nameInput = document.getElementById("communityName");
+
     if(user){
         const displayName = user.displayName || user.email?.split("@")[0] || "TG Member";
 
-        document.getElementById("communityName").value = displayName;
+        nameInput.value = displayName;
+        nameInput.readOnly = true;
+        nameInput.setAttribute("aria-readonly", "true");
+        nameInput.style.opacity = "0.75";
+
         communityAuthStatus.textContent = "✅ Logged in as " + displayName + " • You can post";
         communityLoginBtn.textContent = "LOGGED IN WITH GOOGLE";
         communityLoginBtn.disabled = true;
 
-        // Use the Google account name for community posts.
-        document.getElementById("communityName").readOnly = true;
+        postsContainer.style.display = "block";
+        adminUpdatesContainer.style.display = "block";
+        loadPostsForLoggedInUser(user);
+        loadAdminUpdatesForLoggedInUser(user);
 
         if(isAdmin(user)){
             adminUser.textContent = "Logged in as: " + user.email;
         }
 
         adminPanel.classList.remove("show");
-
         closeLogin();
     }else{
-        communityAuthStatus.textContent = "Not logged in • Google login required to post";
+        communityAuthStatus.textContent = "🔒 Google login required to view or post in the TG Community";
         communityLoginBtn.textContent = "LOGIN WITH GOOGLE";
         communityLoginBtn.disabled = false;
-        document.getElementById("communityName").readOnly = false;
-        document.getElementById("communityName").value = "";
+        nameInput.readOnly = true;
+        nameInput.value = "";
+        nameInput.placeholder = "Login with Google to use your name";
+        nameInput.style.opacity = "0.55";
+
+        postsContainer.innerHTML = `
+            <div style="text-align:center;color:#aaa;padding:25px 10px;">
+                <div style="font-size:32px;margin-bottom:8px;">🔐</div>
+                <strong>Google Login Required</strong>
+                <p style="margin:8px 0 14px;color:#777;">Login with Google to view Community Posts.</p>
+            </div>`;
+
+        adminUpdatesContainer.innerHTML = `
+            <div style="text-align:center;color:#aaa;padding:25px 10px;">
+                <div style="font-size:32px;margin-bottom:8px;">🔐</div>
+                <strong>Google Login Required</strong>
+                <p style="margin:8px 0 14px;color:#777;">Login with Google to view Admin Updates.</p>
+            </div>`;
+
         adminPanel.classList.remove("show");
     }
 });
@@ -1771,8 +1796,8 @@ communityPostBtn.addEventListener("click", async () => {
         return;
     }
 
-    const name = document.getElementById("communityName").value.trim() ||
-        user.displayName || user.email?.split("@")[0] || "TG Member";
+    // Identity comes only from the authenticated Google account.
+    const name = user.displayName || user.email?.split("@")[0] || "TG Member";
     const text = document.getElementById("communityText").value.trim();
 
     if(!text){
@@ -1801,322 +1826,106 @@ communityPostBtn.addEventListener("click", async () => {
 
 
 /* ==================================================
-   LOAD ALL POSTS
+   LOAD POSTS ONLY AFTER GOOGLE LOGIN
 ================================================== */
 
-const postsQuery =
-query(
-    collection(
-        db,
-        "posts"
-    ),
-    orderBy(
-        "createdAt",
-        "desc"
-    )
-);
+let postsUnsubscribe = null;
+let adminUpdatesUnsubscribe = null;
 
+function loadPostsForLoggedInUser(user){
+    if(!user) return;
+    if(postsUnsubscribe){ postsUnsubscribe(); postsUnsubscribe = null; }
 
-onSnapshot(
-    postsQuery,
-    snapshot => {
+    const postsQuery = query(
+        collection(db, "posts"),
+        orderBy("createdAt", "desc")
+    );
 
+    postsUnsubscribe = onSnapshot(postsQuery, snapshot => {
         postsContainer.innerHTML = "";
 
-
         if(snapshot.empty){
-
-            postsContainer.innerHTML =
-            `
-            <p style="color:#777;text-align:center;">
-                No community posts yet.
-            </p>
-            `;
-
+            postsContainer.innerHTML = `<p style="color:#777;text-align:center;">No community posts yet.</p>`;
             return;
-
         }
 
+        snapshot.forEach(docSnap => {
+            const post = docSnap.data();
+            const card = document.createElement("div");
+            card.className = "post-card";
 
-        snapshot.forEach(
-            docSnap => {
+            if(post.type === "admin") card.classList.add("admin-post");
 
-                const post =
-                docSnap.data();
-
-
-                const card =
-                document.createElement(
-                    "div"
-                );
-
-
-                card.className =
-                "post-card";
-
-
-                if(
-                    post.type ===
-                    "admin"
-                ){
-
-                    card.classList.add(
-                        "admin-post"
-                    );
-
-                }
-
-
-                const title =
-                document.createElement(
-                    "h4"
-                );
-
-
-                title.textContent =
-                post.type === "admin"
-                ? "🔴 " + post.title
+            const title = document.createElement("h4");
+            title.textContent = post.type === "admin"
+                ? "🔴 " + (post.title || "TG Admin Update")
                 : "💬 Community Post";
 
+            const author = document.createElement("small");
+            author.style.color = "#aaa";
+            author.textContent = "By " + (post.author || "Unknown");
 
-                const author =
-                document.createElement(
-                    "small"
-                );
+            const text = document.createElement("p");
+            text.textContent = post.text || "";
 
-
-                author.style.color =
-                "#aaa";
-
-
-                author.textContent =
-                "By " +
-                (
-                    post.author ||
-                    "Unknown"
-                );
-
-
-                const text =
-                document.createElement(
-                    "p"
-                );
-
-
-                text.textContent =
-                post.text || "";
-
-
-                const date =
-                document.createElement(
-                    "div"
-                );
-
-
-                date.className =
-                "post-date";
-
-
-                if(
-                    post.createdAt &&
-                    post.createdAt.toDate
-                ){
-
-                    date.textContent =
-                    post.createdAt
-                    .toDate()
-                    .toLocaleString();
-
-                }
-
-
-                card.appendChild(
-                    title
-                );
-
-                card.appendChild(
-                    author
-                );
-
-                card.appendChild(
-                    text
-                );
-
-                card.appendChild(
-                    date
-                );
-
-
-                postsContainer.appendChild(
-                    card
-                );
-
+            const date = document.createElement("div");
+            date.className = "post-date";
+            if(post.createdAt && post.createdAt.toDate){
+                date.textContent = post.createdAt.toDate().toLocaleString();
             }
-        );
 
-    },
-
-    error => {
-
+            card.append(title, author, text, date);
+            postsContainer.appendChild(card);
+        });
+    }, error => {
         console.error(error);
+        postsContainer.innerHTML = `<p style="color:#ff6b6b;text-align:center;">Unable to load posts. Please check Firestore Rules.</p>`;
+    });
+}
 
-        postsContainer.innerHTML =
-        `
-        <p style="color:#ff6b6b;text-align:center;">
-            Unable to load posts.
-        </p>
-        `;
+function loadAdminUpdatesForLoggedInUser(user){
+    if(!user) return;
+    if(adminUpdatesUnsubscribe){ adminUpdatesUnsubscribe(); adminUpdatesUnsubscribe = null; }
 
-    }
-);
+    const adminUpdatesQuery = query(
+        collection(db, "posts"),
+        where("type", "==", "admin"),
+        orderBy("createdAt", "desc")
+    );
 
-
-/* ==================================================
-   LOAD ONLY ADMIN UPDATES
-================================================== */
-
-const adminUpdatesQuery =
-query(
-    collection(
-        db,
-        "posts"
-    ),
-    where(
-        "type",
-        "==",
-        "admin"
-    ),
-    orderBy(
-        "createdAt",
-        "desc"
-    )
-);
-
-
-onSnapshot(
-    adminUpdatesQuery,
-    snapshot => {
-
-        adminUpdatesContainer.innerHTML =
-        "";
-
+    adminUpdatesUnsubscribe = onSnapshot(adminUpdatesQuery, snapshot => {
+        adminUpdatesContainer.innerHTML = "";
 
         if(snapshot.empty){
-
-            adminUpdatesContainer.innerHTML =
-            `
-            <p style="color:#777;text-align:center;">
-                No official updates yet.
-            </p>
-            `;
-
+            adminUpdatesContainer.innerHTML = `<p style="color:#777;text-align:center;">No official updates yet.</p>`;
             return;
-
         }
 
+        snapshot.forEach(docSnap => {
+            const post = docSnap.data();
+            const card = document.createElement("div");
+            card.className = "update-card";
 
-        snapshot.forEach(
-            docSnap => {
+            const title = document.createElement("h3");
+            title.textContent = "🔴 " + (post.title || "TG Official Update");
 
-                const post =
-                docSnap.data();
+            const text = document.createElement("p");
+            text.textContent = post.text || "";
 
+            const meta = document.createElement("div");
+            meta.className = "update-meta";
+            meta.textContent = post.createdAt && post.createdAt.toDate
+                ? "TG ADMIN • " + post.createdAt.toDate().toLocaleString()
+                : "TG ADMIN • Just now";
 
-                const card =
-                document.createElement(
-                    "div"
-                );
-
-                card.className =
-                "update-card";
-
-
-                const title =
-                document.createElement(
-                    "h3"
-                );
-
-                title.textContent =
-                "🔴 " +
-                (
-                    post.title ||
-                    "TG Official Update"
-                );
-
-
-                const text =
-                document.createElement(
-                    "p"
-                );
-
-                text.textContent =
-                post.text || "";
-
-
-                const meta =
-                document.createElement(
-                    "div"
-                );
-
-                meta.className =
-                "update-meta";
-
-
-                if(
-                    post.createdAt &&
-                    post.createdAt.toDate
-                ){
-
-                    meta.textContent =
-                    "TG ADMIN • " +
-                    post.createdAt
-                    .toDate()
-                    .toLocaleString();
-
-                }
-                else{
-
-                    meta.textContent =
-                    "TG ADMIN • Just now";
-
-                }
-
-
-                card.appendChild(
-                    title
-                );
-
-                card.appendChild(
-                    text
-                );
-
-                card.appendChild(
-                    meta
-                );
-
-
-                adminUpdatesContainer.appendChild(
-                    card
-                );
-
-            }
-        );
-
-    },
-
-    error => {
-
+            card.append(title, text, meta);
+            adminUpdatesContainer.appendChild(card);
+        });
+    }, error => {
         console.error(error);
-
-        adminUpdatesContainer.innerHTML =
-        `
-        <p style="color:#ff6b6b;text-align:center;">
-            Unable to load official updates.
-        </p>
-        `;
-
-    }
-);
+        adminUpdatesContainer.innerHTML = `<p style="color:#ff6b6b;text-align:center;">Unable to load admin updates. Please check Firestore Rules.</p>`;
+    });
+}
 
 
 /* ==================================================
