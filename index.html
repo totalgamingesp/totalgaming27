@@ -1907,12 +1907,11 @@ publishBtn.addEventListener(
         }
 
         catch(error){
+           console.error("ADMIN PUBLISH ERROR:", error);
 
-            console.error(error);
-
-            adminMessage.textContent =
-            "Publish failed. Check Firestore rules.";
-
+           adminMessage.textContent =
+                (error.code || "ERROR") + ": " +
+                (error.message || "Publish failed.");
         }
 
     }
