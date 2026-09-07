@@ -117,9 +117,8 @@ id="menuPanel"
 💬 Fan Community
 </a>
 
-
-<a href="#admin updates">
-❤️‍🔥 ADMIN UPDATES
+<a href="javascript:void(0)" id="menuAdminUpdatesBtn">
+    ❤️‍🔥 ADMIN UPDATES
 </a>
 
 </div>
@@ -1517,19 +1516,6 @@ document.getElementById("adminMessage");
 const publishBtn =
 document.getElementById("publishBtn");
 
-
-const communityPostBtn =
-document.getElementById("communityPostBtn");
-
-const communityLoginBtn =
-document.getElementById("communityLoginBtn");
-
-const communityAuthStatus =
-document.getElementById("communityAuthStatus");
-
-const postsContainer =
-document.getElementById("postsContainer");
-
 const adminUpdatesContainer =
 document.getElementById("adminUpdatesContainer");
 
@@ -1576,6 +1562,34 @@ document.querySelectorAll(
 
         }
     );
+
+});
+
+const menuAdminUpdatesBtn =
+    document.getElementById("menuAdminUpdatesBtn");
+
+menuAdminUpdatesBtn.addEventListener("click", () => {
+
+    menuPanel.classList.remove("show");
+
+    if(!auth.currentUser){
+
+        openLogin();
+
+        return;
+
+    }
+
+    if(isAdmin(auth.currentUser)){
+
+        updatesModal.classList.remove("show");
+        adminPanel.classList.add("show");
+
+    }else{
+
+        updatesModal.classList.add("show");
+
+    }
 
 });
 
@@ -1690,7 +1704,6 @@ function closeLogin(){
 
 loginXBtn.addEventListener("click", closeLogin);
 closeLoginBtn.addEventListener("click", closeLogin);
-communityLoginBtn.addEventListener("click", openLogin);
 
 loginBtn.addEventListener("click", async () => {
     loginMessage.textContent = "Opening Google login...";
@@ -1712,69 +1725,74 @@ loginBtn.addEventListener("click", async () => {
 ================================================== */
 
 onAuthStateChanged(auth, user => {
-    const nameInput = document.getElementById("communityName");
 
     if(user){
-        const displayName = user.displayName || user.email?.split("@")[0] || "TG Member";
 
-        profileName.textContent = displayName;
-        profileEmail.textContent = user.email || "Google account";
-        profileLoggedOut.style.display = "none";
-        profileLoggedIn.style.display = "block";
+        const displayName =
+            user.displayName ||
+            user.email?.split("@")[0] ||
+            "TG Member";
 
-        nameInput.value = displayName;
-        nameInput.readOnly = true;
-        nameInput.setAttribute("aria-readonly", "true");
-        nameInput.style.opacity = "0.75";
+        profileName.textContent =
+            displayName;
 
-        communityAuthStatus.textContent = "✅ Logged in as " + displayName + " • You can post";
-        communityLoginBtn.textContent = "LOGGED IN WITH GOOGLE";
-        communityLoginBtn.disabled = true;
+        profileEmail.textContent =
+            user.email ||
+            "Google account";
 
-        postsContainer.style.display = "block";
-        adminUpdatesContainer.style.display = "block";
-        loadPostsForLoggedInUser(user);
+        profileLoggedOut.style.display =
+            "none";
+
+        profileLoggedIn.style.display =
+            "block";
+
+        adminUpdatesContainer.style.display =
+            "block";
+
         loadAdminUpdatesForLoggedInUser(user);
+
         loadAdminHistoryForLoggedInUser(user);
 
         if(isAdmin(user)){
-            adminUser.textContent = "Logged in as: " + user.email;
+
+            adminUser.textContent =
+                "Logged in as: " +
+                user.email;
+
         }
 
         adminPanel.classList.remove("show");
+
         closeLogin();
+
     }else{
-        profileLoggedOut.style.display = "block";
-        profileLoggedIn.style.display = "none";
-        profileName.textContent = "TG Member";
-        profileEmail.textContent = "Not logged in";
 
-        communityAuthStatus.textContent = "🔒 Google login required to view or post in the TG Community";
-        communityLoginBtn.textContent = "LOGIN WITH GOOGLE";
-        communityLoginBtn.disabled = false;
-        nameInput.readOnly = true;
-        nameInput.value = "";
-        nameInput.placeholder = "Login with Google to use your name";
-        nameInput.style.opacity = "0.55";
+        profileLoggedOut.style.display =
+            "block";
 
-        postsContainer.innerHTML = `
-            <div style="text-align:center;color:#aaa;padding:25px 10px;">
-                <div style="font-size:32px;margin-bottom:8px;">🔐</div>
-                <strong>Google Login Required</strong>
-                <p style="margin:8px 0 14px;color:#777;">Login with Google to view Community Posts.</p>
-            </div>`;
+        profileLoggedIn.style.display =
+            "none";
+
+        profileName.textContent =
+            "TG Member";
+
+        profileEmail.textContent =
+            "Not logged in";
 
         adminUpdatesContainer.innerHTML = `
             <div style="text-align:center;color:#aaa;padding:25px 10px;">
                 <div style="font-size:32px;margin-bottom:8px;">🔐</div>
                 <strong>Google Login Required</strong>
-                <p style="margin:8px 0 14px;color:#777;">Login with Google to view Admin Updates.</p>
+                <p style="margin:8px 0 14px;color:#777;">
+                    Login with Google to view Admin Updates.
+                </p>
             </div>`;
 
         adminPanel.classList.remove("show");
-    }
-});
 
+    }
+
+});
 
 /* ==================================================
    PUBLISH ADMIN UPDATE
@@ -1901,103 +1919,10 @@ logoutBtn.addEventListener(
     }
 );
 
-
-/* ==================================================
-   COMMUNITY POST
-================================================== */
-
-communityPostBtn.addEventListener("click", async () => {
-
-    const user = auth.currentUser;
-
-    if(!user){
-
-        alert(
-            "Please login with Google first to post in the TG Community."
-        );
-
-        openLogin();
-
-        return;
-    }
-
-
-    const name =
-        user.displayName ||
-        user.email?.split("@")[0] ||
-        "TG Member";
-
-
-    const text =
-        document
-        .getElementById("communityText")
-        .value
-        .trim();
-
-
-    if(!text){
-
-        alert("Please write a message first.");
-
-        return;
-    }
-
-
-    try{
-
-        await addDoc(
-            collection(db, "posts"),
-            {
-
-                title: "Community Post",
-
-                text: text,
-
-                author: name,
-
-                authorEmail: user.email || "",
-
-                uid: user.uid,
-
-                type: "community",
-
-                /* Admin community post identification */
-                isAdmin: isAdmin(user),
-
-                createdAt:
-                    serverTimestamp()
-
-            }
-        );
-
-
-        document
-        .getElementById("communityText")
-        .value = "";
-
-
-        alert("Community post published!");
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        alert(
-            "Could not publish post. Check Firebase Firestore rules."
-        );
-
-    }
-
-});
-
-
 /* ==================================================
    LOAD POSTS ONLY AFTER GOOGLE LOGIN
 ================================================== */
 
-let postsUnsubscribe = null;
 let adminUpdatesUnsubscribe = null;
 
 function loadAdminHistoryForLoggedInUser(user){
@@ -2125,271 +2050,6 @@ function loadAdminHistoryForLoggedInUser(user){
 
         }
     );
-}
-
-function loadPostsForLoggedInUser(user){
-
-    if(!user) return;
-
-
-    if(postsUnsubscribe){
-
-        postsUnsubscribe();
-
-        postsUnsubscribe = null;
-
-    }
-
-
-    /*
-       IMPORTANT:
-
-       Community section me ab sirf
-       type:"community" posts show honge.
-
-       Admin Updates (type:"admin" / "admin_update")
-       yaha show nahi honge.
-    */
-
-    const postsQuery =
-        query(
-            collection(db, "posts"),
-            orderBy("createdAt", "desc")
-        );
-
-
-    postsUnsubscribe =
-        onSnapshot(
-            postsQuery,
-
-            snapshot => {
-
-                postsContainer.innerHTML = "";
-
-
-                /*
-                   Sirf Community posts rakho
-                */
-
-                const communityPosts =
-                    [];
-
-
-                snapshot.forEach(docSnap => {
-
-                    const post =
-                        docSnap.data();
-
-
-                    if(
-                        post.type === "community"
-                    ){
-
-                        communityPosts.push({
-                            id: docSnap.id,
-                            ...post
-                        });
-
-                    }
-
-                });
-
-
-                if(communityPosts.length === 0){
-
-                    postsContainer.innerHTML = `
-                        <p style="
-                            color:#777;
-                            text-align:center;
-                            padding:20px;
-                        ">
-                            No community posts yet.
-                        </p>
-                    `;
-
-                    return;
-
-                }
-
-
-                communityPosts.forEach(post => {
-
-                    const card =
-                        document.createElement("div");
-
-
-                    card.className =
-                        "post-card";
-
-
-                    /*
-                       ADMIN COMMUNITY POST
-                    */
-
-                    const adminCommunityPost =
-                        post.isAdmin === true ||
-                        (
-                            post.authorEmail &&
-                            isAdmin({
-                                email: post.authorEmail
-                            })
-                        );
-
-
-                    if(adminCommunityPost){
-
-                        card.classList.add(
-                            "admin-community-post"
-                        );
-
-                    }
-
-
-                    /* TITLE */
-
-                    const title =
-                        document.createElement("h4");
-
-
-                    if(adminCommunityPost){
-
-                        title.textContent =
-                            "👑 TG ADMIN • COMMUNITY";
-
-                    }else{
-
-                        title.textContent =
-                            "💬 Community Post";
-
-                    }
-
-
-                    /* AUTHOR */
-
-                    const author =
-                        document.createElement("small");
-
-
-                    author.className =
-                        "community-post-author";
-
-
-                    author.textContent =
-                        adminCommunityPost
-                        ? "👑 TG ADMIN • " +
-                          (post.author || "Admin")
-                        : "By " +
-                          (post.author || "Unknown");
-
-
-                    /* MESSAGE */
-
-                    const text =
-                        document.createElement("p");
-
-
-                    text.textContent =
-                        post.text || "";
-
-
-                    /* DATE */
-
-                    const date =
-                        document.createElement("div");
-
-
-                    date.className =
-                        "post-date";
-
-
-                    if(
-                        post.createdAt &&
-                        post.createdAt.toDate
-                    ){
-
-                        date.textContent =
-                            post.createdAt
-                            .toDate()
-                            .toLocaleString();
-
-                    }
-
-
-                    /* DELETE BUTTON — ADMIN ONLY */
-
-if(isAdmin(auth.currentUser)){
-
-    const deleteBtn =
-        document.createElement("button");
-
-    deleteBtn.type = "button";
-
-    deleteBtn.textContent = "🗑️ DELETE";
-
-    deleteBtn.style.cssText = `
-        margin-top:12px;
-        width:100%;
-        padding:9px 12px;
-        border:none;
-        border-radius:10px;
-        cursor:pointer;
-        color:white;
-        font-weight:600;
-        background:linear-gradient(
-            90deg,
-            #ff1744,
-            #d50000
-        );
-        box-shadow:0 0 12px rgba(255,0,50,.25);
-    `;
-
-    deleteBtn.addEventListener(
-        "click",
-        () => deletePost(post.id)
-    );
-
-    card.append(
-        title,
-        author,
-        text,
-        date,
-        deleteBtn
-    );
-
-}else{
-
-    card.append(
-        title,
-        author,
-        text,
-        date
-    );
-
-}
-
-postsContainer.appendChild(card);
-
-                });
-
-            },
-
-            error => {
-
-                console.error(error);
-
-                postsContainer.innerHTML = `
-                    <p style="
-                        color:#ff6b6b;
-                        text-align:center;
-                    ">
-                        Unable to load community posts.
-                        Please check Firestore Rules.
-                    </p>
-                `;
-
-            }
-        );
-
 }
 
 function loadAdminUpdatesForLoggedInUser(user){
