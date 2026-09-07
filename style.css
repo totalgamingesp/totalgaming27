@@ -2301,3 +2301,221 @@ footer p{
         0 0 8px rgba(255,0,70,.35);
 
 }
+
+/* =========================
+   MIRROR LIGHT SWEEP EFFECT
+========================= */
+
+.community-btn,
+.admin-update-btn,
+.hero-button,
+.post-btn,
+.publish-btn,
+.login-submit,
+.close-btn,
+.logout-btn,
+.menu-btn,
+.social-links a,
+.menu-panel a {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Moving reflection */
+.community-btn::before,
+.admin-update-btn::before,
+.hero-button::before,
+.post-btn::before,
+.publish-btn::before,
+.login-submit::before,
+.close-btn::before,
+.logout-btn::before,
+.menu-btn::before,
+.social-links a::before,
+.menu-panel a::before {
+
+    content:"";
+
+    position:absolute;
+
+    top:-60%;
+    left:-80%;
+
+    width:35%;
+    height:220%;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.75),
+        transparent
+    );
+
+    transform:rotate(20deg);
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+/* ===== HOVER MOVING REFLECTION ===== */
+
+.community-btn,
+.admin-update-btn,
+.hero-button,
+.post-btn,
+.publish-btn,
+.login-submit,
+.close-btn,
+.logout-btn,
+.menu-btn,
+.social-links a,
+.menu-panel a {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Reflection strip */
+.community-btn::after,
+.admin-update-btn::after,
+.hero-button::after,
+.post-btn::after,
+.publish-btn::after,
+.login-submit::after,
+.close-btn::after,
+.logout-btn::after,
+.menu-btn::after,
+.social-links a::after,
+.menu-panel a::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -100%;
+    left: -70%;
+
+    width: 25%;
+    height: 300%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.85),
+        transparent
+    );
+
+    transform: rotate(25deg);
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    opacity: 0;
+}
+
+
+/* ONLY WHEN CURSOR IS ON BUTTON */
+.community-btn:hover::after,
+.admin-update-btn:hover::after,
+.hero-button:hover::after,
+.post-btn:hover::after,
+.publish-btn:hover::after,
+.login-submit:hover::after,
+.close-btn:hover::after,
+.logout-btn:hover::after,
+.menu-btn:hover::after,
+.social-links a:hover::after,
+.menu-panel a:hover::after {
+
+    opacity: 1;
+
+    animation: hoverReflection 1.2s ease-in-out;
+}
+
+
+@keyframes hoverReflection {
+
+    0% {
+        left: -70%;
+    }
+
+    100% {
+        left: 160%;
+    }
+
+}
+
+/* =========================================
+   BUTTON SHAPE FOLLOWING EDGE GLOW
+========================================= */
+
+.community-btn,
+.admin-update-btn,
+.hero-button,
+.post-btn,
+.publish-btn,
+.login-submit,
+.close-btn,
+.logout-btn,
+.menu-btn,
+.social-links a,
+.menu-panel a,
+.login-close,
+.updates-close {
+    position:relative;
+    isolation:isolate;
+}
+
+.tg-edge-glow{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:inherit;
+
+    padding:2px;
+
+    background:
+        conic-gradient(
+            from var(--edge-angle, 0deg),
+            transparent 0deg 300deg,
+            rgba(0,234,255,.08) 320deg,
+            rgba(0,234,255,.45) 340deg,
+            #ffffff 352deg,
+            #00eaff 358deg,
+            transparent 360deg
+        );
+
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+    -webkit-mask-composite:xor;
+
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+    mask-composite:exclude;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    filter:
+        drop-shadow(0 0 4px rgba(0,234,255,.9))
+        drop-shadow(0 0 10px rgba(0,234,255,.55));
+
+    transition:
+        opacity:.15s ease;
+
+    z-index:20;
+}
+
+.tg-edge-glow.active{
+
+    opacity:1;
+
+}
