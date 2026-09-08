@@ -4082,7 +4082,7 @@ footer p{
 
 }
 
-@media (max-width:600px){
+@media (max-width:500px){
 
     .twitter-avatar{
         width:32px !important;
@@ -4108,13 +4108,13 @@ footer p{
 
 /* 1. Naye post type karne wale box ko chhota rakhein */
 #adminPostText {
-    height: 55px !important;
-    min-height: 55px !important;
+    height: 45px !important;
+    min-height: 45px !important;
 }
 
 /* 2. Old posts ke container ki HEIGHT BADHAYEIN */
 #adminHistoryContainer {
-    max-height: 55vh !important; /* Yahan 40vh ki jagah 55vh ya 60vh kar diya hai */
+    max-height: 60vh !important; /* Yahan 40vh ki jagah 55vh ya 60vh kar diya hai */
     overflow-y: auto !important; 
     display: block !important; 
 }
