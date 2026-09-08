@@ -2214,38 +2214,34 @@ section{
 
 .updates-close{
     position:absolute;
+    top:18px;
+    right:18px;
 
-    top:15px;
-    right:15px;
-
-    width:38px;
-    height:38px;
+    width:42px;
+    height:42px;
 
     border:none;
-
     border-radius:50%;
 
-    background:
-        rgba(255,255,255,.08);
+    background:rgba(255,255,255,0.08);
+    color:#ff4f81;
 
-    color:white;
-
-    font-size:20px;
+    font-size:22px;
+    font-weight:bold;
 
     cursor:pointer;
+    z-index:20;
 
-    transition:.3s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    z-index:10;
+    transition:0.3s ease;
 }
 
 .updates-close:hover{
-    background:#ff1744;
-
-    transform:rotate(90deg);
-
-    box-shadow:
-        0 0 18px rgba(255,23,68,.35);
+    background:rgba(255,50,100,0.18);
+    transform:rotate(90deg) scale(1.08);
 }
 
 #adminUpdatesContainer{
