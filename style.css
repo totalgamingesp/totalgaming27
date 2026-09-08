@@ -4106,3 +4106,58 @@ footer p{
 
 }
 
+/* 1. Main Container ko fixed height dekar Flexbox banayein */
+.twitter-admin-box {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 85vh !important; /* Pura modal screen ka 85% cover karega */
+    overflow: hidden !important; /* Main box ka scroll band */
+}
+
+/* 2. Headers, Title aur Footers ko apni original jagah lene dein */
+.twitter-admin-header, 
+.twitter-admin-user, 
+.twitter-divider, 
+.twitter-feed-title, 
+.twitter-admin-footer,
+.twitter-admin-message {
+    flex: 0 0 auto !important; 
+}
+
+/* 3. NEW POST SECTION (40% Space) */
+.twitter-composer {
+    flex: 4 1 0% !important; /* Flex 4 ka matlab 40% ratio */
+    display: flex !important;
+    overflow-y: auto !important;
+}
+
+/* Textarea ko 40% space me failne (stretch) dein */
+.twitter-composer-content {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+}
+#adminPostText {
+    flex: 1 !important; /* Bachi hui saari 40% height textbox le lega */
+    min-height: 50px !important;
+    resize: none !important; /* Ab user ko isey kheechna nahi padega */
+    margin-bottom: 10px !important;
+}
+
+/* 4. OLD POSTS SECTION (60% Space) */
+#adminHistoryContainer {
+    flex: 6 1 0% !important; /* Flex 6 ka matlab 60% ratio */
+    overflow-y: auto !important;
+    padding-right: 5px;
+}
+
+/* Scrollbar ko thoda patla aur clean banayein */
+#adminHistoryContainer::-webkit-scrollbar,
+.twitter-composer::-webkit-scrollbar {
+    width: 5px;
+}
+#adminHistoryContainer::-webkit-scrollbar-thumb,
+.twitter-composer::-webkit-scrollbar-thumb {
+    background-color: #ff004c; 
+    border-radius: 10px;
+}
