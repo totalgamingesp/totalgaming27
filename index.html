@@ -1122,79 +1122,131 @@ CLOSE
 
 
 <!-- =========================
-     ADMIN PANEL
+     ADMIN PANEL - TWITTER STYLE
 ========================= -->
 
-<div
-class="admin-panel"
-id="adminPanel"
->
+<div class="admin-panel" id="adminPanel">
 
-<div class="admin-box">
+    <div class="admin-box twitter-admin-box">
 
-<button
-class="updates-close"
-id="adminPanelCloseBtn"
-type="button"
->
-❌
-</button>
+        <!-- Close Button -->
+        <button
+            class="updates-close"
+            id="adminPanelCloseBtn"
+            type="button">
+            ❌
+        </button>
 
-<h2>
- ADMIN PANEL
-</h2>
+        <!-- Header -->
+        <div class="twitter-admin-header">
 
-<p
-class="admin-user"
-id="adminUser"
->
-Admin
-</p>
+            <div>
+                <span class="twitter-admin-label">OFFICIAL TG</span>
 
-<h3 class="admin-history-title">🔴 PAST ADMIN UPDATES</h3>
-<div id="adminHistoryContainer" class="admin-history-container">
-    <p style="color:#777;text-align:center;">Loading past admin updates...</p>
-</div>
+                <h2>ADMIN UPDATES</h2>
+            </div>
 
-<h3 class="admin-history-title">➕ CREATE NEW ADMIN UPDATE</h3>
+        </div>
 
-<input
-type="text"
-id="adminPostTitle"
-placeholder="Important Update Title"
-maxlength="100"
->
+        <!-- Logged In Admin -->
+        <div
+            class="admin-user twitter-admin-user"
+            id="adminUser">
+            Admin
+        </div>
 
+        <!-- =========================
+             CREATE NEW POST
+        ========================= -->
 
-<textarea
-id="adminPostText"
-placeholder="Write your official TG live update..."
-maxlength="1000"
-></textarea>
+        <div class="twitter-composer">
 
+            <div class="twitter-avatar">
 
-<div class="admin-buttons">
+                <img
+                    src="tg-logo.png"
+                    alt="TG">
 
-<button
-class="publish-btn"
-id="publishBtn"
->
-🚀 PUBLISH LIVE UPDATE
-</button>
+            </div>
 
-<button
-class="logout-btn"
-id="logoutBtn"
->
-LOGOUT
-</button>
+            <div class="twitter-composer-content">
 
-</div>
+                <div class="twitter-profile-name">
 
+                    <strong>
+                        TOTAL GAMING ESPORTS
+                    </strong>
 
-<p id="adminMessage"></p>
+                    <span>🔴 ADMIN</span>
 
-</div>
+                </div>
+
+                <input
+                    type="text"
+                    id="adminPostTitle"
+                    placeholder="Important Update Title"
+                    maxlength="100">
+
+                <textarea
+                    id="adminPostText"
+                    placeholder="What's happening at TG?"
+                    maxlength="1000"></textarea>
+
+                <div class="twitter-composer-footer">
+
+                    <button
+                        class="publish-btn twitter-publish-btn"
+                        id="publishBtn">
+
+                        🚀 PUBLISH LIVE UPDATE
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="twitter-divider"></div>
+
+        <!-- Feed Heading -->
+        <div class="twitter-feed-title">
+            🔴 OFFICIAL TG UPDATES
+        </div>
+
+        <!-- Old Posts -->
+        <div
+            id="adminHistoryContainer"
+            class="admin-history-container twitter-feed">
+
+            <p style="color:#777;text-align:center;">
+                Loading past admin updates...
+            </p>
+
+        </div>
+
+        <!-- Message -->
+        <p
+            id="adminMessage"
+            class="twitter-admin-message">
+        </p>
+
+        <!-- Logout -->
+        <div class="twitter-admin-footer">
+
+            <button
+                class="logout-btn"
+                id="logoutBtn">
+
+                LOGOUT
+
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
