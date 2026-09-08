@@ -286,25 +286,28 @@ nav{
 }
 
 /* =========================
-   VIP ADMIN POST (MIRROR & GLOW EFFECT)
+   VIP ADMIN POST (MIRROR + GLOW + DIAMOND)
 ========================= */
 .admin-post {
-    background: linear-gradient(135deg, rgba(255, 0, 76, 0.25), rgba(0, 229, 255, 0.1)) !important;
-    backdrop-filter: blur(12px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+    /* Violet, Blue, Sky Blue Gradient Fill */
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.5), rgba(0, 102, 255, 0.5), rgba(0, 229, 255, 0.5)) !important;
+    backdrop-filter: blur(15px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(15px) saturate(200%) !important;
     
-    border: 1px solid rgba(255, 0, 76, 0.7) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(0, 229, 255, 0.5) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.8) !important; /* Top shiny glass edge */
     
+    /* Box Outer Glow */
     box-shadow: 
-        0 8px 32px 0 rgba(255, 0, 76, 0.4),
-        0 0 25px rgba(0, 229, 255, 0.2),
-        inset 0 0 20px rgba(255, 255, 255, 0.15) !important;
+        0 8px 32px 0 rgba(0, 102, 255, 0.4),
+        0 0 25px rgba(138, 43, 226, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.25) !important;
         
     overflow: hidden !important;
     z-index: 1;
 }
 
+/* 🌟 Shiny Sweeping Animation (Mirror Reflection) */
 .admin-post::after {
     content: "";
     position: absolute;
@@ -332,28 +335,41 @@ nav{
     100% { transform: rotate(30deg) translateY(100%); }
 }
 
-.post-card.admin-post .author {
-    color: #ffffff !important;
-    text-shadow: 0 0 10px #ff004c, 0 0 20px #ff004c !important;
+/* Diamond TG ADMIN Text (Metallic Texture + Glow) */
+.diamond-text {
+    background: linear-gradient(100deg, #ffffff 0%, #b0e2ff 25%, #ffffff 50%, #87ceeb 75%, #ffffff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px rgba(176, 226, 255, 0.9)); /* Diamond Glow */
+    font-weight: 900;
+    font-size: 14.5px;
+    letter-spacing: 0.5px;
 }
 
-.post-card.admin-post p {
-    color: #ffffff !important;
-    font-weight: 500 !important;
-    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4) !important;
-}
-
+/* Verified Metal Tick Badge */
 .admin-badge {
-    display: inline-block;
-    padding: 2px 7px;
+    display: inline-flex;
+    align-items: center;
     margin-left: 6px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #ff004c;
-    font-size: 10px;
+    background: linear-gradient(135deg, #e6e6e6, #ffffff, #999999, #e6e6e6); /* Silver Metallic */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 12px;
     font-weight: 900;
     letter-spacing: 1px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.6)); /* Depth effect */
+}
+
+/* Admin Message Text Formatting (Clean, Stylish, NO GLOW) */
+.post-card.admin-post p {
+    color: #ffffff !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+    text-shadow: none !important; /* Glow Removed */
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+    margin-top: 4px;
 }
 
 /* =========================
@@ -928,8 +944,9 @@ function loadCommunityPosts(user){
             const author = document.createElement("div");
             author.className = "author";
 
+            // YAHAN PAR DIAMOND TEXT AUR METALLIC TICK LAGA HUA HAI
             if(isPostAdmin){
-                author.innerHTML = "👑 TG ADMIN <span class='admin-badge'>ADMIN</span>";
+                author.innerHTML = "👑 <span class='diamond-text'>TG ADMIN</span> <span class='admin-badge'>✔ ADMIN</span>";
             }else{
                 author.textContent = (post.uid === user.uid) ? "You" : post.author || "TG Member";
             }
@@ -943,7 +960,6 @@ function loadCommunityPosts(user){
                 date.textContent = "Sending...";
             }
 
-            // Grouping Date and Trash icon properly inside header
             const dateActionGroup = document.createElement("div");
             dateActionGroup.style.display = "flex";
             dateActionGroup.style.alignItems = "center";
