@@ -230,6 +230,22 @@ nav{
     padding: 10px 0;
 }
 
+/* WHATSAPP DATE SEPARATOR */
+.date-separator {
+    align-self: center;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #b5b5b5;
+    letter-spacing: 0.5px;
+    margin: 10px 0 5px 0;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
 .post-card {
     position: relative;
     padding: 10px 14px;
@@ -289,15 +305,13 @@ nav{
    VIP ADMIN POST (MIRROR + GLOW + DIAMOND)
 ========================= */
 .admin-post {
-    /* Violet, Blue, Sky Blue Gradient Fill */
     background: linear-gradient(135deg, rgba(138, 43, 226, 0.5), rgba(0, 102, 255, 0.5), rgba(0, 229, 255, 0.5)) !important;
     backdrop-filter: blur(15px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(15px) saturate(200%) !important;
     
     border: 1px solid rgba(0, 229, 255, 0.5) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.8) !important; /* Top shiny glass edge */
+    border-top: 1px solid rgba(255, 255, 255, 0.8) !important; 
     
-    /* Box Outer Glow */
     box-shadow: 
         0 8px 32px 0 rgba(0, 102, 255, 0.4),
         0 0 25px rgba(138, 43, 226, 0.3),
@@ -307,7 +321,6 @@ nav{
     z-index: 1;
 }
 
-/* 🌟 Shiny Sweeping Animation (Mirror Reflection) */
 .admin-post::after {
     content: "";
     position: absolute;
@@ -335,39 +348,34 @@ nav{
     100% { transform: rotate(30deg) translateY(100%); }
 }
 
-/* Diamond TG ADMIN Text (Metallic Texture + Glow + Drop Shadow) */
 .diamond-text {
     background: linear-gradient(100deg, #ffffff 0%, #b0e2ff 25%, #ffffff 50%, #87ceeb 75%, #ffffff 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* Added drop shadow for depth, along with the glow */
     filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.8)) drop-shadow(0 0 8px rgba(176, 226, 255, 0.8)); 
     font-weight: 900;
     font-size: 14.5px;
     letter-spacing: 0.5px;
 }
 
-/* Verified Red Metal Tick Badge */
 .admin-badge {
     display: inline-flex;
     align-items: center;
     margin-left: 6px;
-    /* Red Metallic Gradient */
     background: linear-gradient(135deg, #ff6b81, #ff004c, #8b0026, #ff6b81); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 14px; /* Increased size to make the tick more visible */
+    font-size: 14px; 
     font-weight: 900;
-    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.7)); /* Depth shadow effect */
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.7)); 
 }
 
-/* Admin Message Text Formatting (Clean, Stylish, NO GLOW) */
 .post-card.admin-post p {
     color: #ffffff !important;
     font-family: "Poppins", sans-serif !important;
     font-weight: 500 !important;
-    text-shadow: none !important; /* Glow Removed */
+    text-shadow: none !important; 
     letter-spacing: 0.3px;
     line-height: 1.6;
     margin-top: 4px;
@@ -838,7 +846,6 @@ onAuthStateChanged(auth, user => {
         statusText.textContent = "Logged in as " + name;
         logoutBtn.style.display = "block";
         
-        // Show Chat Input, Hide Login Button
         loginBtn.style.display = "none";
         inputWrapper.style.display = "flex";
         
@@ -849,7 +856,6 @@ onAuthStateChanged(auth, user => {
         statusText.textContent = "Login with Google to chat in community";
         logoutBtn.style.display = "none";
         
-        // Show Login Button, Hide Chat Input
         loginBtn.style.display = "block";
         inputWrapper.style.display = "none";
         
@@ -910,6 +916,31 @@ postBtn.addEventListener("click", async () => {
 });
 
 /* =========================
+   DATE FORMATTER
+========================= */
+function formatChatDate(dateObj) {
+    if(!dateObj) return "";
+    
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const isToday = dateObj.getDate() === today.getDate() &&
+                    dateObj.getMonth() === today.getMonth() &&
+                    dateObj.getFullYear() === today.getFullYear();
+
+    const isYesterday = dateObj.getDate() === yesterday.getDate() &&
+                        dateObj.getMonth() === yesterday.getMonth() &&
+                        dateObj.getFullYear() === yesterday.getFullYear();
+
+    if (isToday) return "TODAY";
+    if (isYesterday) return "YESTERDAY";
+
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return dateObj.toLocaleDateString(undefined, options).toUpperCase();
+}
+
+/* =========================
    LOAD COMMUNITY POSTS
 ========================= */
 let unsubscribe = null;
@@ -923,11 +954,25 @@ function loadCommunityPosts(user){
     unsubscribe = onSnapshot(postsQuery, snapshot => {
         postsContainer.innerHTML = "";
         let count = 0;
+        let lastDateString = ""; // To track WhatsApp style date separators
 
         snapshot.forEach(docSnap => {
             const post = docSnap.data();
             if(post.type !== "community") return;
             count++;
+
+            // ================= DATE BUBBLE LOGIC =================
+            let postDateObj = post.createdAt ? post.createdAt.toDate() : new Date();
+            let currentDayString = postDateObj.toDateString(); 
+
+            if (currentDayString !== lastDateString) {
+                const separatorDiv = document.createElement("div");
+                separatorDiv.className = "date-separator";
+                separatorDiv.textContent = formatChatDate(postDateObj);
+                postsContainer.appendChild(separatorDiv);
+                lastDateString = currentDayString;
+            }
+            // =====================================================
 
             const card = document.createElement("div");
             card.className = "post-card";
@@ -945,7 +990,6 @@ function loadCommunityPosts(user){
             const author = document.createElement("div");
             author.className = "author";
 
-            // YAHAN PAR DIAMOND TEXT AUR RED METAL TICK LAGA HUA HAI (Bina 'ADMIN' text ke)
             if(isPostAdmin){
                 author.innerHTML = "👑 <span class='diamond-text'>TG ADMIN</span> <span class='admin-badge'>✔</span>";
             }else{
