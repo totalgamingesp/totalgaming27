@@ -100,6 +100,10 @@ nav{
     -webkit-text-fill-color:transparent;
 }
 
+.logo-mobile {
+    display: none;
+}
+
 .back-btn{
     text-decoration:none;
     color:#fff;
@@ -254,26 +258,24 @@ nav{
     position: relative;
     padding: 10px 14px;
     
-    /* Dusre users ke messages Left side (Dark color) */
     background: #181a28; 
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 0 16px 16px 16px; /* Chat bubble ki punch (tail) left mein */
+    border-radius: 0 16px 16px 16px; 
     
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     width: fit-content;
     max-width: 85%;
-    align-self: flex-start; /* Left alignment */
+    align-self: flex-start; 
     
     display: flex;
     flex-direction: column;
     transition: 0.2s;
 }
 
-/* Aapke khud ke messages Right side (TG Cyan Theme) */
 .post-card.my-post {
-    align-self: flex-end; /* Right alignment */
-    border-radius: 16px 0 16px 16px; /* Punch (tail) right mein */
-    background: linear-gradient(145deg, #004d66, #002b3a); /* TG Blue */
+    align-self: flex-end; 
+    border-radius: 16px 0 16px 16px; 
+    background: linear-gradient(145deg, #004d66, #002b3a); 
     border: 1px solid rgba(0, 229, 255, 0.2);
 }
 
@@ -327,7 +329,7 @@ nav{
 }
 
 /* =========================
-   WHATSAPP STYLE INPUT BAR (NEW)
+   WHATSAPP STYLE INPUT BAR
 ========================= */
 
 .chat-bottom-wrapper {
@@ -556,7 +558,10 @@ footer p{
 
 @media(max-width:650px){
     nav{ height:65px; padding:0 4%; }
-    .logo span{ display:none; }
+    
+    .logo-desktop { display:none; }
+    .logo-mobile { display:block; font-size:18px; letter-spacing: 0.5px; }
+    
     .logo-img{ width:39px; height:39px; }
     .back-btn{ padding:9px 14px; font-size:12px; }
     .community-hero{ min-height:270px; padding:55px 18px 35px; }
@@ -588,7 +593,8 @@ footer p{
 <nav>
     <div class="logo">
         <img src="tg-logo.png" alt="Total Gaming" class="logo-img">
-        <span>TOTAL GAMING ESPORTS</span>
+        <span class="logo-desktop">TOTAL GAMING ESPORTS</span>
+        <span class="logo-mobile">iQOO.TG</span>
     </div>
     <a href="index.html" class="back-btn">← BACK TO HOME</a>
 </nav>
@@ -899,7 +905,6 @@ function loadCommunityPosts(user){
             if(isPostAdmin){
                 author.innerHTML = "👑 TG ADMIN <span class='admin-badge'>ADMIN</span>";
             }else{
-                // Check if it's my post, don't show name like WP, or show it. Let's show it.
                 author.textContent = (post.uid === user.uid) ? "You" : post.author || "TG Member";
             }
 
@@ -907,7 +912,6 @@ function loadCommunityPosts(user){
             date.className = "post-date";
 
             if(post.createdAt && post.createdAt.toDate){
-                // Just show time like WP (HH:MM)
                 date.textContent = post.createdAt.toDate().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             }else{
                 date.textContent = "Sending...";
