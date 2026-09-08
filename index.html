@@ -1299,7 +1299,8 @@ import {
     doc,
     setDoc,
     getDoc,
-    deleteDoc
+    deleteDoc,
+    runTransaction
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
@@ -2052,97 +2053,7 @@ function loadAdminHistoryForLoggedInUser(user){
     );
 }
 
-function loadAdminUpdatesForLoggedInUser(user){
-    if(!user) return;
-    if(adminUpdatesUnsubscribe){ adminUpdatesUnsubscribe(); adminUpdatesUnsubscribe = null; }
 
-    const adminUpdatesQuery = query(
-        collection(db, "posts"),
-        where("type", "==", "admin"),
-        orderBy("createdAt", "desc")
-    );
-
-    adminUpdatesUnsubscribe = onSnapshot(adminUpdatesQuery, snapshot => {
-        adminUpdatesContainer.innerHTML = "";
-
-        if(snapshot.empty){
-            adminUpdatesContainer.innerHTML = `<p style="color:#777;text-align:center;">No official updates yet.</p>`;
-            return;
-        }
-
-        snapshot.forEach(docSnap => {
-            const post = docSnap.data();
-            const card = document.createElement("div");
-            card.className = "update-card";
-
-            const title = document.createElement("h3");
-            title.textContent = "🔴 " + (post.title || "TG Official Update");
-
-            const text = document.createElement("p");
-            text.textContent = post.text || "";
-
-            const meta = document.createElement("div");
-            meta.className = "update-meta";
-            meta.textContent = post.createdAt && post.createdAt.toDate
-                ? "TG ADMIN • " + post.createdAt.toDate().toLocaleString()
-                : "TG ADMIN • Just now";
-
-            /* DELETE BUTTON — ADMIN ONLY */
-
-if(isAdmin(auth.currentUser)){
-
-    const deleteBtn =
-        document.createElement("button");
-
-    deleteBtn.type = "button";
-
-    deleteBtn.textContent = "🗑️ DELETE UPDATE";
-
-    deleteBtn.style.cssText = `
-        margin-top:12px;
-        width:100%;
-        padding:9px 12px;
-        border:none;
-        border-radius:10px;
-        cursor:pointer;
-        color:white;
-        font-weight:600;
-        background:linear-gradient(
-            90deg,
-            #ff1744,
-            #d50000
-        );
-        box-shadow:0 0 12px rgba(255,0,50,.25);
-    `;
-
-    deleteBtn.addEventListener(
-        "click",
-        () => deletePost(docSnap.id)
-    );
-
-    card.append(
-        title,
-        text,
-        meta,
-        deleteBtn
-    );
-
-}else{
-
-    card.append(
-        title,
-        text,
-        meta
-    );
-
-}
-            adminUpdatesContainer.appendChild(card);
-        });
-    }, error => {
-        console.error(error);
-        adminUpdatesContainer.innerHTML = `<p style="color:#ff6b6b;text-align:center;">Unable to load admin updates. Please check Firestore Rules.</p>`;
-    });
-}
 
 
 

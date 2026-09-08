@@ -187,10 +187,11 @@ nav::after{
             rgb(34,0,255) 10%,
             rgba(0,234,255,.15) 20%,
             rgba(0,234,255,1) 30%,
-            rgb(30,0,255) 50%,
+            rgb(30,0,255) 60%,
             rgba(0,234,255,1) 70%,
             rgba(0,234,255,.15) 80%,
-            rgb(47,0,255) 90%,
+            rgb(47,0,255) 85%,
+            rgb(255, 0, 93) 90%,
             transparent 100%
         );
 
@@ -2936,4 +2937,485 @@ footer p{
         font-size:11px;
         letter-spacing:3px;
     }
+}
+
+/* =========================================================
+   TG ADMIN UPDATE - SOCIAL POST DESIGN
+========================================================= */
+
+.tg-admin-post{
+    position:relative;
+    width:100%;
+    margin:18px 0;
+    padding:20px;
+    
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,0,60,.12),
+            rgba(10,10,25,.88) 45%,
+            rgba(255,70,0,.06)
+        );
+
+    border:1px solid rgba(255,0,70,.38);
+    border-radius:18px;
+
+    box-shadow:
+        0 0 12px rgba(255,0,70,.12),
+        0 0 30px rgba(255,0,70,.07),
+        inset 0 0 25px rgba(255,0,70,.035);
+
+    overflow:hidden;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+
+/* TOP SHINE LINE */
+
+.tg-admin-post::before{
+    content:"";
+
+    position:absolute;
+    top:0;
+    left:8%;
+    right:8%;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,50,90,.9),
+            transparent
+        );
+
+    box-shadow:
+        0 0 8px rgba(255,0,70,.7);
+}
+
+
+/* HOVER */
+
+.tg-admin-post:hover{
+    transform:translateY(-3px);
+
+    border-color:
+        rgba(255,40,90,.75);
+
+    box-shadow:
+        0 0 15px rgba(255,0,70,.25),
+        0 0 40px rgba(255,0,70,.12),
+        inset 0 0 30px rgba(255,0,70,.05);
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.tg-admin-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+
+.tg-admin-avatar{
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid rgba(255,50,90,.8);
+
+    background:#080810;
+
+    box-shadow:
+        0 0 8px rgba(255,0,70,.5),
+        0 0 18px rgba(255,0,70,.2);
+}
+
+
+.tg-admin-user{
+    min-width:0;
+    flex:1;
+}
+
+
+.tg-admin-name-row{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    flex-wrap:wrap;
+}
+
+
+.tg-admin-name{
+    color:#fff;
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:14px;
+    font-weight:800;
+
+    letter-spacing:.4px;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,.15);
+}
+
+
+/* VERIFIED */
+
+.tg-admin-verified{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    width:17px;
+    height:17px;
+
+    border-radius:50%;
+
+    font-size:10px;
+    font-weight:900;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff1744,
+            #ff6d00
+        );
+
+    box-shadow:
+        0 0 8px rgba(255,40,70,.45);
+}
+
+
+/* ADMIN BADGE */
+
+.tg-admin-badge{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:3px 7px;
+
+    border-radius:5px;
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    color:#ff6685;
+
+    border:1px solid rgba(255,0,70,.5);
+
+    background:
+        rgba(255,0,70,.08);
+
+    box-shadow:
+        0 0 7px rgba(255,0,70,.2);
+}
+
+
+.tg-admin-time{
+    margin-top:3px;
+
+    color:#777;
+
+    font-size:10px;
+
+    font-family:"Poppins",sans-serif;
+}
+
+
+/* =========================================================
+   POST CONTENT
+========================================================= */
+
+.tg-admin-content{
+    margin-top:18px;
+}
+
+
+.tg-admin-title{
+    margin:0;
+
+    color:#ff426b;
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:16px;
+    font-weight:800;
+
+    line-height:1.45;
+
+    letter-spacing:.5px;
+
+    text-shadow:
+        0 0 8px rgba(255,0,70,.55),
+        0 0 18px rgba(255,0,70,.18);
+}
+
+
+.tg-admin-text{
+    margin-top:10px;
+
+    color:#e4e4e4;
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:14px;
+
+    line-height:1.75;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+}
+
+
+/* =========================================================
+   BOTTOM ACTION AREA
+========================================================= */
+
+.tg-admin-actions{
+    display:flex;
+
+    align-items:center;
+
+    margin-top:17px;
+    padding-top:12px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.07);
+}
+
+
+/* LIKE BUTTON */
+
+.tg-like-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:6px 10px;
+
+    border:none;
+    outline:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:transparent;
+
+    color:#999;
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:13px;
+    font-weight:600;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .15s ease;
+}
+
+
+.tg-like-btn:hover{
+    background:
+        rgba(255,0,70,.09);
+
+    color:#ff6685;
+}
+
+
+.tg-like-btn:active{
+    transform:scale(.92);
+}
+
+
+/* HEART */
+
+.tg-like-heart{
+    font-size:20px;
+
+    line-height:1;
+
+    display:inline-block;
+
+    transition:
+        transform .2s ease,
+        filter .2s ease;
+}
+
+
+.tg-like-btn:hover .tg-like-heart{
+    transform:scale(1.12);
+}
+
+
+.tg-like-btn.liked{
+    color:#ff4169;
+}
+
+
+.tg-like-btn.liked .tg-like-heart{
+    filter:
+        drop-shadow(
+            0 0 5px
+            rgba(255,30,70,.75)
+        );
+
+    animation:
+        tgHeartPop .25s ease;
+}
+
+
+@keyframes tgHeartPop{
+
+    0%{
+        transform:scale(.75);
+    }
+
+    60%{
+        transform:scale(1.3);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+
+/* LIKE COUNT */
+
+.tg-like-count{
+    min-width:20px;
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.tg-admin-delete{
+    margin-left:auto;
+
+    padding:6px 10px;
+
+    border:
+        1px solid
+        rgba(255,0,50,.35);
+
+    border-radius:8px;
+
+    background:
+        rgba(255,0,50,.06);
+
+    color:#ff5575;
+
+    font-family:"Orbitron",sans-serif;
+
+    font-size:8px;
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+
+.tg-admin-delete:hover{
+    color:#fff;
+
+    background:
+        rgba(255,0,50,.18);
+
+    border-color:
+        rgba(255,0,50,.7);
+
+    box-shadow:
+        0 0 10px
+        rgba(255,0,50,.2);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    .tg-admin-post{
+        padding:16px;
+
+        border-radius:16px;
+    }
+
+
+    .tg-admin-avatar{
+        width:43px;
+        height:43px;
+    }
+
+
+    .tg-admin-name{
+        font-size:12px;
+    }
+
+
+    .tg-admin-title{
+        font-size:14px;
+    }
+
+
+    .tg-admin-text{
+        font-size:13px;
+
+        line-height:1.7;
+    }
+
+
+    .tg-admin-content{
+        margin-top:15px;
+    }
+
+
+    .tg-admin-badge{
+        font-size:7px;
+        padding:3px 6px;
+    }
+
+
+    .tg-admin-time{
+        font-size:9px;
+    }
+
 }
