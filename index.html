@@ -1498,6 +1498,167 @@ async function deletePost(postId){
 
 }
 
+/* ==================================================
+   CREATE TWITTER-STYLE ADMIN POST CARD
+================================================== */
+
+function createTgAdminPost(post, postId, user, showDelete){
+
+    const article = document.createElement("div");
+    article.className = "tg-admin-post";
+
+    /* HEADER */
+    const header = document.createElement("div");
+    header.className = "tg-admin-header";
+
+    const avatar = document.createElement("img");
+    avatar.className = "tg-admin-avatar";
+    avatar.src = "tg-logo.png";
+    avatar.alt = "TG";
+
+    const userDiv = document.createElement("div");
+    userDiv.className = "tg-admin-user";
+
+    const nameRow = document.createElement("div");
+    nameRow.className = "tg-admin-name-row";
+
+    const name = document.createElement("span");
+    name.className = "tg-admin-name";
+    name.textContent = "TOTAL GAMING ESPORTS";
+
+    const verified = document.createElement("span");
+    verified.className = "tg-admin-verified";
+    verified.textContent = "✓";
+
+    const badge = document.createElement("span");
+    badge.className = "tg-admin-badge";
+    badge.textContent = "ADMIN";
+
+    nameRow.append(name, verified, badge);
+
+    const time = document.createElement("div");
+    time.className = "tg-admin-time";
+    time.textContent =
+        post.createdAt && post.createdAt.toDate
+        ? post.createdAt.toDate().toLocaleString()
+        : "Just now";
+
+    userDiv.append(nameRow, time);
+    header.append(avatar, userDiv);
+
+    /* CONTENT */
+    const content = document.createElement("div");
+    content.className = "tg-admin-content";
+
+    const title = document.createElement("h3");
+    title.className = "tg-admin-title";
+    title.textContent = post.title || "TG Official Update";
+
+    const text = document.createElement("p");
+    text.className = "tg-admin-text";
+    text.textContent = post.text || "";
+
+    content.append(title, text);
+
+    /* ACTIONS */
+    const actions = document.createElement("div");
+    actions.className = "tg-admin-actions";
+
+    const likeBtn = document.createElement("button");
+    likeBtn.type = "button";
+    likeBtn.className = "tg-like-btn";
+
+    const heart = document.createElement("span");
+    heart.className = "tg-like-heart";
+    heart.textContent = "❤";
+
+    const likeCount = document.createElement("span");
+    likeCount.className = "tg-like-count";
+    likeCount.textContent = Number(post.likesCount || 0);
+
+    likeBtn.append(heart, likeCount);
+    actions.append(likeBtn);
+
+    article.append(header, content, actions);
+
+    /* LIKE LOGIC */
+    if(user){
+
+        const likeRef = doc(db, "posts", postId, "likes", user.uid);
+
+        getDoc(likeRef).then(likeSnap => {
+            if(likeSnap.exists()){
+                likeBtn.classList.add("liked");
+            }
+        }).catch(err => console.error("LIKE CHECK ERROR:", err));
+
+        likeBtn.addEventListener("click", async () => {
+
+            if(!auth.currentUser){
+                openLogin();
+                return;
+            }
+
+            likeBtn.disabled = true;
+
+            const postRef = doc(db, "posts", postId);
+
+            try{
+                await runTransaction(db, async transaction => {
+
+                    const likeSnap = await transaction.get(likeRef);
+                    const postSnap = await transaction.get(postRef);
+
+                    if(!postSnap.exists()){
+                        throw new Error("Post no longer exists.");
+                    }
+
+                    const oldCount = Number(postSnap.data().likesCount || 0);
+
+                    if(likeSnap.exists()){
+                        transaction.delete(likeRef);
+                        transaction.update(postRef, { likesCount: Math.max(0, oldCount - 1) });
+                    }else{
+                        transaction.set(likeRef, { uid:user.uid, createdAt: serverTimestamp() });
+                        transaction.update(postRef, { likesCount: oldCount + 1 });
+                    }
+
+                });
+
+                const updatedPost = await getDoc(postRef);
+                const newCount = Number(updatedPost.data()?.likesCount || 0);
+
+                likeCount.textContent = newCount;
+                likeBtn.classList.toggle("liked");
+
+            }catch(error){
+                console.error("LIKE ERROR:", error);
+                alert("Like update failed.\n\n" + (error.message || "Please check Firestore Rules."));
+            }finally{
+                likeBtn.disabled = false;
+            }
+
+        });
+    }
+
+    /* DELETE (admin only) */
+    if(showDelete){
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.className = "tg-admin-delete";
+        deleteBtn.textContent = "DELETE";
+
+        deleteBtn.addEventListener("click", () => {
+            deletePost(postId);
+        });
+
+        actions.append(deleteBtn);
+    }
+
+    return article;
+}
+
 
 /* ==================================================
    ELEMENTS
@@ -2428,86 +2589,21 @@ function loadAdminHistoryForLoggedInUser(user){
                 return;
             }
 
-            snapshot.forEach(docSnap => {
+           snapshot.forEach(docSnap => {
 
-                const post = docSnap.data();
+    const post = docSnap.data();
+    const postId = docSnap.id;
 
-                const card =
-                    document.createElement("div");
+    const card = createTgAdminPost(
+        post,
+        postId,
+        user,
+        true
+    );
 
-                card.className =
-                    "admin-history-card";
+    adminHistoryContainer.appendChild(card);
 
-
-                const title =
-                    document.createElement("h4");
-
-                title.textContent =
-                    "🔴 " +
-                    (post.title || "TG Official Update");
-
-
-                const text =
-                    document.createElement("p");
-
-                text.textContent =
-                    post.text || "";
-
-
-                const meta =
-                    document.createElement("small");
-
-                meta.textContent =
-                    post.createdAt &&
-                    post.createdAt.toDate
-                    ? "TG ADMIN • " +
-                      post.createdAt
-                      .toDate()
-                      .toLocaleString()
-                    : "TG ADMIN • Just now";
-
-
-                const deleteBtn =
-                    document.createElement("button");
-
-                deleteBtn.type = "button";
-
-                deleteBtn.textContent =
-                    "🗑️ DELETE UPDATE";
-
-                deleteBtn.style.cssText = `
-                    margin-top:12px;
-                    width:100%;
-                    padding:9px 12px;
-                    border:none;
-                    border-radius:10px;
-                    cursor:pointer;
-                    color:white;
-                    font-weight:600;
-                    background:linear-gradient(
-                        90deg,
-                        #ff1744,
-                        #d50000
-                    );
-                    box-shadow:0 0 12px rgba(255,0,50,.25);
-                `;
-
-                deleteBtn.addEventListener(
-                    "click",
-                    () => deletePost(docSnap.id)
-                );
-
-
-                card.append(
-                    title,
-                    text,
-                    meta,
-                    deleteBtn
-                );
-
-                adminHistoryContainer.appendChild(card);
-
-            });
+});
 
         },
 
