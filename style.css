@@ -3949,3 +3949,148 @@ footer p{
     }
 
 }
+
+/* =========================================
+   MOBILE ADMIN PANEL FIX
+========================================= */
+
+@media (max-width: 600px){
+
+    .twitter-admin-box{
+        width:100% !important;
+        max-width:100% !important;
+        margin:0 !important;
+        border-radius:0 !important;
+    }
+
+    /* Header */
+    .twitter-admin-header{
+        padding:18px 58px 15px 16px !important;
+    }
+
+    .twitter-admin-header h2{
+        font-size:19px !important;
+        margin-top:3px !important;
+    }
+
+    .twitter-admin-label{
+        font-size:8px !important;
+        letter-spacing:2px !important;
+    }
+
+    /* Close button */
+    .twitter-admin-box .updates-close{
+        top:12px !important;
+        right:12px !important;
+        width:34px !important;
+        height:34px !important;
+        min-width:34px !important;
+        min-height:34px !important;
+        font-size:14px !important;
+    }
+
+    /* Logged in admin text */
+    .twitter-admin-user{
+        padding:8px 16px !important;
+        font-size:11px !important;
+    }
+
+    /* Composer */
+    .twitter-composer{
+        padding:16px !important;
+        gap:10px !important;
+    }
+
+    .twitter-avatar{
+        width:40px !important;
+        height:40px !important;
+        min-width:40px !important;
+    }
+
+    .twitter-profile-name{
+        gap:5px !important;
+        margin-bottom:8px !important;
+    }
+
+    .twitter-profile-name strong{
+        font-size:12px !important;
+    }
+
+    .twitter-profile-name span{
+        font-size:9px !important;
+    }
+
+    .twitter-composer-content input{
+        font-size:15px !important;
+        padding:8px 0 !important;
+    }
+
+    .twitter-composer-content textarea{
+        min-height:75px !important;
+        font-size:13px !important;
+        padding:9px 0 !important;
+        line-height:1.5 !important;
+    }
+
+    /* Publish button */
+    .twitter-publish-btn{
+        padding:9px 15px !important;
+        font-size:10px !important;
+        white-space:nowrap !important;
+    }
+
+    /* Feed title */
+    .twitter-feed-title{
+        padding:14px 16px 10px !important;
+        font-size:11px !important;
+    }
+
+    /* Admin posts */
+    .twitter-feed .admin-history-card{
+        padding:15px 16px !important;
+        gap:10px !important;
+        grid-template-columns:38px minmax(0,1fr) !important;
+    }
+
+    .twitter-feed .admin-history-card::before{
+        width:38px !important;
+        height:38px !important;
+        flex-basis:38px !important;
+    }
+
+    .twitter-feed .admin-history-card h4{
+        font-size:13px !important;
+        line-height:1.35 !important;
+    }
+
+    .twitter-feed .admin-history-card p{
+        font-size:12px !important;
+        line-height:1.5 !important;
+    }
+
+    .twitter-feed .admin-history-card small{
+        font-size:9px !important;
+    }
+
+    .twitter-feed .admin-history-card button{
+        font-size:9px !important;
+        padding:7px 12px !important;
+    }
+
+    /* Message */
+    .twitter-admin-message{
+        padding:0 16px !important;
+        font-size:11px !important;
+    }
+
+    /* Logout */
+    .twitter-admin-footer{
+        padding:14px 16px !important;
+    }
+
+    .twitter-admin-footer .logout-btn{
+        font-size:10px !important;
+        padding:8px 15px !important;
+    }
+
+}
