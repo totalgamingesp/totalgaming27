@@ -4106,36 +4106,3 @@ footer p{
 
 }
 
-/* 1. Main popup box ko Flexbox banayein aur height fix karein */
-.admin-box.twitter-admin-box {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 85vh !important; /* Screen ka 85% hissa lega */
-    max-height: 800px;
-    overflow: hidden !important; /* Main box ka scroll band karenge */
-}
-
-/* 2. Top ke sabhi sections (New update form etc.) ko shrink hone se rokein */
-.twitter-admin-header, 
-.twitter-admin-user, 
-.twitter-composer, 
-.twitter-divider, 
-.twitter-feed-title, 
-.twitter-admin-footer,
-.twitter-admin-message {
-    flex-shrink: 0 !important; 
-}
-
-/* 3. Textarea ki height ko properly control karein */
-#adminPostText {
-    min-height: 50px !important; /* Box ki height kam kar di */
-    resize: vertical; /* Agar admin lamba msg likhega to box bada kar payega */
-    margin-bottom: 5px !important;
-}
-
-/* 4. Past SMS (History) section ko bachi hui sari jagah de dein (Sabse Important) */
-#adminHistoryContainer {
-    flex: 1 !important; /* Screen ki bachi hui sari jagah ye automatically le lega */
-    overflow-y: auto !important; /* Sirf old updates wale section mein scroll aayega */
-    padding-bottom: 20px;
-}
