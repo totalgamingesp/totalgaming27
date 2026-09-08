@@ -4161,3 +4161,120 @@ footer p{
     background-color: #ff004c; 
     border-radius: 10px;
 }
+
+/* ==================================================
+   FIX: ADMIN PAST UPDATES CARD DISPLAY
+================================================== */
+
+/* 1. Post Card ki fixed height khatam karke content ke hisaab se auto karein */
+.tg-admin-post {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 0, 76, 0.35) !important;
+    border-radius: 14px !important;
+    padding: 14px 16px !important;
+    margin-bottom: 14px !important;
+    box-sizing: border-box !important;
+}
+
+/* 2. Header (Avatar, Name, Badge, Date) */
+.tg-admin-header {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    margin-bottom: 10px !important;
+    height: auto !important;
+}
+
+.tg-admin-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
+}
+
+.tg-admin-user {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+}
+
+.tg-admin-name-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+}
+
+.tg-admin-name {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+}
+
+.tg-admin-time {
+    font-size: 11px !important;
+    color: #888888 !important;
+}
+
+/* 3. Message Content (Title & Text ko visible aur stylish banana) */
+.tg-admin-content {
+    display: block !important;
+    margin: 6px 0 10px 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.tg-admin-title {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #ff004c !important; /* TG Theme Neon Pink/Red */
+    margin: 0 0 6px 0 !important;
+    word-break: break-word !important;
+}
+
+.tg-admin-text {
+    font-size: 14px !important;
+    color: #dddddd !important; /* Saaf readable white-grey text */
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+}
+
+/* 4. Actions (Like & Delete Buttons) */
+.tg-admin-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    padding-top: 8px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.tg-like-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #ff004c !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    font-size: 14px !important;
+}
+
+.tg-admin-delete {
+    background: rgba(255, 68, 68, 0.15) !important;
+    border: 1px solid #ff4444 !important;
+    color: #ff4444 !important;
+    padding: 3px 10px !important;
+    border-radius: 6px !important;
+    font-size: 11px !important;
+    cursor: pointer !important;
+    margin-left: auto !important;
+}
