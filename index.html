@@ -1500,6 +1500,8 @@ async function deletePost(postId){
 
 /* ==================================================
    CREATE TWITTER-STYLE ADMIN POST CARD
+   (used by BOTH the normal-user "Admin Updates"
+   popup AND the admin panel's own history feed)
 ================================================== */
 
 function createTgAdminPost(post, postId, user, showDelete){
@@ -2144,6 +2146,7 @@ let adminUpdatesUnsubscribe = null;
 
 /* ==================================================
    LOAD ADMIN UPDATES + LIKES
+   (Normal user "Admin Updates" popup — Twitter style)
 ================================================== */
 
 function loadAdminUpdatesForLoggedInUser(user){
@@ -2160,7 +2163,7 @@ function loadAdminUpdatesForLoggedInUser(user){
 
     adminUpdatesUnsubscribe = onSnapshot(
         adminUpdatesQuery,
-        async snapshot => {
+        snapshot => {
 
             adminUpdatesContainer.innerHTML = "";
 
@@ -2175,367 +2178,19 @@ function loadAdminUpdatesForLoggedInUser(user){
                 return;
             }
 
-            snapshot.forEach(async docSnap => {
+            snapshot.forEach(docSnap => {
 
                 const post = docSnap.data();
                 const postId = docSnap.id;
 
-                /* =========================
-                   UPDATE CARD
-                ========================= */
-
-                const card =
-                    document.createElement("div");
-
-                card.className = "update-card";
-
-
-                /* =========================
-                   HEADER
-                ========================= */
-
-                const header =
-                    document.createElement("div");
-
-                header.className = "update-header";
-
-
-                const profile =
-                    document.createElement("div");
-
-                profile.className = "update-profile";
-
-
-                const logo =
-                    document.createElement("img");
-
-                logo.src = "tg-logo.png";
-                logo.alt = "TG";
-
-
-                const profileInfo =
-                    document.createElement("div");
-
-                profileInfo.innerHTML = `
-                    <strong>TOTAL GAMING ESPORTS</strong>
-                    <span>🔴 ADMIN</span>
-                `;
-
-
-                profile.append(
-                    logo,
-                    profileInfo
+                const card = createTgAdminPost(
+                    post,
+                    postId,
+                    user,
+                    isAdmin(auth.currentUser)
                 );
 
-
-                const date =
-                    document.createElement("small");
-
-                date.textContent =
-                    post.createdAt &&
-                    post.createdAt.toDate
-                    ? post.createdAt
-                        .toDate()
-                        .toLocaleString()
-                    : "Just now";
-
-
-                header.append(
-                    profile,
-                    date
-                );
-
-
-                /* =========================
-                   TITLE
-                ========================= */
-
-                const title =
-                    document.createElement("h3");
-
-                title.textContent =
-                    post.title ||
-                    "TG Official Update";
-
-
-                /* =========================
-                   TEXT
-                ========================= */
-
-                const text =
-                    document.createElement("p");
-
-                text.textContent =
-                    post.text || "";
-
-
-                /* =========================
-                   ACTION AREA
-                ========================= */
-
-                const actions =
-                    document.createElement("div");
-
-                actions.className =
-                    "update-actions";
-
-
-                /* =========================
-                   LIKE BUTTON
-                ========================= */
-
-                const likeBtn =
-                    document.createElement("button");
-
-                likeBtn.type = "button";
-
-                likeBtn.className =
-                    "update-like-btn";
-
-
-                const likeCount =
-                    document.createElement("span");
-
-                likeCount.className =
-                    "update-like-count";
-
-
-                let currentLikes =
-                    Number(post.likesCount || 0);
-
-                likeCount.textContent =
-                    currentLikes;
-
-
-                likeBtn.innerHTML =
-                    "❤️";
-
-
-                likeBtn.append(
-                    likeCount
-                );
-
-
-                /* =========================
-                   LIKE DOCUMENT
-                ========================= */
-
-                const likeRef =
-                    doc(
-                        db,
-                        "posts",
-                        postId,
-                        "likes",
-                        user.uid
-                    );
-
-
-                try{
-
-                    const likeSnap =
-                        await getDoc(likeRef);
-
-                    if(likeSnap.exists()){
-
-                        likeBtn.classList.add(
-                            "liked"
-                        );
-
-                    }
-
-                }catch(error){
-
-                    console.error(
-                        "LIKE CHECK ERROR:",
-                        error
-                    );
-
-                }
-
-
-                /* =========================
-                   LIKE CLICK
-                ========================= */
-
-                likeBtn.addEventListener(
-                    "click",
-                    async () => {
-
-                        if(!auth.currentUser){
-                            openLogin();
-                            return;
-                        }
-
-                        likeBtn.disabled = true;
-
-                        const postRef =
-                            doc(
-                                db,
-                                "posts",
-                                postId
-                            );
-
-                        try{
-
-                            await runTransaction(
-                                db,
-                                async transaction => {
-
-                                    const likeSnap =
-                                        await transaction.get(
-                                            likeRef
-                                        );
-
-                                    const postSnap =
-                                        await transaction.get(
-                                            postRef
-                                        );
-
-                                    if(!postSnap.exists()){
-                                        throw new Error(
-                                            "Post no longer exists."
-                                        );
-                                    }
-
-                                    const oldCount =
-                                        Number(
-                                            postSnap.data().likesCount || 0
-                                        );
-
-                                    if(likeSnap.exists()){
-
-                                        transaction.delete(
-                                            likeRef
-                                        );
-
-                                        transaction.update(
-                                            postRef,
-                                            {
-                                                likesCount:
-                                                    Math.max(
-                                                        0,
-                                                        oldCount - 1
-                                                    )
-                                            }
-                                        );
-
-                                    }else{
-
-                                        transaction.set(
-                                            likeRef,
-                                            {
-                                                uid:user.uid,
-                                                createdAt:
-                                                    serverTimestamp()
-                                            }
-                                        );
-
-                                        transaction.update(
-                                            postRef,
-                                            {
-                                                likesCount:
-                                                    oldCount + 1
-                                            }
-                                        );
-
-                                    }
-
-                                }
-                            );
-
-
-                            const updatedPost =
-                                await getDoc(postRef);
-
-                            const newCount =
-                                Number(
-                                    updatedPost.data()?.likesCount || 0
-                                );
-
-                            likeCount.textContent =
-                                newCount;
-
-
-                            likeBtn.classList.toggle(
-                                "liked"
-                            );
-
-
-                        }catch(error){
-
-                            console.error(
-                                "LIKE ERROR:",
-                                error
-                            );
-
-                            alert(
-                                "Like update failed.\n\n" +
-                                (
-                                    error.message ||
-                                    "Please check Firestore Rules."
-                                )
-                            );
-
-                        }finally{
-
-                            likeBtn.disabled = false;
-
-                        }
-
-                    }
-                );
-
-
-                actions.append(
-                    likeBtn
-                );
-
-
-                /* =========================
-                   ADMIN DELETE
-                ========================= */
-
-                if(isAdmin(auth.currentUser)){
-
-                    const deleteBtn =
-                        document.createElement("button");
-
-                    deleteBtn.type = "button";
-
-                    deleteBtn.className =
-                        "update-delete-btn";
-
-                    deleteBtn.textContent =
-                        "🗑️ DELETE";
-
-                    deleteBtn.addEventListener(
-                        "click",
-                        () => {
-                            deletePost(postId);
-                        }
-                    );
-
-                    actions.append(
-                        deleteBtn
-                    );
-
-                }
-
-
-                /* =========================
-                   ADD EVERYTHING
-                ========================= */
-
-                card.append(
-                    header,
-                    title,
-                    text,
-                    actions
-                );
-
-                adminUpdatesContainer.appendChild(
-                    card
-                );
+                adminUpdatesContainer.appendChild(card);
 
             });
 
@@ -2561,6 +2216,11 @@ function loadAdminUpdatesForLoggedInUser(user){
         }
     );
 }
+
+/* ==================================================
+   LOAD ADMIN HISTORY
+   (Admin panel's own feed — Twitter style)
+================================================== */
 
 function loadAdminHistoryForLoggedInUser(user){
 
@@ -2589,21 +2249,21 @@ function loadAdminHistoryForLoggedInUser(user){
                 return;
             }
 
-           snapshot.forEach(docSnap => {
+            snapshot.forEach(docSnap => {
 
-    const post = docSnap.data();
-    const postId = docSnap.id;
+                const post = docSnap.data();
+                const postId = docSnap.id;
 
-    const card = createTgAdminPost(
-        post,
-        postId,
-        user,
-        true
-    );
+                const card = createTgAdminPost(
+                    post,
+                    postId,
+                    user,
+                    true
+                );
 
-    adminHistoryContainer.appendChild(card);
+                adminHistoryContainer.appendChild(card);
 
-});
+            });
 
         },
 
@@ -2623,11 +2283,6 @@ function loadAdminHistoryForLoggedInUser(user){
         }
     );
 }
-
-
-
-
-
 
 
 /* ==================================================
