@@ -4112,11 +4112,11 @@ footer p{
     min-height: 55px !important;
 }
 
-/* 2. Old posts ke container mein scroll lagayein taaki posts dabe nahi aur original shape mein rahein */
+/* 2. Old posts ke container ki HEIGHT BADHAYEIN */
 #adminHistoryContainer {
-    max-height: 40vh !important; /* Screen ka 40% hissa lega */
-    overflow-y: auto !important; /* Agar posts zyada honge to scroll aa jayega */
-    display: block !important; /* Flexbox errors se bachane ke liye */
+    max-height: 55vh !important; /* Yahan 40vh ki jagah 55vh ya 60vh kar diya hai */
+    overflow-y: auto !important; 
+    display: block !important; 
 }
 
 /* 3. Ensure karein ki history container ke andar posts chhote na hon */
