@@ -335,30 +335,31 @@ nav{
     100% { transform: rotate(30deg) translateY(100%); }
 }
 
-/* Diamond TG ADMIN Text (Metallic Texture + Glow) */
+/* Diamond TG ADMIN Text (Metallic Texture + Glow + Drop Shadow) */
 .diamond-text {
     background: linear-gradient(100deg, #ffffff 0%, #b0e2ff 25%, #ffffff 50%, #87ceeb 75%, #ffffff 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 8px rgba(176, 226, 255, 0.9)); /* Diamond Glow */
+    /* Added drop shadow for depth, along with the glow */
+    filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.8)) drop-shadow(0 0 8px rgba(176, 226, 255, 0.8)); 
     font-weight: 900;
     font-size: 14.5px;
     letter-spacing: 0.5px;
 }
 
-/* Verified Metal Tick Badge */
+/* Verified Red Metal Tick Badge */
 .admin-badge {
     display: inline-flex;
     align-items: center;
     margin-left: 6px;
-    background: linear-gradient(135deg, #e6e6e6, #ffffff, #999999, #e6e6e6); /* Silver Metallic */
+    /* Red Metallic Gradient */
+    background: linear-gradient(135deg, #ff6b81, #ff004c, #8b0026, #ff6b81); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 12px;
+    font-size: 14px; /* Increased size to make the tick more visible */
     font-weight: 900;
-    letter-spacing: 1px;
-    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.6)); /* Depth effect */
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.7)); /* Depth shadow effect */
 }
 
 /* Admin Message Text Formatting (Clean, Stylish, NO GLOW) */
@@ -944,9 +945,9 @@ function loadCommunityPosts(user){
             const author = document.createElement("div");
             author.className = "author";
 
-            // YAHAN PAR DIAMOND TEXT AUR METALLIC TICK LAGA HUA HAI
+            // YAHAN PAR DIAMOND TEXT AUR RED METAL TICK LAGA HUA HAI (Bina 'ADMIN' text ke)
             if(isPostAdmin){
-                author.innerHTML = "👑 <span class='diamond-text'>TG ADMIN</span> <span class='admin-badge'>✔ ADMIN</span>";
+                author.innerHTML = "👑 <span class='diamond-text'>TG ADMIN</span> <span class='admin-badge'>✔</span>";
             }else{
                 author.textContent = (post.uid === user.uid) ? "You" : post.author || "TG Member";
             }
