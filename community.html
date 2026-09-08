@@ -61,20 +61,15 @@ nav{
     position:sticky;
     top:0;
     z-index:1000;
-
     height:74px;
     padding:0 5%;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     background:rgba(5,5,15,.82);
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
-
     border-bottom:1px solid rgba(0,220,255,.18);
-
     box-shadow:0 8px 35px rgba(0,0,0,.35);
 }
 
@@ -82,7 +77,6 @@ nav{
     display:flex;
     align-items:center;
     gap:12px;
-
     font-family:"Orbitron",sans-serif;
     font-weight:800;
     letter-spacing:1px;
@@ -107,27 +101,19 @@ nav{
 .back-btn{
     text-decoration:none;
     color:#fff;
-
     padding:11px 20px;
-
     border:1px solid rgba(0,229,255,.4);
     border-radius:12px;
-
     background:rgba(0,229,255,.07);
-
     font-weight:600;
     font-size:14px;
-
     transition:.25s;
 }
 
 .back-btn:hover{
     transform:translateY(-2px);
-
     background:rgba(0,229,255,.15);
-
-    box-shadow:
-        0 0 18px rgba(0,229,255,.25);
+    box-shadow: 0 0 18px rgba(0,229,255,.25);
 }
 
 /* =========================
@@ -136,15 +122,11 @@ nav{
 
 .community-hero{
     min-height:300px;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     text-align:center;
-
     padding:70px 20px 45px;
-
     position:relative;
 }
 
@@ -156,20 +138,14 @@ nav{
 
 .hero-tag{
     display:inline-block;
-
     padding:7px 15px;
     margin-bottom:18px;
-
     border:1px solid rgba(0,229,255,.35);
     border-radius:30px;
-
     background:rgba(0,229,255,.07);
-
     color:#00e5ff;
-
     font-size:12px;
     font-weight:700;
-
     letter-spacing:2px;
 }
 
@@ -257,16 +233,13 @@ nav{
 .post-card {
     position: relative;
     padding: 10px 14px;
-    
     background: #181a28; 
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 0 16px 16px 16px; 
-    
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     width: fit-content;
     max-width: 85%;
     align-self: flex-start; 
-    
     display: flex;
     flex-direction: column;
     transition: 0.2s;
@@ -312,20 +285,75 @@ nav{
     margin: 0;
 }
 
+/* =========================
+   VIP ADMIN POST (MIRROR & GLOW EFFECT)
+========================= */
 .admin-post {
-    border: 1px solid rgba(255, 60, 80, 0.4) !important;
+    background: linear-gradient(135deg, rgba(255, 0, 76, 0.25), rgba(0, 229, 255, 0.1)) !important;
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+    
+    border: 1px solid rgba(255, 0, 76, 0.7) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.7) !important;
+    
+    box-shadow: 
+        0 8px 32px 0 rgba(255, 0, 76, 0.4),
+        0 0 25px rgba(0, 229, 255, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.15) !important;
+        
+    overflow: hidden !important;
+    z-index: 1;
+}
+
+.admin-post::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg) translateY(-100%);
+    animation: glassShine 4s infinite linear;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes glassShine {
+    0% { transform: rotate(30deg) translateY(-100%); }
+    25% { transform: rotate(30deg) translateY(100%); }
+    100% { transform: rotate(30deg) translateY(100%); }
+}
+
+.post-card.admin-post .author {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px #ff004c, 0 0 20px #ff004c !important;
+}
+
+.post-card.admin-post p {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4) !important;
 }
 
 .admin-badge {
     display: inline-block;
-    padding: 2px 6px;
-    margin-left: 5px;
+    padding: 2px 7px;
+    margin-left: 6px;
     border-radius: 4px;
-    background: rgba(255, 30, 60, 0.2);
-    color: #ff5575;
-    font-size: 9px;
-    font-weight: 800;
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff004c;
+    font-size: 10px;
+    font-weight: 900;
     letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 /* =========================
@@ -851,10 +879,9 @@ postBtn.addEventListener("click", async () => {
         });
 
         textBox.value = "";
-        postBtn.disabled = true; // Disable until new text is typed
+        postBtn.disabled = true; 
         showToast("✅ Message Sent!");
         
-        // Scroll slightly down to see the new message if needed
         window.scrollBy({ top: 100, behavior: 'smooth' });
 
     }catch(error){
@@ -874,7 +901,7 @@ function loadCommunityPosts(user){
     if(!user) return;
     if(unsubscribe) { unsubscribe(); unsubscribe = null; }
 
-    const postsQuery = query(collection(db,"posts"), orderBy("createdAt", "asc")); // asc so newest is at bottom like WP
+    const postsQuery = query(collection(db,"posts"), orderBy("createdAt", "asc"));
 
     unsubscribe = onSnapshot(postsQuery, snapshot => {
         postsContainer.innerHTML = "";
@@ -891,7 +918,6 @@ function loadCommunityPosts(user){
             const isPostAdmin = isAdmin({ email: post.authorEmail });
             if(isPostAdmin) card.classList.add("admin-post");
             
-            // WHATSAPP STYLE ALIGNMENT: Current user right, others left
             if(user && post.uid === user.uid) {
                 card.classList.add("my-post");
             }
@@ -917,31 +943,31 @@ function loadCommunityPosts(user){
                 date.textContent = "Sending...";
             }
 
-            top.append(author, date);
+            // Grouping Date and Trash icon properly inside header
+            const dateActionGroup = document.createElement("div");
+            dateActionGroup.style.display = "flex";
+            dateActionGroup.style.alignItems = "center";
+            dateActionGroup.style.gap = "10px";
+            dateActionGroup.appendChild(date);
+
+            if(isAdmin(auth.currentUser)){
+                const deleteBtn = document.createElement("button");
+                deleteBtn.innerHTML = "🗑";
+                deleteBtn.style.cssText = "background: transparent; border: none; color: #ff5575; cursor: pointer; font-size: 14px;";
+                deleteBtn.addEventListener("click", async () => {
+                    const ok = confirm("Delete this message?");
+                    if(!ok) return;
+                    try{ await deleteDoc(doc(db, "posts", docSnap.id)); }catch(error){}
+                });
+                dateActionGroup.appendChild(deleteBtn);
+            }
+
+            top.append(author, dateActionGroup);
 
             const message = document.createElement("p");
             message.textContent = post.text || "";
 
             card.append(top, message);
-
-            // Admin Delete Button
-            if(isAdmin(auth.currentUser)){
-                const deleteBtn = document.createElement("button");
-                deleteBtn.innerHTML = "🗑";
-                deleteBtn.style.cssText = `
-                    background: transparent; border: none; color: #ff5575; cursor: pointer;
-                    position: absolute; right: -25px; top: 10px; font-size: 14px;
-                `;
-                deleteBtn.addEventListener("click", async () => {
-                    const ok = confirm("Delete this message?");
-                    if(!ok) return;
-                    try{
-                        await deleteDoc(doc(db, "posts", docSnap.id));
-                    }catch(error){}
-                });
-                card.appendChild(deleteBtn);
-            }
-
             postsContainer.appendChild(card);
         });
 
@@ -953,7 +979,6 @@ function loadCommunityPosts(user){
                 </div>
             `;
         } else {
-            // Auto scroll to bottom when new message arrives
             postsContainer.scrollTop = postsContainer.scrollHeight;
         }
 
