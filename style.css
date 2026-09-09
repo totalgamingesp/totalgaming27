@@ -885,20 +885,21 @@ section{
 }
 
 /* =========================================================
-   PROFESSIONAL GOOGLE LOGIN MODAL (UPDATED)
+   PREMIUM GAMING GOOGLE LOGIN MODAL (DARK & ROUNDED)
 ========================================================= */
 
 .modal{
     position:fixed;
     inset:0;
-    background: rgba(0,0,0,.85); /* Thoda darker background for premium feel */
-    backdrop-filter:blur(8px); /* Blur effect */
+    /* Darker, blurred background for focus */
+    background: rgba(3, 5, 13, 0.85); 
+    backdrop-filter: blur(12px);
     display:flex;
     align-items:center;
     justify-content:center;
     opacity:0;
     visibility:hidden;
-    transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .35s ease, visibility .35s ease;
     z-index:5000;
     padding:20px;
 }
@@ -910,125 +911,182 @@ section{
 
 .modal-box{
     width:100%;
-    max-width:420px;
-    padding:40px 30px;
-    border-radius:20px;
-    background: #ffffff; /* Clean white card just like Google */
-    border: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width:400px;
+    padding:45px 35px;
+    border-radius:24px;
+    
+    /* Premium Dark Glassmorphism Effect */
+    background: linear-gradient(145deg, rgba(20, 22, 45, 0.95), rgba(10, 12, 25, 0.98));
+    border: 1px solid rgba(0, 234, 255, 0.2);
+    box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(0, 234, 255, 0.05),
+        inset 0 0 20px rgba(255, 255, 255, 0.02);
+    
     position:relative;
     text-align: center;
-    color: #202124; /* Google's dark text color */
+    color: #ffffff;
+    
+    /* Slight zoom animation on open */
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Google G Logo inside modal */
+.modal.show .modal-box {
+    transform: scale(1) translateY(0);
+}
+
+/* Neon glow line at the top of the card */
+.modal-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00eaff, #ff00c8, transparent);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.6);
+}
+
+/* Google G Logo styling */
 .modal-box .g-logo-header {
-    width: 48px;
-    margin: 0 auto 15px auto;
+    width: 52px;
+    margin: 0 auto 20px auto;
     display: block;
+    /* Optional: Slight glow behind logo */
+    filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1));
 }
 
 .modal-box h2{
-    font-family: 'Product Sans', 'Inter', 'Poppins', sans-serif;
-    margin-bottom:10px;
-    color:#202124;
-    font-size: 24px;
-    font-weight: 500;
+    font-family: "Orbitron", sans-serif; /* Matched with website font */
+    margin-bottom:8px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #ffffff, #c7c7d8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .modal-box p{
-    color: #5f6368; /* Google's secondary text color */
-    font-size: 15px;
-    margin-bottom: 35px;
+    color: #9ca3af; 
+    font-size: 14px;
+    margin-bottom: 40px;
     line-height: 1.5;
+    font-weight: 400;
 }
 
+/* Custom Close Button (Top Right) */
 .login-close{
     position:absolute;
-    top:15px;
-    right:15px;
-    width:32px;
-    height:32px;
+    top:16px;
+    right:16px;
+    width:36px;
+    height:36px;
     border:none;
     border-radius:50%;
-    background: transparent;
-    color: #5f6368;
+    background: rgba(255, 255, 255, 0.05);
+    color: #9ca3af;
     font-size:16px;
     cursor:pointer;
-    transition:.2s;
+    transition: all .25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .login-close:hover{
-    background: #f1f3f4;
-    color: #202124;
-    transform: none;
-    box-shadow: none;
+    background: rgba(255, 23, 68, 0.2);
+    color: #ff1744;
+    transform: rotate(90deg);
+    box-shadow: 0 0 15px rgba(255, 23, 68, 0.3);
 }
 
-/* Updated Google Sign In Button */
+/* =======================================
+   THE ROUNDED GOOGLE BUTTON
+======================================= */
 .login-submit{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    
+    /* Pill shape */
+    border-radius: 50px; 
+    
     background-color: #ffffff;
-    color: #3c4043;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 500;
+    color: #111827;
+    border: 1px solid transparent;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    font-family: 'Google Sans', 'Inter', Roboto, sans-serif;
-    transition: background-color 0.2s, box-shadow 0.2s;
+    font-family: 'Poppins', sans-serif;
+    
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .login-submit:hover{
-    background-color: #f8f9fa;
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-    border-color: #dadce0;
-    transform: none; /* Removed the bounce effect for professional look */
+    background-color: #f3f4f6;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 25px rgba(255, 255, 255, 0.15),
+        0 0 15px rgba(0, 234, 255, 0.2);
+    border: 1px solid rgba(0, 234, 255, 0.3);
+}
+
+.login-submit:active {
+    transform: translateY(1px);
 }
 
 /* SVG Icon inside button */
 .google-icon-svg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     margin-right: 12px;
 }
 
 .modal-actions{
     display:flex;
     flex-direction: column;
-    gap:12px;
+    gap:16px;
     align-items: center;
 }
 
-/* Custom Cancel/Close button matching Google UI */
+/* Cancel Button */
 .close-btn{
     background: transparent;
-    color: #1a73e8; /* Google Blue */
+    color: #a1a1aa; 
     border: none;
+    font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.2s;
-    width: auto;
+    transition: all 0.2s ease;
 }
 
 .close-btn:hover{
-    background-color: #f6fafe;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 #loginMessage{
-    margin-top:15px;
+    margin-top:20px;
     font-size:13px;
-    color:#d93025; /* Google Red for errors */
+    color: #ff4d4d; 
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================================
