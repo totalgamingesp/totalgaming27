@@ -222,25 +222,46 @@ nav{
 }
 
 /* ===================================================
-   CHAT PANEL
+   CHAT PANEL WITH 3-COLOR MIX GLOW BACKGROUND
 =================================================== */
 
 .chat-panel-card {
     position: relative;
-    background: linear-gradient(180deg, rgba(14, 16, 30, 0.75), rgba(7, 8, 17, 0.9));
-    border: 1px solid rgba(0, 229, 255, 0.15);
+    background: 
+        radial-gradient(circle at 10% 15%, rgba(0, 229, 255, 0.16) 0%, transparent 40%),
+        radial-gradient(circle at 90% 25%, rgba(121, 40, 202, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(255, 0, 128, 0.14) 0%, transparent 45%),
+        linear-gradient(165deg, rgba(10, 12, 26, 0.95), rgba(6, 7, 16, 0.98));
+    border: 1px solid rgba(0, 229, 255, 0.25);
     border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(121, 40, 202, 0.18),
+        0 0 30px rgba(0, 229, 255, 0.10);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     overflow: hidden;
     margin-bottom: 20px;
+    isolation: isolate;
+}
+
+.chat-panel-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00e5ff, #7928ca, #ff0080, transparent);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.6);
+    pointer-events: none;
+    z-index: 3;
 }
 
 .posts-container {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Compact message gaps */
+    gap: 8px;
     padding: 16px 20px;
     height: 65vh;
     min-height: 480px;
@@ -326,14 +347,16 @@ nav{
 ========================================================= */
 .post-card {
     position: relative;
-    padding: 4px 14px 5px 14px; /* Kam height ke liye reduced vertical padding */
-    background: #181a28; 
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 4px 14px 5px 14px;
+    background: rgba(20, 24, 40, 0.88); 
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 0 12px 12px 12px; 
-    box-shadow: 0 3px 12px rgba(0,0,0,0.22);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     width: fit-content;
-    min-width: 320px; /* PC par wider minimum length */
-    max-width: 95%;   /* Zyada length coverage */
+    min-width: 320px;
+    max-width: 95%;
     align-self: flex-start; 
     display: flex;
     flex-direction: column;
@@ -350,8 +373,9 @@ nav{
 .post-card.my-post {
     align-self: flex-end; 
     border-radius: 12px 0 12px 12px; 
-    background: linear-gradient(145deg, #004d66, #002b3a); 
-    border: 1px solid rgba(0, 229, 255, 0.2);
+    background: linear-gradient(145deg, rgba(0, 77, 102, 0.9), rgba(0, 43, 58, 0.95)); 
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.15);
 }
 
 .post-swipe-wrapper.is-me {
@@ -363,7 +387,7 @@ nav{
     justify-content: space-between;
     align-items: center;
     gap: 14px;
-    margin-bottom: 0px; /* Zero extra space */
+    margin-bottom: 0px;
 }
 
 .author {
@@ -384,21 +408,21 @@ nav{
 }
 
 .post-card p {
-    color: #ffffff !important; /* Pure white readable text */
+    color: #ffffff !important;
     font-size: 13.5px;
     font-weight: 500;
-    line-height: 1.35; /* Compact crisp line-height */
+    line-height: 1.35;
     white-space: pre-wrap;
     word-break: break-word;
     margin: 1px 0 0 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* =========================
    QUOTED MESSAGE UI
 ========================= */
 .quoted-reply-box {
-    background: rgba(0, 0, 0, 0.32);
+    background: rgba(0, 0, 0, 0.38);
     border-left: 3px solid #00e5ff;
     padding: 3px 8px;
     border-radius: 5px;
@@ -408,7 +432,7 @@ nav{
 
 .my-post .quoted-reply-box {
     border-left-color: #ff3158;
-    background: rgba(0, 0, 0, 0.38);
+    background: rgba(0, 0, 0, 0.42);
 }
 
 .quoted-reply-box .quote-author {
@@ -435,14 +459,14 @@ nav{
    VIP ADMIN POST
 ========================= */
 .admin-post {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.5), rgba(0, 102, 255, 0.5), rgba(0, 229, 255, 0.5)) !important;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.55), rgba(0, 102, 255, 0.55), rgba(0, 229, 255, 0.55)) !important;
     backdrop-filter: blur(15px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(15px) saturate(200%) !important;
-    border: 1px solid rgba(0, 229, 255, 0.5) !important;
+    border: 1px solid rgba(0, 229, 255, 0.6) !important;
     border-top: 1px solid rgba(255, 255, 255, 0.8) !important; 
     box-shadow: 
         0 8px 32px 0 rgba(0, 102, 255, 0.4),
-        0 0 25px rgba(138, 43, 226, 0.3),
+        0 0 25px rgba(138, 43, 226, 0.35),
         inset 0 0 20px rgba(255, 255, 255, 0.25) !important;
     overflow: hidden !important;
     z-index: 1;
@@ -509,7 +533,7 @@ nav{
 }
 
 /* =====================================================================
-   SMART STICKY CHAT BAR: Floating until bottom, stops above footer
+   SMART STICKY CHAT BAR
 ===================================================================== */
 
 .chat-bottom-wrapper {
@@ -814,7 +838,6 @@ footer p{
     .community-wrapper{ width:96%; margin-bottom:20px; }
     .posts-container{ height:60vh; min-height:380px; padding:12px 10px; }
     
-    /* Phone specific dimensions */
     .post-card {
         padding: 6px 12px 7px 12px;
         max-width: 92%;
@@ -895,7 +918,7 @@ footer p{
         </div>
     </div>
 
-    <!-- 2. WHATSAPP CHAT FRAME -->
+    <!-- 2. WHATSAPP CHAT FRAME WITH MULTI-COLOR NEON GLOW -->
     <div class="chat-panel-card">
         
         <!-- Posts list with independent scroll & instant view on bottom -->
