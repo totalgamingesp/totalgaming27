@@ -261,7 +261,7 @@ nav{
 .posts-container {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     padding: 16px 20px;
     height: 65vh;
     min-height: 480px;
@@ -347,7 +347,7 @@ nav{
 ========================================================= */
 .post-card {
     position: relative;
-    padding: 4px 14px 5px 14px;
+    padding: 6px 14px 7px 14px;
     background: rgba(20, 24, 40, 0.88); 
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 0 12px 12px 12px; 
@@ -387,7 +387,41 @@ nav{
     justify-content: space-between;
     align-items: center;
     gap: 14px;
-    margin-bottom: 0px;
+    margin-bottom: 2px;
+}
+
+/* =========================================================
+   DP / AVATAR STYLES (FIRST LETTER CIRCLE)
+========================================================= */
+.author-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-avatar-dp {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11.5px;
+    font-weight: 800;
+    font-family: "Orbitron", sans-serif;
+    color: #ffffff;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+}
+
+/* VIP Admin Avatar */
+.admin-avatar-dp {
+    background: linear-gradient(135deg, #ff007b, #7928ca, #00e5ff) !important;
+    border-color: #00e5ff !important;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5) !important;
+    font-size: 13px !important;
 }
 
 .author {
@@ -838,10 +872,17 @@ footer p{
     .community-wrapper{ width:96%; margin-bottom:20px; }
     .posts-container{ height:60vh; min-height:380px; padding:12px 10px; }
     
+    /* Phone specific dimensions */
     .post-card {
         padding: 6px 12px 7px 12px;
         max-width: 92%;
         min-width: 140px;
+    }
+
+    .user-avatar-dp {
+        width: 22px;
+        height: 22px;
+        font-size: 10px;
     }
 
     .post-card p {
@@ -1025,6 +1066,30 @@ function isAdmin(user){
     const email = user.email.toLowerCase();
     if(email === ADMIN_EMAIL.toLowerCase()) return true;
     return SECONDARY_ADMINS.map(e => e.toLowerCase()).includes(email);
+}
+
+/* =========================
+   AVATAR GRADIENT GENERATOR
+========================= */
+const AVATAR_GRADIENTS = [
+    "linear-gradient(135deg, #0072ff, #00c6ff)",
+    "linear-gradient(135deg, #ff0844, #ffb199)",
+    "linear-gradient(135deg, #f12711, #f5af19)",
+    "linear-gradient(135deg, #b224ef, #7579ff)",
+    "linear-gradient(135deg, #11998e, #38ef7d)",
+    "linear-gradient(135deg, #8e2de2, #4a00e0)",
+    "linear-gradient(135deg, #ff416c, #ff4b2b)",
+    "linear-gradient(135deg, #0ba360, #3cba92)"
+];
+
+function getAvatarStyle(name) {
+    if(!name) return AVATAR_GRADIENTS[0];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % AVATAR_GRADIENTS.length;
+    return AVATAR_GRADIENTS[index];
 }
 
 /* =========================
@@ -1408,16 +1473,37 @@ function loadCommunityPosts(user){
             const top = document.createElement("div");
             top.className = "post-top";
 
+            // Author + Avatar DP Container
+            const authorWrapper = document.createElement("div");
+            authorWrapper.className = "authorWrapper";
+            authorWrapper.className = "author-wrapper";
+
+            let displayAuthorName = post.author || "TG Member";
+            
+            // Avatar DP Element
+            const avatarDp = document.createElement("div");
+            avatarDp.className = "user-avatar-dp";
+
+            if (isPostAdmin) {
+                avatarDp.classList.add("admin-avatar-dp");
+                avatarDp.textContent = "👑";
+            } else {
+                avatarDp.style.background = getAvatarStyle(displayAuthorName);
+                const firstLetter = (isMe ? "Y" : displayAuthorName.trim().charAt(0) || "T").toUpperCase();
+                avatarDp.textContent = firstLetter;
+            }
+
             const author = document.createElement("div");
             author.className = "author";
 
-            let displayAuthorName = post.author || "TG Member";
             if(isPostAdmin){
-                author.innerHTML = "👑 <span class='diamond-text'>TG ADMIN</span> <span class='admin-badge'>✔</span>";
+                author.innerHTML = "<span class='diamond-text'>TG ADMIN</span> <span class='admin-badge'>✔</span>";
                 displayAuthorName = "TG ADMIN";
             }else{
                 author.textContent = isMe ? "You" : displayAuthorName;
             }
+
+            authorWrapper.append(avatarDp, author);
 
             const date = document.createElement("div");
             date.className = "post-date";
@@ -1447,7 +1533,7 @@ function loadCommunityPosts(user){
                 dateActionGroup.appendChild(deleteBtn);
             }
 
-            top.append(author, dateActionGroup);
+            top.append(authorWrapper, dateActionGroup);
 
             if(post.replyTo) {
                 const quoteBox = document.createElement("div");
