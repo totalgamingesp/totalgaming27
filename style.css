@@ -862,7 +862,6 @@ section{
 .modal{
     position:fixed;
     inset:0;
-    /* Darker, blurred background for focus */
     background: rgba(3, 5, 13, 0.85); 
     backdrop-filter: blur(12px);
     display:flex;
@@ -885,20 +884,15 @@ section{
     max-width:400px;
     padding:45px 35px;
     border-radius:24px;
-    
-    /* Premium Dark Glassmorphism Effect */
     background: linear-gradient(145deg, rgba(20, 22, 45, 0.95), rgba(10, 12, 25, 0.98));
     border: 1px solid rgba(0, 234, 255, 0.2);
     box-shadow: 
         0 25px 60px rgba(0, 0, 0, 0.6),
         0 0 40px rgba(0, 234, 255, 0.05),
         inset 0 0 20px rgba(255, 255, 255, 0.02);
-    
     position:relative;
     text-align: center;
     color: #ffffff;
-    
-    /* Slight zoom animation on open */
     transform: scale(0.95) translateY(10px);
     transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -907,7 +901,6 @@ section{
     transform: scale(1) translateY(0);
 }
 
-/* Neon glow line at the top of the card */
 .modal-box::before {
     content: "";
     position: absolute;
@@ -919,7 +912,6 @@ section{
     box-shadow: 0 0 15px rgba(0, 234, 255, 0.6);
 }
 
-/* Google G Logo styling */
 .modal-box .g-logo-header {
     width: 52px;
     margin: 0 auto 20px auto;
@@ -947,7 +939,6 @@ section{
     font-weight: 400;
 }
 
-/* Custom Close Button (Top Right) */
 .login-close{
     position:absolute;
     top:16px;
@@ -973,7 +964,6 @@ section{
     box-shadow: 0 0 15px rgba(255, 23, 68, 0.3);
 }
 
-/* The Rounded Google Button */
 .login-submit{
     display: flex;
     align-items: center;
@@ -1005,7 +995,6 @@ section{
     transform: translateY(1px);
 }
 
-/* SVG Icon inside button */
 .google-icon-svg {
     width: 22px;
     height: 22px;
@@ -1019,7 +1008,6 @@ section{
     align-items: center;
 }
 
-/* Cancel Button */
 .close-btn{
     background: transparent;
     color: #a1a1aa; 
@@ -1053,12 +1041,11 @@ section{
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Additional styling for Profile logout button to match login-submit style */
 .logout-btn{
     background: linear-gradient(90deg, #ff1744, #ff6d00);
     color:white;
     border: none;
-    border-radius: 50px; /* Matching the pill shape */
+    border-radius: 50px;
     padding: 14px 24px;
     font-size: 14px;
     font-weight: 600;
@@ -1260,7 +1247,6 @@ footer p{
     .timeline-item, .timeline-item:nth-child(even){ width:100%; left:0; text-align:left; padding-left:35px; padding-right:0; }
     .hero h1{ font-size:45px; }
     
-    /* COMMUNITY MOBILE */
     .community-box{ padding:15px; border-radius:22px; }
     .community-box::after{ display:none; }
     .community-form{ padding:15px; border-radius:16px; }
@@ -1282,24 +1268,22 @@ footer p{
 
 
 /* =========================================================
-   INSTAGRAM STYLE FEED - PREMIUM GAMING UI (FOR ADMIN UPDATES)
+   INSTAGRAM STYLE FEED - PREMIUM GAMING UI (V3)
 ========================================================= */
 
-/* Main Post Card */
 .tg-admin-post {
     position: relative;
     width: 100%;
     margin: 0 0 24px 0;
     padding: 0;
-    background: #000000; /* Pure dark mode like Instagram */
-    border: 1px solid #262626; /* Subtle Insta border */
+    background: #000000;
+    border: 1px solid #262626;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     transition: transform .3s ease;
 }
 
-/* Post Header (Avatar & Name) */
 .tg-admin-header {
     display: flex;
     align-items: center;
@@ -1315,7 +1299,6 @@ footer p{
     object-fit: cover;
     background: #000;
     padding: 2px;
-    /* Instagram Story style gradient ring */
     border: 2px solid transparent;
     background: linear-gradient(#000, #000) padding-box, 
                 linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) border-box;
@@ -1340,8 +1323,22 @@ footer p{
     font-weight: 600;
 }
 
-.tg-admin-verified, .tg-admin-badge {
-    display: none; /* Hidden for clean Instagram look */
+/* Insta Blue Tick */
+.tg-admin-verified {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #3897f0;
+    color: #ffffff;
+    font-size: 9px;
+    margin-left: 2px;
+}
+
+.tg-admin-badge {
+    display: none; 
 }
 
 .tg-admin-time {
@@ -1351,72 +1348,94 @@ footer p{
     margin-top: 2px;
 }
 
-/* Post Content Area (Acting as the Image/Banner) */
+/* Premium Gradient Text Background (when no image is uploaded) */
 .tg-admin-content {
     margin-top: 0;
-    padding: 50px 25px;
-    /* Premium gaming gradient background for text posts */
-    background: linear-gradient(135deg, #0b0c10, #1f2833);
+    padding: 0;
+    width: 100%;
+    background: radial-gradient(circle at top left, #1a1a2e, #16213e, #0f3460);
     border-top: 1px solid #1a1a1a;
     border-bottom: 1px solid #1a1a1a;
-    min-height: 250px;
+    position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+.tg-admin-post-image {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    display: block;
+}
+
+.tg-admin-text-overlay {
+    padding: 30px;
     text-align: center;
+    z-index: 2;
 }
 
 .tg-admin-title {
     margin: 0 0 12px 0;
     color: #ffffff;
     font-family: "Poppins", sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 1.4;
-    text-shadow: 0 0 10px rgba(0, 234, 255, 0.4);
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
 }
 
-.tg-admin-text {
-    margin: 0;
-    color: #d1d5db;
+.tg-admin-caption-area {
+    padding: 0 16px 16px 16px;
+    background: #000;
+}
+
+.tg-admin-caption-text {
+    color: #f5f5f5;
     font-family: "Poppins", sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-break: break-word;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    margin-top: 8px;
 }
 
-/* Action Area (Like Section) */
+.tg-admin-caption-text strong {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+/* Inline Actions (Heart + Likes side by side) */
 .tg-admin-actions {
     display: flex;
-    flex-direction: column; /* Stack heart and like count */
-    align-items: flex-start;
-    padding: 14px 16px;
+    align-items: center;
+    padding: 12px 16px 4px 16px;
     background: #000000;
 }
 
 .tg-like-btn {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    flex-direction: row;
     background: transparent;
     border: none;
     outline: none;
     padding: 0;
     cursor: pointer;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 .tg-like-heart {
-    font-size: 26px;
+    font-size: 24px;
     color: transparent;
-    -webkit-text-stroke: 2px #ffffff; /* Outlined heart by default */
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s;
+    -webkit-text-stroke: 2px #ffffff;
+    transition: transform 0.2s, color 0.2s;
+    margin-right: 8px;
 }
 
 .tg-like-btn.liked .tg-like-heart {
-    color: #ff3040; /* Insta Red */
+    color: #ff3040;
     -webkit-text-stroke: 0px;
     animation: tgHeartPop 0.3s ease;
 }
@@ -1432,14 +1451,12 @@ footer p{
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
-    margin-top: 8px;
 }
 
 .tg-like-count::after {
     content: " likes";
 }
 
-/* Admin Delete Button (Moved to Top Right like Insta 3-dots menu) */
 .tg-admin-delete {
     position: absolute;
     top: 18px;
@@ -1452,12 +1469,6 @@ footer p{
     font-weight: 600;
     cursor: pointer;
     padding: 4px 8px;
-    border-radius: 4px;
-    transition: background 0.2s;
-}
-
-.tg-admin-delete:hover {
-    background: rgba(255, 77, 77, 0.1);
 }
 
 /* =========================================
@@ -1533,7 +1544,6 @@ footer p{
 
 .twitter-admin-label, .twitter-admin-user { display: none !important; }
 
-/* The New Post Box */
 .twitter-composer {
     display: flex;
     flex-direction: column;
@@ -1544,7 +1554,7 @@ footer p{
 .twitter-composer .twitter-avatar { display: none; }
 .twitter-profile-name { display: none; }
 
-.twitter-composer-content input, 
+.twitter-composer-content input[type="text"], 
 .twitter-composer-content textarea {
     background: #111111 !important;
     border: 1px solid #262626 !important;
@@ -1557,6 +1567,28 @@ footer p{
     outline: none;
 }
 
+/* Image Upload Input Styling */
+.twitter-composer-content input[type="file"] {
+    background: transparent !important;
+    border: 1px dashed #444 !important;
+    padding: 12px !important;
+    margin-top: 10px;
+    color: #aaa !important;
+    font-size: 12px !important;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.twitter-composer-content input[type="file"]::file-selector-button {
+    background: #262626;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
 .twitter-composer-content textarea {
     min-height: 100px !important;
     resize: vertical;
@@ -1566,10 +1598,9 @@ footer p{
     padding-top: 10px !important;
 }
 
-/* Blue Insta Publish Button */
 .twitter-publish-btn {
     width: 100% !important;
-    background: #0095f6 !important; /* Instagram Blue */
+    background: #0095f6 !important; 
     color: #ffffff !important;
     border-radius: 8px !important;
     padding: 12px !important;
@@ -1583,10 +1614,8 @@ footer p{
 
 .twitter-publish-btn:hover {
     background: #1877f2 !important;
-    transform: none !important;
 }
 
-/* Admin Updates User Modal Container */
 .updates-modal{
     position:fixed;
     inset:0;
@@ -1646,7 +1675,6 @@ footer p{
     justify-content:center;
 }
 
-/* Hide Twitter extra divs */
 .twitter-feed-title { display: none; }
 .twitter-divider { display: none; }
 .twitter-admin-footer { 
@@ -1666,14 +1694,9 @@ footer p{
     cursor: pointer;
 }
 
-/* Mobile Tweaks for Admin/Insta Feed */
 @media(max-width:600px){
-    .tg-admin-content {
-        padding: 40px 16px;
-        min-height: 200px;
-    }
+    .tg-admin-content { min-height: 200px; }
     .tg-admin-title { font-size: 18px; }
-    .tg-admin-text { font-size: 14px; }
     .twitter-composer { padding: 16px !important; }
     .updates-box { padding: 20px; }
 }
