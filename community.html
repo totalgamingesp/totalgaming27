@@ -261,7 +261,7 @@ nav{
 .posts-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     padding: 16px 20px;
     height: 65vh;
     min-height: 480px;
@@ -313,13 +313,57 @@ nav{
     border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* SWIPE TO REPLY WRAPPER */
-.post-swipe-wrapper {
+/* =========================================================
+   WHATSAPP STYLE EXTERNAL DP ROW LAYOUT
+========================================================= */
+.post-row-wrapper {
     position: relative;
     width: 100%;
     display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.post-row-wrapper.is-me {
+    justify-content: flex-end;
+}
+
+/* Outer DP (Outside the message card, WhatsApp style) */
+.user-avatar-dp {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: inline-flex;
     align-items: center;
-    overflow: visible;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    font-family: "Orbitron", sans-serif;
+    color: #ffffff;
+    flex-shrink: 0;
+    margin-top: 1px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    text-transform: uppercase;
+}
+
+.admin-avatar-dp {
+    background: linear-gradient(135deg, #ff007b, #7928ca, #00e5ff) !important;
+    border-color: #00e5ff !important;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.6) !important;
+    font-size: 15px !important;
+}
+
+/* Swipe Indicator Container */
+.post-swipe-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 90%;
+}
+
+.post-row-wrapper.is-me .post-swipe-wrapper {
+    max-width: 90%;
 }
 
 .swipe-reply-indicator {
@@ -343,21 +387,19 @@ nav{
 }
 
 /* =========================================================
-   COMPACT & WIDER SMS POST CARD (PC & General)
+   COMPACT & WIDER SMS POST CARD
 ========================================================= */
 .post-card {
     position: relative;
-    padding: 6px 14px 7px 14px;
+    padding: 5px 14px 6px 14px;
     background: rgba(20, 24, 40, 0.88); 
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 0 12px 12px 12px; 
+    border-radius: 0 14px 14px 14px; 
     box-shadow: 0 3px 12px rgba(0,0,0,0.3);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     width: fit-content;
-    min-width: 320px;
-    max-width: 95%;
-    align-self: flex-start; 
+    min-width: 260px;
     display: flex;
     flex-direction: column;
     touch-action: pan-y;
@@ -371,15 +413,10 @@ nav{
 }
 
 .post-card.my-post {
-    align-self: flex-end; 
-    border-radius: 12px 0 12px 12px; 
+    border-radius: 14px 0 14px 14px; 
     background: linear-gradient(145deg, rgba(0, 77, 102, 0.9), rgba(0, 43, 58, 0.95)); 
     border: 1px solid rgba(0, 229, 255, 0.25);
     box-shadow: 0 4px 15px rgba(0, 229, 255, 0.15);
-}
-
-.post-swipe-wrapper.is-me {
-    justify-content: flex-end;
 }
 
 .post-top {
@@ -387,47 +424,13 @@ nav{
     justify-content: space-between;
     align-items: center;
     gap: 14px;
-    margin-bottom: 2px;
-}
-
-/* =========================================================
-   DP / AVATAR STYLES (FIRST LETTER CIRCLE)
-========================================================= */
-.author-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.user-avatar-dp {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11.5px;
-    font-weight: 800;
-    font-family: "Orbitron", sans-serif;
-    color: #ffffff;
-    flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    text-transform: uppercase;
-}
-
-/* VIP Admin Avatar */
-.admin-avatar-dp {
-    background: linear-gradient(135deg, #ff007b, #7928ca, #00e5ff) !important;
-    border-color: #00e5ff !important;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5) !important;
-    font-size: 13px !important;
+    margin-bottom: 1px;
 }
 
 .author {
     color: #ff3158; 
     font-weight: 700;
-    font-size: 11.5px;
+    font-size: 12px;
     line-height: 1.2;
 }
 
@@ -460,7 +463,7 @@ nav{
     border-left: 3px solid #00e5ff;
     padding: 3px 8px;
     border-radius: 5px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     font-size: 11px;
 }
 
@@ -485,7 +488,7 @@ nav{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 450px;
+    max-width: 420px;
     font-size: 10.5px;
 }
 
@@ -870,19 +873,18 @@ footer p{
     .community-hero h1{ font-size:30px; }
     .community-hero p{ font-size:12px; }
     .community-wrapper{ width:96%; margin-bottom:20px; }
-    .posts-container{ height:60vh; min-height:380px; padding:12px 10px; }
+    .posts-container{ height:60vh; min-height:380px; padding:12px 8px; }
     
     /* Phone specific dimensions */
-    .post-card {
-        padding: 6px 12px 7px 12px;
-        max-width: 92%;
-        min-width: 140px;
+    .user-avatar-dp {
+        width: 28px;
+        height: 28px;
+        font-size: 11.5px;
     }
 
-    .user-avatar-dp {
-        width: 22px;
-        height: 22px;
-        font-size: 10px;
+    .post-card {
+        padding: 5px 11px 6px 11px;
+        min-width: 140px;
     }
 
     .post-card p {
@@ -1447,8 +1449,12 @@ function loadCommunityPosts(user){
                 lastDateString = currentDayString;
             }
 
-            const wrapper = document.createElement("div");
-            wrapper.className = "post-swipe-wrapper";
+            // External row containing outside DP + message bubble
+            const rowWrapper = document.createElement("div");
+            rowWrapper.className = "post-row-wrapper";
+
+            const swipeWrapper = document.createElement("div");
+            swipeWrapper.className = "post-swipe-wrapper";
 
             const swipeIndicator = document.createElement("div");
             swipeIndicator.className = "swipe-reply-indicator";
@@ -1467,43 +1473,38 @@ function loadCommunityPosts(user){
             const isMe = user && post.uid === user.uid;
             if(isMe) {
                 card.classList.add("my-post");
-                wrapper.classList.add("is-me");
+                rowWrapper.classList.add("is-me");
+            } else {
+                // Outside Avatar DP for other users (WhatsApp Style)
+                const avatarDp = document.createElement("div");
+                avatarDp.className = "user-avatar-dp";
+
+                if (isPostAdmin) {
+                    avatarDp.classList.add("admin-avatar-dp");
+                    avatarDp.textContent = "👑";
+                } else {
+                    const authorName = post.author || "TG Member";
+                    avatarDp.style.background = getAvatarStyle(authorName);
+                    const firstLetter = (authorName.trim().charAt(0) || "T").toUpperCase();
+                    avatarDp.textContent = firstLetter;
+                }
+
+                rowWrapper.appendChild(avatarDp);
             }
 
             const top = document.createElement("div");
             top.className = "post-top";
 
-            // Author + Avatar DP Container
-            const authorWrapper = document.createElement("div");
-            authorWrapper.className = "authorWrapper";
-            authorWrapper.className = "author-wrapper";
-
-            let displayAuthorName = post.author || "TG Member";
-            
-            // Avatar DP Element
-            const avatarDp = document.createElement("div");
-            avatarDp.className = "user-avatar-dp";
-
-            if (isPostAdmin) {
-                avatarDp.classList.add("admin-avatar-dp");
-                avatarDp.textContent = "👑";
-            } else {
-                avatarDp.style.background = getAvatarStyle(displayAuthorName);
-                const firstLetter = (isMe ? "Y" : displayAuthorName.trim().charAt(0) || "T").toUpperCase();
-                avatarDp.textContent = firstLetter;
-            }
-
             const author = document.createElement("div");
             author.className = "author";
 
+            let displayAuthorName = post.author || "TG Member";
             if(isPostAdmin){
                 author.innerHTML = "<span class='diamond-text'>TG ADMIN</span> <span class='admin-badge'>✔</span>";
                 displayAuthorName = "TG ADMIN";
             }else{
                 author.textContent = isMe ? "You" : displayAuthorName;
             }
-
-            authorWrapper.append(avatarDp, author);
 
             const date = document.createElement("div");
             date.className = "post-date";
@@ -1533,7 +1534,7 @@ function loadCommunityPosts(user){
                 dateActionGroup.appendChild(deleteBtn);
             }
 
-            top.append(authorWrapper, dateActionGroup);
+            top.append(author, dateActionGroup);
 
             if(post.replyTo) {
                 const quoteBox = document.createElement("div");
@@ -1559,8 +1560,9 @@ function loadCommunityPosts(user){
 
             makeSwipeable(card, swipeIndicator, docSnap.id, isMe ? "You" : displayAuthorName, post.text || "");
 
-            wrapper.append(swipeIndicator, card);
-            postsContainer.appendChild(wrapper);
+            swipeWrapper.append(swipeIndicator, card);
+            rowWrapper.appendChild(swipeWrapper);
+            postsContainer.appendChild(rowWrapper);
         });
 
         if(count === 0){
