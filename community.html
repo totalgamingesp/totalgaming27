@@ -35,7 +35,6 @@ body{
         #05050d;
     min-height:100vh;
     overflow-x:hidden;
-    padding-bottom: 120px; /* Space so content is not blocked by sticky bar */
 }
 
 /* =========================
@@ -174,7 +173,7 @@ nav{
 
 .community-wrapper{
     width:min(1100px,94%);
-    margin:0 auto 20px;
+    margin:0 auto 40px;
     position:relative;
 }
 
@@ -223,7 +222,7 @@ nav{
 }
 
 /* ===================================================
-   CHAT PANEL WITH DEDICATED AUTO-SCROLL
+   CHAT PANEL
 =================================================== */
 
 .chat-panel-card {
@@ -235,6 +234,7 @@ nav{
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .posts-container {
@@ -501,16 +501,15 @@ nav{
     margin-top: 4px;
 }
 
-/* =========================================================
-   ALL-TIME FIXED / STICKY SCREEN BOTTOM CHAT BAR (ORIGINAL)
-========================================================= */
+/* =====================================================================
+   SMART STICKY CHAT BAR: Floating until bottom, stops above footer
+===================================================================== */
 
 .chat-bottom-wrapper {
-    position: fixed;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(1100px, 94%);
+    position: sticky;
+    bottom: 20px;
+    width: 100%;
+    margin-top: 25px;
     background: rgba(15, 18, 35, 0.94);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
@@ -518,7 +517,7 @@ nav{
     border-radius: 20px;
     padding: 12px 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.65);
-    z-index: 2000;
+    z-index: 100;
 }
 
 .user-status-minimal {
@@ -561,7 +560,7 @@ nav{
     font-weight: 700;
 }
 
-/* Reply preview bar right above input inside sticky box */
+/* Quoted Reply Preview Bar */
 .reply-preview-bar {
     display: none;
     align-items: center;
@@ -740,9 +739,11 @@ nav{
 
 footer{
     text-align:center;
-    padding:35px 20px;
+    padding:40px 20px;
     border-top:1px solid rgba(255,255,255,.06);
     background:rgba(3,3,9,.7);
+    position: relative;
+    z-index: 10;
 }
 
 footer h2{
@@ -766,7 +767,7 @@ footer p{
 .toast{
     position:fixed;
     left:50%;
-    bottom:115px; /* Above the sticky bar */
+    bottom:30px;
     transform: translate(-50%,20px);
     opacity:0;
     pointer-events:none;
@@ -791,7 +792,6 @@ footer p{
 ========================= */
 
 @media(max-width:650px){
-    body{ padding-bottom: 100px; }
     nav{ height:65px; padding:0 4%; }
     
     .logo-desktop { display:none; }
@@ -802,10 +802,10 @@ footer p{
     .community-hero{ min-height:210px; padding:40px 18px 20px; }
     .community-hero h1{ font-size:30px; }
     .community-hero p{ font-size:12px; }
-    .community-wrapper{ width:96%; }
-    .posts-container{ height:62vh; min-height:380px; padding:15px 12px; }
+    .community-wrapper{ width:96%; margin-bottom:25px; }
+    .posts-container{ height:60vh; min-height:380px; padding:15px 12px; }
     
-    .chat-bottom-wrapper{ padding:10px; border-radius:18px; bottom:12px; width:96%; }
+    .chat-bottom-wrapper{ padding:10px 12px; bottom:12px; }
     .chat-input-bar{ padding:4px 4px 4px 12px; }
     .scroll-to-bottom-btn{ right:14px; bottom:14px; width:34px; height:34px; }
 }
@@ -849,7 +849,7 @@ footer p{
 </section>
 
 <!-- =========================
-     MAIN (FEED)
+     MAIN (FEED + SMART STICKY CHAT BAR)
 ========================= -->
 <main class="community-wrapper">
 
@@ -884,47 +884,45 @@ footer p{
 
     </div>
 
-</main>
-
-<!-- =========================================================
-     ALL-TIME FIXED / STICKY SCREEN BOTTOM CHAT BAR
-========================================================= -->
-<div class="chat-bottom-wrapper">
-    <div class="user-status-minimal">
-        <div class="status-left">
-            <span class="status-dot" id="statusDot"></span>
-            <span class="status-text" id="statusText">Login with Google to post</span>
+    <!-- 3. SMART STICKY BAR (Screen ke bottom par floating rahega, scroll karke footer aane par footer ke upar ruk jayega) -->
+    <div class="chat-bottom-wrapper">
+        <div class="user-status-minimal">
+            <div class="status-left">
+                <span class="status-dot" id="statusDot"></span>
+                <span class="status-text" id="statusText">Login with Google to post</span>
+            </div>
+            <button class="logout-small" id="logoutBtn" style="display:none;">LOGOUT</button>
         </div>
-        <button class="logout-small" id="logoutBtn" style="display:none;">LOGOUT</button>
-    </div>
 
-    <!-- Quoted Reply Bar (Appears when swiping/replying to someone) -->
-    <div class="reply-preview-bar" id="replyPreviewBar">
-        <div class="reply-preview-left">
-            <span class="reply-preview-target" id="replyTargetAuthor">Replying to User</span>
-            <span class="reply-preview-snippet" id="replyTargetText">Original Message Snippet</span>
+        <!-- Quoted Reply Bar (Appears when swiping/replying to someone) -->
+        <div class="reply-preview-bar" id="replyPreviewBar">
+            <div class="reply-preview-left">
+                <span class="reply-preview-target" id="replyTargetAuthor">Replying to User</span>
+                <span class="reply-preview-snippet" id="replyTargetText">Original Message Snippet</span>
+            </div>
+            <button class="reply-cancel-btn" id="cancelReplyBtn" title="Cancel Reply">✕</button>
         </div>
-        <button class="reply-cancel-btn" id="cancelReplyBtn" title="Cancel Reply">✕</button>
-    </div>
 
-    <div class="chat-input-bar">
-        <!-- Show Login Button if logged out -->
-        <button class="login-btn-full" id="loginBtn" type="button">
-            🔐 LOGIN WITH GOOGLE TO CHAT
-        </button>
-
-        <!-- Show Text Input and Send Icon if logged in -->
-        <div id="inputWrapper" style="display:none; width:100%; align-items:flex-end; gap:10px;">
-            <textarea id="communityText" maxlength="500" placeholder="Type a message..." rows="1"></textarea>
-            
-            <button class="wp-send-btn" id="postBtn" type="button" disabled>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                </svg>
+        <div class="chat-input-bar">
+            <!-- Show Login Button if logged out -->
+            <button class="login-btn-full" id="loginBtn" type="button">
+                🔐 LOGIN WITH GOOGLE TO CHAT
             </button>
+
+            <!-- Show Text Input and Send Icon if logged in -->
+            <div id="inputWrapper" style="display:none; width:100%; align-items:flex-end; gap:10px;">
+                <textarea id="communityText" maxlength="500" placeholder="Type a message..." rows="1"></textarea>
+                
+                <button class="wp-send-btn" id="postBtn" type="button" disabled>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
-</div>
+
+</main>
 
 <!-- =========================
      FOOTER
@@ -1020,7 +1018,7 @@ function scrollChatToBottom(smooth = false) {
     }, 60);
 }
 
-// Show/Hide Floating Scroll Button when user scrolls up
+// Show/Hide Floating Scroll Button when user scrolls up inside chat panel
 postsContainer.addEventListener("scroll", () => {
     const threshold = postsContainer.scrollHeight - postsContainer.scrollTop - postsContainer.clientHeight;
     if (threshold > 150) {
