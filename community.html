@@ -328,15 +328,15 @@ nav{
     justify-content: flex-end;
 }
 
-/* Compact DP (7% smaller for exact scale) */
+/* Compact DP (10% smaller) */
 .user-avatar-dp {
-    width: 30px; /* Reduced from 34px (~10% compact) */
+    width: 30px;
     height: 30px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 800;
     font-family: "Orbitron", sans-serif;
     color: #ffffff;
@@ -570,7 +570,7 @@ nav{
 }
 
 /* =====================================================================
-   UPGRADED ATTENTION-GRABBING STICKY COMPOSER BAR
+   FIXED POSITION STICKY COMPOSER (Screen bottom pe float, footer ke upar stop)
 ===================================================================== */
 
 .chat-bottom-wrapper {
@@ -578,7 +578,7 @@ nav{
     bottom: 20px;
     width: 100%;
     margin-top: 25px;
-    background: linear-gradient(135deg, rgba(18, 12, 38, 0.94), rgba(7, 10, 24, 0.96));
+    background: linear-gradient(135deg, rgba(18, 12, 38, 0.95), rgba(7, 10, 24, 0.97));
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 229, 255, 0.35);
@@ -589,9 +589,7 @@ nav{
         0 0 25px rgba(0, 229, 255, 0.16),
         0 0 35px rgba(121, 40, 202, 0.18),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    z-index: 100;
-    position: relative;
-    overflow: hidden;
+    z-index: 1000; /* High priority floating */
 }
 
 /* Neon Top Bar Gradient */
@@ -927,7 +925,7 @@ footer p{
     
     /* Phone specific dimensions */
     .user-avatar-dp {
-        width: 25px; /* Compact on mobile (~10% smaller) */
+        width: 25px;
         height: 25px;
         font-size: 11px;
     }
@@ -1539,7 +1537,7 @@ function loadCommunityPosts(user){
                 } else {
                     const authorName = post.author || "TG Member";
                     avatarDp.style.background = getAvatarStyle(authorName);
-                    const firstLetter = (isMe ? "Y" : authorName.trim().charAt(0) || "T").toUpperCase();
+                    const firstLetter = (authorName.trim().charAt(0) || "T").toUpperCase();
                     avatarDp.textContent = firstLetter;
                 }
 
