@@ -499,24 +499,52 @@ function createTgAdminPost(post, postId, user, showDelete){
     const content = document.createElement("div");
     content.className = "tg-admin-content";
 
+    let captionArea = null;
+
     if (post.imageUrl) {
-        // Post has image
+        // IMAGE POST
         const img = document.createElement("img");
         img.className = "tg-admin-post-image";
         img.src = post.imageUrl;
         content.append(img);
+        
+        // Setup caption if there is text/title
+        if(post.title || post.text) {
+            captionArea = document.createElement("div");
+            captionArea.className = "tg-admin-caption-area";
+            const captionText = document.createElement("p");
+            captionText.className = "tg-admin-caption-text";
+            
+            let capHtml = `<strong>totalgamingesports <span style="display:inline-flex; align-items:center; justify-content:center; width:12px; height:12px; border-radius:50%; background:#3897f0; color:#fff; font-size:7px; margin-left:2px; transform:translateY(-1px);">✓</span></strong> `;
+            if(post.title) capHtml += `<b>${post.title}</b> `;
+            if(post.title && post.text) capHtml += `- `;
+            if(post.text) capHtml += post.text;
+            
+            captionText.innerHTML = capHtml;
+            captionArea.append(captionText);
+        }
     } else {
-        // Text-only post with cool gradient
+        // TEXT-ONLY POST (Cool background)
         const textOverlay = document.createElement("div");
         textOverlay.className = "tg-admin-text-overlay";
-        const title = document.createElement("h3");
-        title.className = "tg-admin-title";
-        title.textContent = post.title || "TG Official Update";
-        textOverlay.append(title);
+        
+        if (post.title) {
+            const titleObj = document.createElement("h3");
+            titleObj.className = "tg-admin-title";
+            titleObj.textContent = post.title;
+            textOverlay.append(titleObj);
+        }
+        
+        if (post.text) {
+            const textObj = document.createElement("p");
+            textObj.className = "tg-admin-text-body";
+            textObj.textContent = post.text;
+            textOverlay.append(textObj);
+        }
         content.append(textOverlay);
     }
 
-    // INLINE ACTIONS
+    // INLINE ACTIONS (Heart + Likes)
     const actions = document.createElement("div");
     actions.className = "tg-admin-actions";
 
@@ -535,17 +563,9 @@ function createTgAdminPost(post, postId, user, showDelete){
     likeBtn.append(heart, likeCount);
     actions.append(likeBtn);
 
-    // CAPTION
-    const captionArea = document.createElement("div");
-    captionArea.className = "tg-admin-caption-area";
-    if(post.text) {
-        const captionText = document.createElement("p");
-        captionText.className = "tg-admin-caption-text";
-        captionText.innerHTML = `<strong>totalgamingesports</strong> ${post.text}`;
-        captionArea.append(captionText);
-    }
-
-    article.append(header, content, actions, captionArea);
+    // Assemble Post
+    article.append(header, content, actions);
+    if(captionArea) article.append(captionArea); // Caption goes at the very bottom
 
     // LIKES SYSTEM
     if(user){

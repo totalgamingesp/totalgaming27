@@ -862,6 +862,7 @@ section{
 .modal{
     position:fixed;
     inset:0;
+    /* Darker, blurred background for focus */
     background: rgba(3, 5, 13, 0.85); 
     backdrop-filter: blur(12px);
     display:flex;
@@ -1266,9 +1267,8 @@ footer p{
     .section-title span{ font-size:11px; letter-spacing:3px; }
 }
 
-
 /* =========================================================
-   INSTAGRAM STYLE FEED - PREMIUM GAMING UI (V3)
+   INSTAGRAM STYLE FEED - PREMIUM GAMING UI (FINAL FIXES)
 ========================================================= */
 
 .tg-admin-post {
@@ -1277,11 +1277,17 @@ footer p{
     margin: 0 0 24px 0;
     padding: 0;
     background: #000000;
-    border: 1px solid #262626;
+    border: 1px solid #262626 !important;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden;
-    transition: transform .3s ease;
+    transform: none !important; /* Stop moving on hover */
+}
+
+/* Kills any old pseudo-elements causing random glowing lines */
+.tg-admin-post::before, 
+.tg-admin-post::after {
+    display: none !important;
 }
 
 .tg-admin-header {
@@ -1348,44 +1354,49 @@ footer p{
     margin-top: 2px;
 }
 
-/* Premium Gradient Text Background (when no image is uploaded) */
 .tg-admin-content {
     margin-top: 0;
     padding: 0;
     width: 100%;
     background: radial-gradient(circle at top left, #1a1a2e, #16213e, #0f3460);
-    border-top: 1px solid #1a1a1a;
-    border-bottom: 1px solid #1a1a1a;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 300px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
+/* Image width and aspect ratio fix for PC */
 .tg-admin-post-image {
     width: 100%;
-    height: auto;
-    max-height: 600px;
-    object-fit: cover;
+    max-height: 500px;
+    object-fit: contain; 
+    background: #000; /* Fills empty space if aspect ratio is narrow */
     display: block;
 }
 
+/* Big Text block for Text-only posts */
 .tg-admin-text-overlay {
-    padding: 30px;
+    padding: 40px 30px;
     text-align: center;
-    z-index: 2;
+    width: 100%;
 }
 
 .tg-admin-title {
-    margin: 0 0 12px 0;
     color: #ffffff;
     font-family: "Poppins", sans-serif;
     font-size: 22px;
     font-weight: 700;
-    line-height: 1.4;
+    margin-bottom: 12px;
     text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+.tg-admin-text-body {
+    color: #d1d5db;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-wrap;
 }
 
 .tg-admin-caption-area {
@@ -1402,11 +1413,6 @@ footer p{
     margin-top: 8px;
 }
 
-.tg-admin-caption-text strong {
-    font-weight: 600;
-    margin-right: 6px;
-}
-
 /* Inline Actions (Heart + Likes side by side) */
 .tg-admin-actions {
     display: flex;
@@ -1419,6 +1425,7 @@ footer p{
     display: flex;
     align-items: center;
     flex-direction: row;
+    gap: 8px;
     background: transparent;
     border: none;
     outline: none;
@@ -1431,7 +1438,7 @@ footer p{
     color: transparent;
     -webkit-text-stroke: 2px #ffffff;
     transition: transform 0.2s, color 0.2s;
-    margin-right: 8px;
+    margin: 0 !important;
 }
 
 .tg-like-btn.liked .tg-like-heart {
@@ -1451,6 +1458,7 @@ footer p{
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
+    margin: 0 !important;
 }
 
 .tg-like-count::after {
@@ -1508,6 +1516,14 @@ footer p{
     border: 1px solid #262626 !important;
     border-radius: 16px !important;
     padding: 0 !important;
+}
+
+/* KILL ALL GLOWING LINES IN ADMIN PANEL */
+.twitter-admin-box::before, 
+.twitter-admin-box::after,
+.updates-box::before,
+.updates-box::after {
+    display: none !important;
 }
 
 .twitter-admin-box .updates-close {
@@ -1695,7 +1711,6 @@ footer p{
 }
 
 @media(max-width:600px){
-    .tg-admin-content { min-height: 200px; }
     .tg-admin-title { font-size: 18px; }
     .twitter-composer { padding: 16px !important; }
     .updates-box { padding: 20px; }
