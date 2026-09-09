@@ -862,7 +862,6 @@ section{
 .modal{
     position:fixed;
     inset:0;
-    /* Darker, blurred background for focus */
     background: rgba(3, 5, 13, 0.85); 
     backdrop-filter: blur(12px);
     display:flex;
@@ -1143,7 +1142,8 @@ footer p{
 .post-btn,
 .menu-btn,
 .social-links a,
-.menu-panel a{
+.menu-panel a,
+.twitter-publish-btn{
     position:relative;
     overflow:hidden;
 }
@@ -1154,7 +1154,8 @@ footer p{
 .post-btn::after,
 .menu-btn::after,
 .social-links a::after,
-.menu-panel a::after{
+.menu-panel a::after,
+.twitter-publish-btn::after{
     content:"";
     position:absolute;
     top:-100%;
@@ -1174,7 +1175,8 @@ footer p{
 .post-btn:hover::after,
 .menu-btn:hover::after,
 .social-links a:hover::after,
-.menu-panel a:hover::after{
+.menu-panel a:hover::after,
+.twitter-publish-btn:hover::after{
     opacity:1;
     animation: hoverReflection 1.2s ease-in-out;
 }
@@ -1194,7 +1196,8 @@ footer p{
 .menu-btn,
 .social-links a,
 .menu-panel a,
-.updates-close{
+.updates-close,
+.twitter-publish-btn{
     position:relative;
     isolation:isolate;
 }
@@ -1218,6 +1221,15 @@ footer p{
 
 .tg-edge-glow.active{
     opacity:1;
+}
+
+/* Edge glow lock strictly inside publish button */
+.twitter-publish-btn .tg-edge-glow{
+    position:absolute !important;
+    inset:0 !important;
+    border-radius:inherit !important;
+    pointer-events:none !important;
+    z-index:2 !important;
 }
 
 /* =========================================================
@@ -1281,10 +1293,10 @@ footer p{
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden;
-    transform: none !important; /* Stop moving on hover */
+    transform: none !important;
+    z-index: 5;
 }
 
-/* Kills any old pseudo-elements causing random glowing lines */
 .tg-admin-post::before, 
 .tg-admin-post::after {
     display: none !important;
@@ -1329,7 +1341,6 @@ footer p{
     font-weight: 600;
 }
 
-/* Insta Blue Tick */
 .tg-admin-verified {
     display: inline-flex;
     align-items: center;
@@ -1367,16 +1378,14 @@ footer p{
     box-sizing: border-box;
 }
 
-/* Image width and aspect ratio fix for PC */
 .tg-admin-post-image {
     width: 100%;
     max-height: 500px;
     object-fit: contain; 
-    background: #000; /* Fills empty space if aspect ratio is narrow */
+    background: #000;
     display: block;
 }
 
-/* Big Text block for Text-only posts */
 .tg-admin-text-overlay {
     padding: 40px 30px;
     text-align: center;
@@ -1413,7 +1422,6 @@ footer p{
     margin-top: 8px;
 }
 
-/* Inline Actions (Heart + Likes side by side) */
 .tg-admin-actions {
     display: flex;
     align-items: center;
@@ -1518,7 +1526,6 @@ footer p{
     padding: 0 !important;
 }
 
-/* KILL ALL GLOWING LINES IN ADMIN PANEL */
 .twitter-admin-box::before, 
 .twitter-admin-box::after,
 .updates-box::before,
@@ -1565,6 +1572,8 @@ footer p{
     flex-direction: column;
     padding: 20px !important;
     gap: 12px !important;
+    position: relative;
+    overflow: visible;
 }
 
 .twitter-composer .twitter-avatar { display: none; }
@@ -1583,7 +1592,6 @@ footer p{
     outline: none;
 }
 
-/* Image Upload Input Styling */
 .twitter-composer-content input[type="file"] {
     background: transparent !important;
     border: 1px dashed #444 !important;
@@ -1612,9 +1620,15 @@ footer p{
 
 .twitter-composer-footer {
     padding-top: 10px !important;
+    position: relative;
+    overflow: visible;
 }
 
+/* Glow containment inside publish button */
 .twitter-publish-btn {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
     width: 100% !important;
     background: #0095f6 !important; 
     color: #ffffff !important;
@@ -1626,6 +1640,7 @@ footer p{
     border: none !important;
     cursor: pointer;
     transition: background 0.2s !important;
+    z-index: 1;
 }
 
 .twitter-publish-btn:hover {
@@ -1717,21 +1732,24 @@ footer p{
 }
 
 #adminPostText { height: 100px !important; min-height: 100px !important; }
-#adminHistoryContainer { max-height: 55vh !important; overflow-y: auto !important; }
+#adminHistoryContainer { 
+    position: relative;
+    z-index: 5;
+    max-height: 55vh !important; 
+    overflow-y: auto !important; 
+}
 
 /* =========================================================
    MOBILE RESPONSIVE FIX: HEADLINE BOLD + NORMAL BODY TEXT
 ========================================================= */
 @media (max-width: 650px) {
-    /* Text-Only Post / Admin Feed Text Container */
     .tg-admin-text-overlay {
         padding: 24px 18px !important;
-        text-align: left !important; /* Phone screen par left-aligned reading me best lagta hai */
+        text-align: left !important;
         width: 100% !important;
         display: block !important;
     }
 
-    /* 1. Headline (Bold & Highlighted) */
     .tg-admin-title {
         font-size: 16px !important;
         font-weight: 800 !important;
@@ -1743,7 +1761,6 @@ footer p{
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
     }
 
-    /* 2. Headline ke baad ka normal text (Same Box me) */
     .tg-admin-text-body {
         font-size: 13px !important;
         font-weight: 400 !important;
@@ -1754,7 +1771,6 @@ footer p{
         word-break: break-word !important;
     }
 
-    /* Agar image post ka caption hai to usme bhi bold author/headline aur normal text set rahega */
     .tg-admin-caption-area {
         padding: 0 14px 14px 14px !important;
     }
