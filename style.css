@@ -18,7 +18,6 @@ body{
 /* =========================================================
    BACKGROUND
 ========================================================= */
-
 body::before{
     content:"";
     position:fixed;
@@ -82,7 +81,6 @@ body{
 /* =========================================================
    NAVBAR
 ========================================================= */
-
 nav{
     position:fixed;
     top:0;
@@ -120,7 +118,6 @@ nav::after{
 /* =========================================================
    LOGO
 ========================================================= */
-
 .logo{
     display:flex;
     align-items:center;
@@ -149,16 +146,11 @@ nav::after{
 /* =========================================================
    NAV RIGHT
 ========================================================= */
-
 .nav-right{
     display:flex;
     align-items:center;
     gap:10px;
 }
-
-/* =========================================================
-   COMMUNITY BUTTON
-========================================================= */
 
 .community-btn{
     padding:9px 15px;
@@ -179,10 +171,6 @@ nav::after{
     box-shadow: 0 0 20px #00eaff66, 0 0 35px rgba(217,0,255,.25);
 }
 
-/* =========================================================
-   ADMIN UPDATE BUTTON
-========================================================= */
-
 .admin-update-btn{
     padding:9px 15px;
     border-radius:20px;
@@ -201,10 +189,6 @@ nav::after{
     transform:translateY(-2px);
     box-shadow: 0 0 25px rgba(255,70,0,.5), 0 0 45px rgba(255,23,68,.18);
 }
-
-/* =========================================================
-   MENU BUTTON
-========================================================= */
 
 .menu-btn{
     width:42px;
@@ -227,7 +211,6 @@ nav::after{
 /* =========================================================
    MENU PANEL
 ========================================================= */
-
 .menu-panel{
     position:fixed;
     top:85px;
@@ -274,7 +257,6 @@ nav::after{
 /* =========================================================
    HERO
 ========================================================= */
-
 .hero{
     min-height:100vh;
     display:flex;
@@ -345,7 +327,6 @@ nav::after{
 /* =========================================================
    COMMON SECTION
 ========================================================= */
-
 section{
     padding: 100px 7%;
 }
@@ -375,7 +356,6 @@ section{
 /* =========================================================
    PLAYERS
 ========================================================= */
-
 .players-grid{
     display:grid;
     grid-template-columns: repeat(3,1fr);
@@ -486,7 +466,6 @@ section{
 /* =========================================================
    TEAM
 ========================================================= */
-
 .team-section{
     position:relative;
     max-width:1200px;
@@ -517,7 +496,6 @@ section{
 /* =========================================================
    GALLERY
 ========================================================= */
-
 .gallery{
     max-width:1300px;
     margin:auto;
@@ -569,7 +547,6 @@ section{
 /* =========================================================
    TIMELINE
 ========================================================= */
-
 .timeline-title{
     text-align:center;
     margin-top:100px;
@@ -663,7 +640,6 @@ section{
 /* =========================================================
    COMMUNITY - PREMIUM
 ========================================================= */
-
 #community{
     position:relative;
 }
@@ -788,7 +764,6 @@ section{
 /* =========================================================
    COMMUNITY POSTS
 ========================================================= */
-
 .posts-container{
     display:grid;
     gap:16px;
@@ -835,10 +810,7 @@ section{
     border-top: 1px solid rgba(255,255,255,.06);
 }
 
-/* =========================================================
-   ADMIN COMMUNITY POST
-========================================================= */
-
+/* Admin Posts inside regular Community */
 .admin-community-post{
     position:relative;
     border: 1px solid rgba(255,0,70,.65) !important;
@@ -885,9 +857,8 @@ section{
 }
 
 /* =========================================================
-   PREMIUM GAMING GOOGLE LOGIN MODAL (DARK & ROUNDED)
+   PREMIUM GAMING GOOGLE LOGIN & PROFILE MODAL (DARK & ROUNDED)
 ========================================================= */
-
 .modal{
     position:fixed;
     inset:0;
@@ -953,12 +924,11 @@ section{
     width: 52px;
     margin: 0 auto 20px auto;
     display: block;
-    /* Optional: Slight glow behind logo */
     filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1));
 }
 
 .modal-box h2{
-    font-family: "Orbitron", sans-serif; /* Matched with website font */
+    font-family: "Orbitron", sans-serif;
     margin-bottom:8px;
     font-size: 22px;
     font-weight: 700;
@@ -1003,18 +973,13 @@ section{
     box-shadow: 0 0 15px rgba(255, 23, 68, 0.3);
 }
 
-/* =======================================
-   THE ROUNDED GOOGLE BUTTON
-======================================= */
+/* The Rounded Google Button */
 .login-submit{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    
-    /* Pill shape */
     border-radius: 50px; 
-    
     background-color: #ffffff;
     color: #111827;
     border: 1px solid transparent;
@@ -1023,7 +988,6 @@ section{
     font-weight: 600;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -1089,373 +1053,29 @@ section{
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* =========================================================
-   ADMIN PANEL - PREMIUM DASHBOARD
-========================================================= */
-
-.admin-panel{
-    position:fixed;
-    inset:0;
-    background: rgba(0,0,0,.86);
-    backdrop-filter:blur(14px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-    z-index:5000;
-}
-
-.admin-panel.show{
-    opacity:1;
-    visibility:visible;
-}
-
-.admin-box{
-    position:relative;
-    width:100%;
-    max-width:900px;
-    max-height:90vh;
-    overflow-y:auto;
-    padding:32px;
-    border-radius:26px;
-    background: linear-gradient(145deg, rgba(15,16,42,.98), rgba(7,8,25,.98));
-    border: 1px solid rgba(255,80,30,.25);
-    box-shadow: 0 35px 120px rgba(0,0,0,.75), 0 0 45px rgba(255,60,0,.07);
-    scrollbar-width:thin;
-}
-
-.admin-box::before{
-    content:"ADMIN CONTROL CENTER";
-    position:absolute;
-    top:17px;
-    right:28px;
-    font-family:"Orbitron",sans-serif;
-    font-size:8px;
-    letter-spacing:2px;
-    color:rgba(255,112,67,.55);
-}
-
-.admin-box::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:8%;
-    right:8%;
-    height:2px;
-    background: linear-gradient(90deg, transparent, #ff1744, #ff6d00, transparent);
-    box-shadow: 0 0 15px rgba(255,70,0,.45);
-}
-
-.admin-box h2{
-    font-family:"Orbitron",sans-serif;
-    color:#ff7043;
-    margin-bottom:8px;
-    padding-right:180px;
-    text-shadow: 0 0 12px rgba(255,112,67,.25);
-}
-
-.admin-user{
-    color:#999;
-    font-size:12px;
-    margin-bottom:20px;
-    padding:8px 11px;
-    border-radius:9px;
-    background: rgba(255,255,255,.035);
-    border: 1px solid rgba(255,255,255,.05);
-}
-
-.admin-box input,
-.admin-box textarea{
-    width:100%;
-    padding:14px 15px;
-    margin-bottom:12px;
-    border: 1px solid rgba(255,255,255,.08);
-    outline:none;
-    border-radius:11px;
-    background: linear-gradient(135deg, rgba(255,255,255,.065), rgba(255,255,255,.03));
-    color:white;
-    font-family:"Poppins",sans-serif;
-    transition:.25s;
-}
-
-.admin-box input:focus,
-.admin-box textarea:focus{
-    border-color: rgba(255,112,67,.65);
-    box-shadow: 0 0 0 3px rgba(255,80,30,.05), 0 0 20px rgba(255,80,30,.08);
-}
-
-.admin-box textarea{
-    min-height:150px;
-    resize:vertical;
-    line-height:1.6;
-}
-
-.admin-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.admin-buttons button{
-    flex:1;
-    padding:14px;
-    border:none;
-    border-radius:11px;
-    cursor:pointer;
-    font-weight:700;
-    transition:.3s;
-}
-
-.publish-btn{
-    background: linear-gradient(90deg, #0077ff, #d900ff);
-    color:white;
-    box-shadow: 0 8px 25px rgba(0,119,255,.15);
-}
-
-.publish-btn:hover{
-    transform:translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0,119,255,.25), 0 0 25px rgba(217,0,255,.15);
-}
-
+/* Additional styling for Profile logout button to match login-submit style */
 .logout-btn{
-    background:#222;
+    background: linear-gradient(90deg, #ff1744, #ff6d00);
     color:white;
-    border: 1px solid rgba(255,255,255,.08) !important;
+    border: none;
+    border-radius: 50px; /* Matching the pill shape */
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: .3s;
+    box-shadow: 0 4px 15px rgba(255, 23, 68, 0.2);
 }
 
 .logout-btn:hover{
-    background:#ff1744;
-    box-shadow: 0 0 20px rgba(255,23,68,.20);
-}
-
-#adminMessage{
-    margin-top:10px;
-    font-size:12px;
-    color:#00eaff;
-}
-
-/* =========================================================
-   ADMIN HISTORY
-========================================================= */
-
-.admin-history-title{
-    font-family:"Orbitron",sans-serif;
-    font-size:14px;
-    color:#00eaff;
-    margin:24px 0 12px;
-    padding-bottom:9px;
-    border-bottom: 1px solid rgba(0,234,255,.08);
-    letter-spacing:.5px;
-}
-
-.admin-history-container{
-    display:grid;
-    gap:12px;
-    max-height:300px;
-    overflow-y:auto;
-    margin-bottom:25px;
-    padding-right:5px;
-}
-
-.admin-history-card{
-    position:relative;
-    padding:16px;
-    border-radius:15px;
-    background: linear-gradient(135deg, rgba(255,80,30,.055), rgba(255,255,255,.025));
-    border: 1px solid rgba(255,100,50,.18);
-    transition:.25s;
-}
-
-.admin-history-card:hover{
-    border-color: rgba(255,100,50,.35);
-    transform:translateX(2px);
-}
-
-.admin-history-card h4{
-    color:#ff7043;
-    margin-bottom:6px;
-    font-family:"Orbitron",sans-serif;
-    font-size:14px;
-}
-
-.admin-history-card p{
-    color:#d0d0dd;
-    font-size:13px;
-    line-height:1.6;
-    margin-bottom:7px;
-}
-
-.admin-history-card small{
-    color:#777;
-    font-size:10px;
-}
-
-/* =========================================================
-   ADMIN UPDATES MODAL
-========================================================= */
-
-.updates-modal{
-    position:fixed;
-    inset:0;
-    background: rgba(0,0,0,.84);
-    backdrop-filter:blur(13px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-    z-index:4500;
-}
-
-.updates-modal.show{
-    opacity:1;
-    visibility:visible;
-}
-
-.updates-box{
-    position:relative;
-    width:100%;
-    max-width:720px;
-    max-height:87vh;
-    overflow-y:auto;
-    padding:32px;
-    border-radius:26px;
-    background: linear-gradient(145deg, rgba(18,12,28,.98), rgba(8,8,23,.98));
-    border: 1px solid rgba(255,100,50,.32);
-    box-shadow: 0 30px 100px rgba(0,0,0,.75), 0 0 45px rgba(255,50,0,.08);
-}
-
-.updates-box::before{
-    content:"LIVE";
-    position:absolute;
-    top:20px;
-    right:70px;
-    padding:4px 8px;
-    border-radius:5px;
-    font-family:"Orbitron",sans-serif;
-    font-size:8px;
-    letter-spacing:1.5px;
-    color:#ff4d4d;
-    border: 1px solid rgba(255,50,50,.4);
-    background: rgba(255,0,0,.06);
-    box-shadow: 0 0 12px rgba(255,0,0,.12);
-}
-
-.updates-box::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:8%;
-    right:8%;
-    height:2px;
-    background: linear-gradient(90deg, transparent, #ff1744, #ff6d00, transparent);
-    box-shadow: 0 0 15px rgba(255,70,0,.5);
-}
-
-.updates-box h2{
-    font-family:"Orbitron",sans-serif;
-    color:#ff7043;
-    margin-bottom:6px;
-    padding-right:100px;
-    text-shadow: 0 0 12px rgba(255,112,67,.3);
-}
-
-.updates-subtitle{
-    color:#888;
-    font-size:12px;
-    margin-bottom:25px;
-    line-height:1.6;
-}
-
-.updates-close{
-    position:absolute;
-    top:18px;
-    right:18px;
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:50%;
-    background:rgba(255,255,255,0.08);
-    color:#ff4f81;
-    font-size:22px;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:20;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:0.3s ease;
-}
-
-.updates-close:hover{
-    background:rgba(255,50,100,0.18);
-    transform:rotate(90deg) scale(1.08);
-}
-
-#adminUpdatesContainer{
-    display:grid;
-    gap:15px;
-}
-
-.update-card{
-    position:relative;
-    padding:21px;
-    border-radius:17px;
-    background: linear-gradient(145deg, rgba(255,90,30,.075), rgba(255,255,255,.025));
-    border: 1px solid rgba(255,100,50,.20);
-    box-shadow: inset 0 0 25px rgba(255,50,0,.025);
-    transition:.3s;
-}
-
-.update-card::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:14px;
-    bottom:14px;
-    width:3px;
-    border-radius:10px;
-    background: linear-gradient(#ff1744, #ff6d00);
-    box-shadow: 0 0 10px rgba(255,70,0,.35);
-}
-
-.update-card:hover{
-    transform:translateY(-3px);
-    border-color: rgba(255,100,50,.40);
-    box-shadow: 0 12px 35px rgba(0,0,0,.25), 0 0 20px rgba(255,60,0,.06);
-}
-
-.update-card h3{
-    color:#ff7043;
-    font-family:"Orbitron",sans-serif;
-    font-size:17px;
-    margin-bottom:8px;
-    padding-left:4px;
-}
-
-.update-card p{
-    color:#ddd;
-    line-height:1.7;
-    white-space:pre-wrap;
-    font-size:14px;
-}
-
-.update-meta{
-    margin-top:13px;
-    padding-top:10px;
-    border-top: 1px solid rgba(255,255,255,.06);
-    color:#777;
-    font-size:10px;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 23, 68, 0.4);
 }
 
 /* =========================================================
    FOOTER
 ========================================================= */
-
 footer{
     padding: 20px 20px;
     text-align:center;
@@ -1481,7 +1101,6 @@ footer p{
 /* =========================================================
    REVEAL
 ========================================================= */
-
 .reveal{
     opacity:0;
     transform:translateY(40px);
@@ -1496,7 +1115,6 @@ footer p{
 /* =========================================================
    SCROLLBARS
 ========================================================= */
-
 .community-box,
 .admin-box,
 .updates-box,
@@ -1531,13 +1149,10 @@ footer p{
 /* =========================================================
    MIRROR LIGHT SWEEP
 ========================================================= */
-
 .community-btn,
 .admin-update-btn,
 .hero-button,
 .post-btn,
-.publish-btn,
-.logout-btn,
 .menu-btn,
 .social-links a,
 .menu-panel a{
@@ -1549,8 +1164,6 @@ footer p{
 .admin-update-btn::after,
 .hero-button::after,
 .post-btn::after,
-.publish-btn::after,
-.logout-btn::after,
 .menu-btn::after,
 .social-links a::after,
 .menu-panel a::after{
@@ -1571,8 +1184,6 @@ footer p{
 .admin-update-btn:hover::after,
 .hero-button:hover::after,
 .post-btn:hover::after,
-.publish-btn:hover::after,
-.logout-btn:hover::after,
 .menu-btn:hover::after,
 .social-links a:hover::after,
 .menu-panel a:hover::after{
@@ -1588,13 +1199,10 @@ footer p{
 /* =========================================================
    BUTTON SHAPE FOLLOWING EDGE GLOW
 ========================================================= */
-
 .community-btn,
 .admin-update-btn,
 .hero-button,
 .post-btn,
-.publish-btn,
-.logout-btn,
 .menu-btn,
 .social-links a,
 .menu-panel a,
@@ -1625,19 +1233,13 @@ footer p{
 }
 
 /* =========================================================
-   TABLET
+   TABLET & MOBILE MEDIA QUERIES
 ========================================================= */
-
 @media(max-width:900px){
     .players-grid{ grid-template-columns: repeat(2,1fr); }
     .gallery{ grid-template-columns: repeat(2,1fr); }
     .community-box{ padding:25px; }
-    .admin-box{ max-width:760px; }
 }
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media(max-width:650px){
     nav{ padding: 0 15px; height:70px; }
@@ -1657,8 +1259,7 @@ footer p{
     .timeline::before{ left:10px; }
     .timeline-item, .timeline-item:nth-child(even){ width:100%; left:0; text-align:left; padding-left:35px; padding-right:0; }
     .hero h1{ font-size:45px; }
-    .updates-box{ padding:22px; }
-
+    
     /* COMMUNITY MOBILE */
     .community-box{ padding:15px; border-radius:22px; }
     .community-box::after{ display:none; }
@@ -1668,34 +1269,9 @@ footer p{
     .post-card h4{ font-size:13px; padding-right:45px; }
     .post-card p{ font-size:13px; }
     .admin-community-post::before{ top:9px; right:9px; font-size:7px; padding:4px 6px; }
-
-    /* ADMIN PANEL MOBILE */
-    .admin-panel{ padding:10px; }
-    .admin-box{ max-height:94vh; padding:21px; border-radius:20px; }
-    .admin-box::before{ display:none; }
-    .admin-box h2{ font-size:20px; padding-right:40px; }
-    .admin-history-title{ font-size:12px; }
-    .admin-buttons{ flex-direction:column; }
-
-    /* UPDATES MOBILE */
-    .updates-modal{ padding:10px; }
-    .updates-box{ max-height:92vh; padding:20px; border-radius:20px; }
-    .updates-box::before{ top:15px; right:58px; }
-    .updates-box h2{ font-size:18px; padding-right:75px; }
-    .updates-subtitle{ font-size:11px; }
-    .update-card{ padding:17px; }
-    .update-card h3{ font-size:14px; }
-    .update-card p{ font-size:13px; }
-    .modal-box{ padding:24px; border-radius:20px; }
 }
 
-/* =========================================================
-   SMALL PHONE
-========================================================= */
-
 @media(max-width:650px){
-    .logo{ font-size:10px; gap:5px; letter-spacing:0; }
-    .logo-img{ width:40px; height:40px; }
     .logo span{ font-size:0; }
     .logo span::after{ content:"iQOO.TG"; font-size:12px; font-weight:800; background: linear-gradient(90deg, #00eaff, #ff00c8); -webkit-background-clip:text; background-clip:text; color:transparent; letter-spacing:.5px; }
     .hero-small{ font-size:11px; letter-spacing:3px; }
@@ -1704,226 +1280,403 @@ footer p{
     .section-title span{ font-size:11px; letter-spacing:3px; }
 }
 
+
 /* =========================================================
-   TG ADMIN UPDATE - SOCIAL POST DESIGN
+   INSTAGRAM STYLE FEED - PREMIUM GAMING UI (FOR ADMIN UPDATES)
 ========================================================= */
 
-.tg-admin-post{
-    position:relative;
-    width:100%;
-    margin:18px 0;
-    padding:20px;
-    background: linear-gradient(145deg, rgba(255,0,60,.12), rgba(10,10,25,.88) 45%, rgba(255,70,0,.06));
-    border:1px solid rgba(255,0,70,.38);
-    border-radius:18px;
-    box-shadow: 0 0 12px rgba(255,0,70,.12), 0 0 30px rgba(255,0,70,.07), inset 0 0 25px rgba(255,0,70,.035);
-    overflow:hidden;
-    transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+/* Main Post Card */
+.tg-admin-post {
+    position: relative;
+    width: 100%;
+    margin: 0 0 24px 0;
+    padding: 0;
+    background: #000000; /* Pure dark mode like Instagram */
+    border: 1px solid #262626; /* Subtle Insta border */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: transform .3s ease;
 }
 
-.tg-admin-post::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:8%;
-    right:8%;
-    height:1px;
-    background: linear-gradient(90deg, transparent, rgba(255,50,90,.9), transparent);
-    box-shadow: 0 0 8px rgba(255,0,70,.7);
+/* Post Header (Avatar & Name) */
+.tg-admin-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    background: #000000;
 }
 
-.tg-admin-post:hover{
-    transform:translateY(-3px);
-    border-color: rgba(255,40,90,.75);
-    box-shadow: 0 0 15px rgba(255,0,70,.25), 0 0 40px rgba(255,0,70,.12), inset 0 0 30px rgba(255,0,70,.05);
+.tg-admin-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #000;
+    padding: 2px;
+    /* Instagram Story style gradient ring */
+    border: 2px solid transparent;
+    background: linear-gradient(#000, #000) padding-box, 
+                linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) border-box;
 }
 
-.tg-admin-header{ display:flex; align-items:center; gap:12px; }
-
-.tg-admin-avatar{
-    width:48px; height:48px; flex-shrink:0; border-radius:50%; object-fit:cover;
-    border:2px solid rgba(255,50,90,.8); background:#080810;
-    box-shadow: 0 0 8px rgba(255,0,70,.5), 0 0 18px rgba(255,0,70,.2);
+.tg-admin-user {
+    min-width: 0;
+    flex: 1;
+    margin-left: 12px;
 }
 
-.tg-admin-user{ min-width:0; flex:1; }
-
-.tg-admin-name-row{ display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
-
-.tg-admin-name{
-    color:#fff; font-family:"Orbitron",sans-serif; font-size:14px; font-weight:800;
-    letter-spacing:.4px; text-shadow: 0 0 8px rgba(255,255,255,.15);
+.tg-admin-name-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.tg-admin-verified{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:17px; height:17px; border-radius:50%; font-size:10px; font-weight:900;
-    color:#fff; background: linear-gradient(135deg, #ff1744, #ff6d00);
-    box-shadow: 0 0 8px rgba(255,40,70,.45);
+.tg-admin-name {
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.tg-admin-badge{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:3px 7px; border-radius:5px; font-family:"Orbitron",sans-serif;
-    font-size:8px; font-weight:800; letter-spacing:1px; color:#ff6685;
-    border:1px solid rgba(255,0,70,.5); background: rgba(255,0,70,.08);
-    box-shadow: 0 0 7px rgba(255,0,70,.2);
+.tg-admin-verified, .tg-admin-badge {
+    display: none; /* Hidden for clean Instagram look */
 }
 
-.tg-admin-time{ margin-top:3px; color:#777; font-size:10px; font-family:"Poppins",sans-serif; }
-
-.tg-admin-content{ margin-top:18px; }
-
-.tg-admin-title{
-    margin:0; color:#ff426b; font-family:"Orbitron",sans-serif; font-size:16px; font-weight:800;
-    line-height:1.45; letter-spacing:.5px; text-shadow: 0 0 8px rgba(255,0,70,.55), 0 0 18px rgba(255,0,70,.18);
+.tg-admin-time {
+    color: #a8a8a8;
+    font-size: 11px;
+    font-family: "Poppins", sans-serif;
+    margin-top: 2px;
 }
 
-.tg-admin-text{
-    margin-top:10px; color:#e4e4e4; font-family:"Poppins",sans-serif; font-size:14px;
-    line-height:1.75; white-space:pre-wrap; word-break:break-word;
+/* Post Content Area (Acting as the Image/Banner) */
+.tg-admin-content {
+    margin-top: 0;
+    padding: 50px 25px;
+    /* Premium gaming gradient background for text posts */
+    background: linear-gradient(135deg, #0b0c10, #1f2833);
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.tg-admin-actions{
-    display:flex; align-items:center; margin-top:17px; padding-top:12px;
-    border-top: 1px solid rgba(255,255,255,.07);
+.tg-admin-title {
+    margin: 0 0 12px 0;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-shadow: 0 0 10px rgba(0, 234, 255, 0.4);
 }
 
-.tg-like-btn{
-    display:inline-flex; align-items:center; gap:7px; padding:6px 10px; border:none; outline:none;
-    border-radius:10px; cursor:pointer; background:transparent; color:#999;
-    font-family:"Poppins",sans-serif; font-size:13px; font-weight:600;
-    transition: background .2s ease, color .2s ease, transform .15s ease;
+.tg-admin-text {
+    margin: 0;
+    color: #d1d5db;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
-.tg-like-btn:hover{ background: rgba(255,0,70,.09); color:#ff6685; }
-.tg-like-btn:active{ transform:scale(.92); }
-
-.tg-like-heart{
-    font-size:20px; line-height:1; display:inline-block;
-    transition: transform .2s ease, filter .2s ease;
+/* Action Area (Like Section) */
+.tg-admin-actions {
+    display: flex;
+    flex-direction: column; /* Stack heart and like count */
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: #000000;
 }
 
-.tg-like-btn:hover .tg-like-heart{ transform:scale(1.12); }
-.tg-like-btn.liked{ color:#ff4169; }
-.tg-like-btn.liked .tg-like-heart{ filter: drop-shadow(0 0 5px rgba(255,30,70,.75)); animation: tgHeartPop .25s ease; }
-
-@keyframes tgHeartPop{ 0%{ transform:scale(.75); } 60%{ transform:scale(1.3); } 100%{ transform:scale(1); } }
-.tg-like-count{ min-width:20px; }
-
-.tg-admin-delete{
-    margin-left:auto; padding:6px 10px; border: 1px solid rgba(255,0,50,.35);
-    border-radius:8px; background: rgba(255,0,50,.06); color:#ff5575;
-    font-family:"Orbitron",sans-serif; font-size:8px; font-weight:700;
-    letter-spacing:.8px; cursor:pointer; transition:.2s ease;
+.tg-like-btn {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.tg-admin-delete:hover{
-    color:#fff; background: rgba(255,0,50,.18); border-color: rgba(255,0,50,.7);
-    box-shadow: 0 0 10px rgba(255,0,50,.2);
+.tg-like-heart {
+    font-size: 26px;
+    color: transparent;
+    -webkit-text-stroke: 2px #ffffff; /* Outlined heart by default */
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s;
 }
 
-@media(max-width:600px){
-    .tg-admin-post{ padding:16px; border-radius:16px; }
-    .tg-admin-avatar{ width:43px; height:43px; }
-    .tg-admin-name{ font-size:12px; }
-    .tg-admin-title{ font-size:14px; }
-    .tg-admin-text{ font-size:13px; line-height:1.7; }
-    .tg-admin-content{ margin-top:15px; }
-    .tg-admin-badge{ font-size:7px; padding:3px 6px; }
-    .tg-admin-time{ font-size:9px; }
+.tg-like-btn.liked .tg-like-heart {
+    color: #ff3040; /* Insta Red */
+    -webkit-text-stroke: 0px;
+    animation: tgHeartPop 0.3s ease;
+}
+
+@keyframes tgHeartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.tg-like-count {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 8px;
+}
+
+.tg-like-count::after {
+    content: " likes";
+}
+
+/* Admin Delete Button (Moved to Top Right like Insta 3-dots menu) */
+.tg-admin-delete {
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: #ff4d4d;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.tg-admin-delete:hover {
+    background: rgba(255, 77, 77, 0.1);
 }
 
 /* =========================================
-   TWITTER STYLE ADMIN PANEL
+   INSTAGRAM STYLE ADMIN COMPOSER / PANEL
 ========================================= */
-
-.twitter-admin-box{ position:relative; padding:0 !important; overflow:hidden; }
-
-.twitter-admin-box .updates-close{
-    position:absolute !important; top:16px !important; right:16px !important;
-    width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important;
-    padding:0 !important; margin:0 !important; display:flex !important;
-    align-items:center !important; justify-content:center !important; z-index:20; border-radius:50% !important;
+.admin-panel{
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,.86);
+    backdrop-filter:blur(14px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:5000;
 }
 
-.twitter-admin-header{ padding:24px 70px 18px 24px; border-bottom:1px solid rgba(255,255,255,0.08); }
-.twitter-admin-label{ font-size:10px; letter-spacing:3px; color:#ff3030; font-weight:700; }
-.twitter-admin-header h2{ margin:4px 0 0; font-size:24px; letter-spacing:1px; }
-.twitter-admin-user{ padding:10px 24px; font-size:12px; color:#888; }
+.admin-panel.show{
+    opacity:1;
+    visibility:visible;
+}
 
-.twitter-composer{ display:flex; gap:14px; padding:20px 24px; }
-.twitter-avatar{ width:48px; height:48px; min-width:48px; border-radius:50%; overflow:hidden; border:2px solid rgba(255,40,40,0.5); background:#090912; }
-.twitter-avatar img{ width:100%; height:100%; object-fit:contain; }
-.twitter-composer-content{ flex:1; min-width:0; }
-.twitter-profile-name{ display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
-.twitter-profile-name strong{ font-size:14px; }
-.twitter-profile-name span{ font-size:11px; color:#ff3b3b; }
+.admin-box{
+    position:relative;
+    width:100%;
+    max-width:720px;
+    max-height:90vh;
+    overflow-y:auto;
+    scrollbar-width:thin;
+}
 
-.twitter-composer-content input{ width:100%; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.12); outline:none; color:white; font-size:17px; font-weight:700; padding:10px 0; }
-.twitter-composer-content input::placeholder{ color:#777; }
-.twitter-composer-content textarea{ width:100%; min-height:90px; resize:vertical; background:transparent; border:none; outline:none; color:#ddd; font-size:14px; line-height:1.6; padding:12px 0; }
-.twitter-composer-content textarea::placeholder{ color:#777; }
-.twitter-composer-footer{ display:flex; justify-content:flex-end; padding-top:8px; }
-.twitter-publish-btn{ border-radius:999px !important; padding:10px 20px !important; font-size:12px !important; }
+.twitter-admin-box {
+    background: #000000 !important;
+    border: 1px solid #262626 !important;
+    border-radius: 16px !important;
+    padding: 0 !important;
+}
 
-.twitter-divider{ height:1px; background:rgba(255,255,255,0.10); width:100%; }
-.twitter-feed-title{ padding:18px 24px 12px; font-size:13px; font-weight:700; letter-spacing:1px; color:#ff4242; }
-.twitter-feed{ padding:0 !important; }
+.twitter-admin-box .updates-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-.twitter-feed .admin-history-card{ position:relative; display:flex; gap:14px; padding:20px 24px; margin:0 !important; border:none !important; border-top:1px solid rgba(255,255,255,0.08) !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; transition:background 0.25s ease; }
-.twitter-feed .admin-history-card:hover{ background:rgba(255,255,255,0.025) !important; }
-.twitter-feed .admin-history-card::before{ content:""; flex:0 0 44px; width:44px; height:44px; border-radius:50%; background-image:url("tg-logo.png"); background-size:contain; background-position:center; background-repeat:no-repeat; border:1px solid rgba(255,50,50,0.4); }
-.twitter-feed .admin-history-card h4{ margin:0 0 7px !important; padding:0 !important; color:white; font-size:15px; line-height:1.4; }
-.twitter-feed .admin-history-card p{ margin:0 0 10px !important; color:#ddd; font-size:14px; line-height:1.6; }
-.twitter-feed .admin-history-card small{ display:block; color:#777; font-size:11px; margin-top:6px; }
-.twitter-feed .admin-history-card button{ margin-top:12px !important; border-radius:999px !important; }
+.twitter-admin-header {
+    padding: 16px !important;
+    border-bottom: 1px solid #262626 !important;
+    text-align: center;
+}
 
-.twitter-admin-message{ padding:0 24px; text-align:center; font-size:13px; }
-.twitter-admin-footer{ padding:18px 24px; border-top:1px solid rgba(255,255,255,0.08); display:flex; justify-content:flex-end; }
-.twitter-admin-footer .logout-btn{ border-radius:999px !important; }
+.twitter-admin-header h2 {
+    font-size: 18px !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    margin: 0 !important;
+}
 
+.twitter-admin-label, .twitter-admin-user { display: none !important; }
+
+/* The New Post Box */
+.twitter-composer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px !important;
+    gap: 12px !important;
+}
+
+.twitter-composer .twitter-avatar { display: none; }
+.twitter-profile-name { display: none; }
+
+.twitter-composer-content input, 
+.twitter-composer-content textarea {
+    background: #111111 !important;
+    border: 1px solid #262626 !important;
+    border-radius: 8px !important;
+    padding: 14px !important;
+    color: #ffffff !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px !important;
+    width: 100%;
+    outline: none;
+}
+
+.twitter-composer-content textarea {
+    min-height: 100px !important;
+    resize: vertical;
+}
+
+.twitter-composer-footer {
+    padding-top: 10px !important;
+}
+
+/* Blue Insta Publish Button */
+.twitter-publish-btn {
+    width: 100% !important;
+    background: #0095f6 !important; /* Instagram Blue */
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    box-shadow: none !important;
+    border: none !important;
+    cursor: pointer;
+    transition: background 0.2s !important;
+}
+
+.twitter-publish-btn:hover {
+    background: #1877f2 !important;
+    transform: none !important;
+}
+
+/* Admin Updates User Modal Container */
+.updates-modal{
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,.84);
+    backdrop-filter:blur(13px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:4500;
+}
+
+.updates-modal.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.updates-box {
+    position:relative;
+    width:100%;
+    max-width:720px;
+    max-height:87vh;
+    overflow-y:auto;
+    padding:32px;
+    border-radius:16px;
+    background: #000000 !important;
+    border: 1px solid #262626 !important;
+}
+
+.updates-box h2 {
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600 !important;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.updates-subtitle { display: none; }
+
+.updates-close{
+    position:absolute;
+    top:18px;
+    right:18px;
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Hide Twitter extra divs */
+.twitter-feed-title { display: none; }
+.twitter-divider { display: none; }
+.twitter-admin-footer { 
+    border-top: 1px solid #262626 !important; 
+    padding: 15px; 
+    display: flex; 
+    justify-content: center;
+}
+
+.twitter-admin-footer .logout-btn {
+    background: transparent !important;
+    border: 1px solid #262626 !important;
+    color: #fff !important;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Mobile Tweaks for Admin/Insta Feed */
 @media(max-width:600px){
-    .twitter-admin-header{ padding:20px 65px 16px 18px; }
-    .twitter-composer{ padding:16px 18px; gap:10px; }
-    .twitter-avatar{ width:40px; height:40px; min-width:40px; }
-    .twitter-feed .admin-history-card{ padding:18px; gap:10px; }
-    .twitter-feed .admin-history-card::before{ flex-basis:38px; width:38px; height:38px; }
+    .tg-admin-content {
+        padding: 40px 16px;
+        min-height: 200px;
+    }
+    .tg-admin-title { font-size: 18px; }
+    .tg-admin-text { font-size: 14px; }
+    .twitter-composer { padding: 16px !important; }
+    .updates-box { padding: 20px; }
 }
 
-@media (max-width: 600px){
-    .twitter-admin-box{ width:100% !important; max-width:100% !important; margin:0 !important; border-radius:0 !important; }
-    .twitter-admin-header{ padding:18px 58px 15px 16px !important; }
-    .twitter-admin-header h2{ font-size:19px !important; margin-top:3px !important; }
-    .twitter-admin-label{ font-size:8px !important; letter-spacing:2px !important; }
-    .twitter-admin-box .updates-close{ top:12px !important; right:12px !important; width:34px !important; height:34px !important; min-width:34px !important; min-height:34px !important; font-size:14px !important; }
-    .twitter-admin-user{ padding:8px 16px !important; font-size:11px !important; }
-    .twitter-composer{ padding:16px !important; gap:10px !important; }
-    .twitter-avatar{ width:40px !important; height:40px !important; min-width:40px !important; }
-    .twitter-profile-name{ gap:5px !important; margin-bottom:8px !important; }
-    .twitter-profile-name strong{ font-size:12px !important; }
-    .twitter-profile-name span{ font-size:9px !important; }
-    .twitter-composer-content input{ font-size:15px !important; padding:8px 0 !important; }
-    .twitter-composer-content textarea{ min-height:75px !important; font-size:13px !important; padding:9px 0 !important; line-height:1.5 !important; }
-    .twitter-publish-btn{ padding:9px 15px !important; font-size:10px !important; white-space:nowrap !important; }
-    .twitter-feed-title{ padding:14px 16px 10px !important; font-size:11px !important; }
-    .twitter-feed .admin-history-card{ padding:15px 16px !important; gap:10px !important; grid-template-columns:38px minmax(0,1fr) !important; }
-    .twitter-feed .admin-history-card::before{ width:38px !important; height:38px !important; flex-basis:38px !important; }
-    .twitter-feed .admin-history-card h4{ font-size:13px !important; line-height:1.35 !important; }
-    .twitter-feed .admin-history-card p{ font-size:12px !important; line-height:1.5 !important; }
-    .twitter-feed .admin-history-card small{ font-size:9px !important; }
-    .twitter-feed .admin-history-card button{ font-size:9px !important; padding:7px 12px !important; }
-    .twitter-admin-message{ padding:0 16px !important; font-size:11px !important; }
-    .twitter-admin-footer{ padding:14px 16px !important; }
-    .twitter-admin-footer .logout-btn{ font-size:10px !important; padding:8px 15px !important; }
-}
-
-@media (max-width:500px){
-    .twitter-avatar{ width:32px !important; height:32px !important; min-width:32px !important; max-width:32px !important; }
-    .twitter-avatar img{ width:100% !important; height:100% !important; object-fit:contain !important; }
-    .twitter-feed .admin-history-card::before{ width:32px !important; height:32px !important; flex-basis:32px !important; min-width:32px !important; }
-}
-
-#adminPostText { height: 45px !important; min-height: 45px !important; }
-#adminHistoryContainer { max-height: 60vh !important; overflow-y: auto !important; display: block !important; }
-#adminHistoryContainer .tg-admin-post { flex-shrink: 0 !important; }
+#adminPostText { height: 100px !important; min-height: 100px !important; }
+#adminHistoryContainer { max-height: 55vh !important; overflow-y: auto !important; }
