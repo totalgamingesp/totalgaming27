@@ -263,25 +263,58 @@ nav::after{
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding: 100px 20px 60px;
+    padding: 110px 20px 60px;
     position:relative;
 }
 
 .hero-content{
     max-width:1000px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
-.hero-small{
-    font-size:15px;
-    letter-spacing:6px;
-    color:#00eaff;
-    margin-bottom:20px;
-    text-transform:uppercase;
+/* 2ND IMAGE STYLE: HERO PILL TAG WITH GREEN GLOW DOT */
+.hero-pill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 22px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 234, 255, 0.45);
+    background: rgba(0, 234, 255, 0.05);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.15), inset 0 0 10px rgba(0, 234, 255, 0.05);
+    margin-bottom: 22px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.hero-pill-tag span:last-child {
+    font-family: "Orbitron", sans-serif;
+    font-size: 11px;
+    letter-spacing: 3.5px;
+    color: #c7d2fe;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+    animation: greenPulse 2s infinite;
+}
+
+@keyframes greenPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
 }
 
 .hero h1{
     font-family:"Orbitron",sans-serif;
-    font-size: clamp(45px, 8vw, 100px);
+    font-size: clamp(45px, 8vw, 95px);
     line-height:1.05;
     background: linear-gradient(90deg, #00eaff, #ffffff, #ff00c8, #00eaff);
     background-size:300%;
@@ -297,31 +330,98 @@ nav::after{
 }
 
 .hero p{
-    margin-top:25px;
+    margin-top:20px;
     color:#c7c7d8;
-    font-size:17px;
+    font-size:16px;
     max-width:700px;
-    margin-left:auto;
-    margin-right:auto;
+    line-height: 1.6;
+}
+
+/* FAN-MADE SUBTLE DISCLAIMER TAG */
+.fan-made-badge {
+    margin-top: 14px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    color: #94a3b8;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    display: inline-block;
+}
+
+/* HERO ACTIONS (MEET THE PLAYERS + CENTERED SOCIAL DOCK BELOW) */
+.hero-actions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
 }
 
 .hero-button{
     display:inline-block;
-    margin-top:35px;
-    padding: 14px 30px;
+    padding: 13px 32px;
     border-radius:50px;
     text-decoration:none;
     color:white;
-    font-weight:600;
+    font-weight:700;
+    font-size: 13.5px;
+    letter-spacing: 0.5px;
     background: linear-gradient(90deg, #0077ff, #d900ff);
-    border:1px solid rgba(255,255,255,.12);
-    box-shadow: 0 0 20px rgba(0,119,255,.20);
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow: 0 0 20px rgba(0,119,255,.25);
     transition:.3s;
 }
 
 .hero-button:hover{
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 0 30px rgba(0,234,255,.25), 0 0 50px rgba(217,0,255,.18);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 30px rgba(0,234,255,.35), 0 0 50px rgba(217,0,255,.22);
+}
+
+/* COMPACT PROPORTIONAL SOCIAL DOCK (UNDER BUTTON) */
+.hero-social-dock {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 4px 10px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.social-icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.social-icon-btn.yt-btn:hover {
+    background: rgba(255, 0, 51, 0.25);
+    border-color: #ff0033;
+    color: #ff3355;
+    transform: translateY(-2px) scale(1.08);
+    box-shadow: 0 0 14px rgba(255, 0, 51, 0.6);
+}
+
+.social-icon-btn.wp-btn:hover {
+    background: rgba(37, 211, 102, 0.25);
+    border-color: #25d366;
+    color: #25d366;
+    transform: translateY(-2px) scale(1.08);
+    box-shadow: 0 0 14px rgba(37, 211, 102, 0.6);
 }
 
 /* =========================================================
@@ -857,7 +957,7 @@ section{
 }
 
 /* =========================================================
-   PREMIUM GAMING GOOGLE LOGIN & PROFILE MODAL (DARK & ROUNDED)
+   PREMIUM GAMING GOOGLE LOGIN & PROFILE MODAL
 ========================================================= */
 .modal{
     position:fixed;
@@ -1223,7 +1323,6 @@ footer p{
     opacity:1;
 }
 
-/* Edge glow lock strictly inside publish button */
 .twitter-publish-btn .tg-edge-glow{
     position:absolute !important;
     inset:0 !important;
@@ -1260,6 +1359,46 @@ footer p{
     .timeline-item, .timeline-item:nth-child(even){ width:100%; left:0; text-align:left; padding-left:35px; padding-right:0; }
     .hero h1{ font-size:45px; }
     
+    .hero-pill-tag {
+        padding: 5px 16px;
+        margin-bottom: 16px;
+    }
+
+    .hero-pill-tag span:last-child {
+        font-size: 9.5px;
+        letter-spacing: 2px;
+    }
+
+    .pulse-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .fan-made-badge {
+        font-size: 10px;
+        padding: 4px 10px;
+    }
+
+    .hero-actions-container {
+        gap: 12px;
+        margin-top: 22px;
+    }
+
+    .hero-social-dock {
+        padding: 3px 8px;
+        gap: 8px;
+    }
+
+    .social-icon-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .social-icon-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+
     .community-box{ padding:15px; border-radius:22px; }
     .community-box::after{ display:none; }
     .community-form{ padding:15px; border-radius:16px; }
@@ -1273,16 +1412,14 @@ footer p{
 @media(max-width:650px){
     .logo span{ font-size:0; }
     .logo span::after{ content:"iQOO.TG"; font-size:12px; font-weight:800; background: linear-gradient(90deg, #00eaff, #ff00c8); -webkit-background-clip:text; background-clip:text; color:transparent; letter-spacing:.5px; }
-    .hero-small{ font-size:11px; letter-spacing:3px; }
     .hero p{ font-size:14px; }
     .section-title{ margin-bottom:40px; }
     .section-title span{ font-size:11px; letter-spacing:3px; }
 }
 
 /* =========================================================
-   INSTAGRAM STYLE FEED - PREMIUM GAMING UI (FINAL FIXES)
+   INSTAGRAM STYLE FEED - PREMIUM GAMING UI
 ========================================================= */
-
 .tg-admin-post {
     position: relative;
     width: 100%;
@@ -1624,7 +1761,6 @@ footer p{
     overflow: visible;
 }
 
-/* Glow containment inside publish button */
 .twitter-publish-btn {
     position: relative !important;
     overflow: hidden !important;
