@@ -2370,3 +2370,18 @@ footer p{
     font-weight: 600;
     box-shadow: inset 0 0 15px rgba(0, 234, 255, 0.2);
 }
+
+/* =========================================================
+   MOBILE POSITION FIX FOR AUDIO PLAYER
+========================================================= */
+@media(max-width:650px){
+    .audio-player-container {
+        top: 85px;  
+        left: 15px; 
+        transform: scale(0.9);
+    }
+    
+    .audio-list-panel {
+        width: 220px; 
+    }
+}
