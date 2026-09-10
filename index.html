@@ -35,6 +35,34 @@
     </div>
 </nav>
 
+<!-- =========================================================
+     FIXED AUDIO PLAYER (TOP LEFT)
+========================================================= -->
+<div class="audio-player-container">
+    <button class="speaker-btn" id="speakerBtn" title="Play Music">
+        <!-- Play / Mute Icon (Default) -->
+        <svg id="icon-speaker-mute" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <!-- Playing Icon (Hidden initially) -->
+        <svg id="icon-speaker-play" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+    </button>
+    <div class="audio-list-panel" id="audioListPanel">
+        <div class="audio-header">TG SOUNDTRACKS</div>
+        <ul class="audio-tracks" id="audioTracks">
+            <li data-src="rocky-booyah.mp3">🎵 TG Mange Kya</li>
+            <li data-src="delete-op.mp3">🔫 Delete Bhai OP</li>
+            <li data-src="ajju-love.mp3">🎯 AjjuBhai Love</li>
+            <li data-src="fozy-booyah.mp3">🔥 FozyBhai Dialog</li>
+        </ul>
+    </div>
+    <audio id="mainAudioPlayer"></audio>
+</div>
+
 <div class="menu-panel" id="menuPanel">
     <a href="javascript:void(0)" id="myProfileBtn">👤 My Profile</a>
     <a href="#home">🏠 Home</a>
@@ -955,6 +983,79 @@ document.querySelectorAll(".community-btn, .admin-update-btn, .menu-btn, .hero-b
         glow.classList.add("active");
     });
     el.addEventListener("mouseleave", () => glow.classList.remove("active"));
+});
+</script>
+
+<script>
+// =========================================================
+// LIGHT SWEEP / EDGE GLOW EFFECT (INCLUDING AUDIO LIST)
+// =========================================================
+document.querySelectorAll(".community-btn, .admin-update-btn, .menu-btn, .hero-button, .social-links a, .post-btn, .logout-btn, .publish-btn, .menu-panel a, .audio-tracks li").forEach(el => {
+    const glow = document.createElement("span");
+    glow.className = "tg-edge-glow";
+    el.appendChild(glow);
+    el.addEventListener("mousemove", e => {
+        const rect = el.getBoundingClientRect();
+        const angle = Math.atan2(e.clientY - (rect.top + rect.height/2), e.clientX - (rect.left + rect.width/2)) * 180 / Math.PI + 90;
+        glow.style.setProperty("--edge-angle", angle + "deg");
+        glow.classList.add("active");
+    });
+    el.addEventListener("mouseleave", () => glow.classList.remove("active"));
+});
+
+// =========================================================
+// AUDIO PLAYER LOGIC & SVG ICON TOGGLE
+// =========================================================
+const speakerBtn = document.getElementById('speakerBtn');
+const audioListPanel = document.getElementById('audioListPanel');
+const audioTracks = document.querySelectorAll('.audio-tracks li');
+const mainAudioPlayer = document.getElementById('mainAudioPlayer');
+
+const muteIcon = document.getElementById('icon-speaker-mute');
+const playIcon = document.getElementById('icon-speaker-play');
+
+speakerBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); 
+    audioListPanel.classList.toggle('show');
+    speakerBtn.classList.toggle('active');
+});
+
+document.addEventListener('click', (e) => {
+    if (!speakerBtn.contains(e.target) && !audioListPanel.contains(e.target)) {
+        audioListPanel.classList.remove('show');
+        speakerBtn.classList.remove('active');
+    }
+});
+
+audioTracks.forEach(track => {
+    track.addEventListener('click', function() {
+        const src = this.getAttribute('data-src');
+
+        if (this.classList.contains('playing')) {
+            mainAudioPlayer.pause();
+            this.classList.remove('playing');
+            muteIcon.style.display = 'block';
+            playIcon.style.display = 'none';
+            return;
+        }
+
+        audioTracks.forEach(t => t.classList.remove('playing'));
+        this.classList.add('playing');
+        
+        muteIcon.style.display = 'none';
+        playIcon.style.display = 'block';
+        
+        mainAudioPlayer.src = src;
+        mainAudioPlayer.play().catch(error => {
+            console.log("Audio play failed:", error);
+        });
+    });
+});
+
+mainAudioPlayer.addEventListener('ended', () => {
+    audioTracks.forEach(t => t.classList.remove('playing'));
+    muteIcon.style.display = 'block';
+    playIcon.style.display = 'none';
 });
 </script>
 

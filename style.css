@@ -2268,3 +2268,105 @@ footer p{
         color: #ffffff !important;
     }
 }
+
+/* =========================================================
+   FIXED AUDIO PLAYER STYLES (PREMIUM)
+========================================================= */
+.audio-player-container {
+    position: fixed;
+    top: 90px;
+    left: 40px;
+    z-index: 999;
+}
+
+.speaker-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #00eaff; /* Cyan Theme Background */
+    border: 2px solid rgba(0, 234, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.speaker-btn:hover, .speaker-btn.active {
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.8), 0 0 45px rgba(0, 234, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.audio-list-panel {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 200px;
+    background: linear-gradient(145deg, rgba(12,12,35,.98), rgba(5,7,25,.97));
+    border: 1px solid rgba(0, 234, 255, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    padding: 14px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0,234,255,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+    transition: all 0.3s ease;
+}
+
+.audio-list-panel.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.audio-header {
+    font-family: "Orbitron", sans-serif;
+    font-size: 13px;
+    color: #00eaff;
+    text-align: center;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed rgba(0, 234, 255, 0.2);
+    letter-spacing: 1.5px;
+}
+
+.audio-tracks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.audio-tracks li {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden; /* Important for edge glow */
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #ccc;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.audio-tracks li:hover {
+    color: #fff;
+    background: rgba(0, 234, 255, 0.08);
+    border-color: rgba(0, 234, 255, 0.3);
+    transform: translateX(4px);
+}
+
+.audio-tracks li.playing {
+    background: rgba(0, 234, 255, 0.15);
+    color: #00eaff;
+    border: 1px solid rgba(0, 234, 255, 0.8);
+    font-weight: 600;
+    box-shadow: inset 0 0 15px rgba(0, 234, 255, 0.2);
+}
