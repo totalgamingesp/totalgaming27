@@ -738,6 +738,323 @@ section{
 }
 
 /* =========================================================
+   SUPPORT & DONATION SECTION (CYBER GLOW THEME)
+========================================================= */
+.support-section {
+    padding: 80px 7% 60px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 5;
+}
+
+.support-card {
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 30px;
+    border-radius: 28px;
+    background: linear-gradient(165deg, rgba(20, 24, 48, 0.88), rgba(8, 10, 24, 0.94));
+    border: 1px solid rgba(0, 234, 255, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 234, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.support-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00eaff, #ff00c8, transparent);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.8);
+}
+
+.support-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 50px;
+    background: rgba(255, 0, 200, 0.12);
+    border: 1px solid rgba(255, 0, 200, 0.4);
+    color: #ff33bb;
+    font-family: "Orbitron", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.support-card h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    background: linear-gradient(90deg, #ffffff, #00eaff, #ff00c8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 14px;
+}
+
+.support-tagline {
+    color: #c7c7d8;
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto 28px;
+}
+
+/* QR Code Container with subtle hover */
+.qr-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 22px;
+    transition: transform 0.25s ease;
+}
+
+.qr-container:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+.qr-glow-wrapper {
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00eaff;
+}
+
+.qr-image {
+    width: 230px;
+    height: 230px;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+}
+
+.qr-hint {
+    color: #00eaff;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Supported Apps Row */
+.supported-apps {
+    margin-bottom: 25px;
+}
+
+.supported-apps span {
+    font-size: 12px;
+    color: #8f8f9f;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.apps-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.app-pill {
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+/* Dual Language Disclaimer in Card */
+.support-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px dashed rgba(255, 255, 255, 0.16);
+}
+
+.disclaimer-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.disclaimer-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.disclaimer-text-group p {
+    color: #cbd5e1;
+    font-size: 11.5px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.disclaimer-text-group .disclaimer-en {
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+/* =========================================================
+   LARGE POPUP MODAL (ZOOMED QR + BIG DUAL DISCLAIMER)
+========================================================= */
+.qr-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 20px;
+}
+
+.qr-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.qr-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 5, 15, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.qr-modal-content {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(160deg, #13172e, #090b18);
+    border: 1.5px solid rgba(0, 234, 255, 0.4);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 234, 255, 0.25);
+    border-radius: 26px;
+    padding: 35px 28px 25px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.qr-modal.show .qr-modal-content {
+    transform: scale(1);
+}
+
+.qr-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-modal-close:hover {
+    background: #ff1744;
+    transform: rotate(90deg);
+}
+
+.modal-header-tag {
+    font-family: "Orbitron", sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #00eaff;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+/* Very Big QR Frame inside Modal */
+.modal-qr-frame {
+    display: inline-flex;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 35px rgba(0, 234, 255, 0.5);
+    border: 3px solid #00eaff;
+    margin-bottom: 15px;
+}
+
+.modal-qr-img {
+    width: 310px;
+    height: 310px;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+}
+
+.modal-pay-instruction {
+    color: #a5b4fc;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Prominent & Large Disclaimer in Modal */
+.modal-disclaimer-box {
+    text-align: left;
+    background: rgba(255, 23, 68, 0.08);
+    border: 1px solid rgba(255, 23, 68, 0.35);
+    border-left: 4px solid #ff1744;
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+
+.modal-disclaimer-box h4 {
+    color: #ff4d6d;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.modal-disclaimer-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-disclaimer-body p {
+    color: #f1f5f9;
+    font-size: 12px;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.modal-disclaimer-body strong {
+    color: #ff4d6d;
+}
+
+/* =========================================================
    COMMUNITY - PREMIUM
 ========================================================= */
 #community{
@@ -1397,6 +1714,34 @@ footer p{
     .social-icon-btn svg {
         width: 14px;
         height: 14px;
+    }
+
+    /* Support Mobile Resizing */
+    .support-section {
+        padding: 60px 18px 40px;
+    }
+
+    .support-card {
+        padding: 28px 18px;
+        border-radius: 22px;
+    }
+
+    .qr-image {
+        width: 190px;
+        height: 190px;
+    }
+
+    .modal-qr-img {
+        width: 240px;
+        height: 240px;
+    }
+
+    .qr-modal-content {
+        padding: 28px 18px 20px;
+    }
+
+    .modal-disclaimer-body p {
+        font-size: 11px;
     }
 
     .community-box{ padding:15px; border-radius:22px; }

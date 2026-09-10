@@ -41,6 +41,7 @@
     <a href="#players">👥 Players</a>
     <a href="#about">🏆 Team</a>
     <a href="#gallery">🖼 Gallery</a>
+    <a href="#support">☕ Support Us</a>
     <a href="community.html">💬 Fan Community</a>
     <a href="javascript:void(0)" id="menuAdminUpdatesBtn">❤️‍🔥 ADMIN UPDATES</a>
 </div>
@@ -334,6 +335,94 @@
     </div>
 </section>
 
+<!-- =========================================================
+     SUPPORT / DONATION SECTION
+========================================================= -->
+<section id="support" class="support-section reveal">
+    <div class="support-card">
+        <div class="support-badge">☕ FUEL THE GRIND</div>
+        <h2>Support This Fan Project</h2>
+        <p class="support-tagline">
+            Agar aapko yeh website aur TG community pasand aayi, toh mujhe motivate karne ke liye 1 cup chai donate kar sakte ho! Har chhota support is site ko live & updated rakhne me help karega.
+        </p>
+        <!-- QR Box (Clickable to Zoom) -->
+        <div class="qr-container" id="qrTrigger" title="Click to enlarge QR Code">
+            <div class="qr-glow-wrapper">
+                <img src="my-qr.png" alt="Scan to Support" class="qr-image" id="mainQrImg">
+            </div>
+            <span class="qr-hint">🔍 Tap to Zoom QR</span>
+        </div>
+
+        <!-- COPYABLE UPI ID (NEW) -->
+        <div class="upi-id-box upi-copy-btn" title="Click to copy UPI ID">
+            <span class="upi-label">UPI ID:</span>
+            <span class="upi-text">tguniverse27@oksbi</span>
+        </div>
+
+        <!-- Payment Apps Supported Tag -->
+        <div class="supported-apps">
+            <span>Scan with any UPI App:</span>
+            <div class="apps-badges">
+                <span class="app-pill">GPay</span>
+                <span class="app-pill">PhonePe</span>
+                <span class="app-pill">Paytm</span>
+                <span class="app-pill">BHIM / Any UPI</span>
+            </div>
+        </div>
+
+        <!-- Normal Card Dual-Language Disclaimer -->
+        <div class="support-disclaimer">
+            <span class="disclaimer-icon">⚠️</span>
+            <div class="disclaimer-text-group">
+                <p>
+                    <strong>हिंदी:</strong> यह पेमेंट किसी भी Total Gaming प्लेयर या ऑफिशियल टीम के पास नहीं जाएगी। यह डोनेशन सीधे <strong>वेब डिज़ाइनर / डेवलपर</strong> को सपोर्ट और मोटिवेशन के लिए जाएगी।
+                </p>
+                <p class="disclaimer-en">
+                    <strong>English:</strong> This QR does NOT belong to any official Total Gaming player or organisation. All donations go directly to the <strong>@TG.Universe-07</strong> to Motivate & support development.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     FULLSCREEN QR ZOOM MODAL (LARGE QR + UPI + PROMINENT DISCLAIMER)
+========================================================= -->
+<div class="qr-modal" id="qrModal">
+    <div class="qr-modal-backdrop" id="qrModalBackdrop"></div>
+    <div class="qr-modal-content">
+        <button class="qr-modal-close" id="qrModalClose">✖</button>
+        <div class="modal-header-tag">SCAN TO PAY ANY AMOUNT</div>
+        
+        <div class="modal-qr-frame">
+            <img src="my-qr.png" alt="Scan QR Enlarge" class="modal-qr-img">
+        </div>
+
+        <!-- COPYABLE UPI ID IN MODAL (NEW) -->
+        <div class="upi-id-box modal-upi-box upi-copy-btn" title="Click to copy UPI ID">
+            <span class="upi-label">UPI ID:</span>
+            <span class="upi-text">tguniverse27@oksbi</span>
+        </div>
+
+        <div class="modal-pay-instruction">
+            <span>Accepting all UPI Apps • PhonePe • GPay • Paytm</span>
+        </div>
+
+        <!-- Enforced Large Prominent Bilingual Disclaimer in Modal -->
+        <div class="modal-disclaimer-box">
+            <h4>⚠️ महत्वपूर्ण सूचना / IMPORTANT DISCLAIMER</h4>
+            <div class="modal-disclaimer-body">
+               <p>
+                    🔴 <strong>HINDI:</strong> यह QR कोड किसी भी ऑफिशियल TG प्लेयर का नहीं है। यह पेमेंट सीधे इस वेबसाइट के <strong>@TG.Universe-07</strong> को व्यक्तिगत मोटिवेशन के लिए जाएगी। यह पूरी तरह से स्वैच्छिक (आपकी मर्ज़ी से) सपोर्ट है।
+                </p>
+                <p>
+                    🔴 <strong>ENGLISH:</strong> This QR does NOT belong to any official Total Gaming player or organisation. All donations go directly to the <strong>@TG.Universe-07</strong> to Motivate & support development. Purely voluntary.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- MY PROFILE MODAL -->
 <div class="modal" id="profileModal">
     <div class="modal-box">
@@ -445,6 +534,8 @@
     <p>|| © Presented By "@TG.Universe-07" ||</p>
 </footer>
 
+<!-- Toast Message Container -->
+<div class="toast" id="toast"></div>
 
 <!-- =========================
      FIREBASE + JAVASCRIPT
@@ -807,6 +898,49 @@ function changeTgBackground(){
 }
 changeTgBackground();
 setInterval(changeTgBackground, 5000);
+
+/* QR Code Enlarge Modal Logic */
+const qrTrigger = document.getElementById("qrTrigger");
+const qrModal = document.getElementById("qrModal");
+const qrModalClose = document.getElementById("qrModalClose");
+const qrModalBackdrop = document.getElementById("qrModalBackdrop");
+
+function openQrModal() {
+    if(qrModal) {
+        qrModal.classList.add("show");
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function closeQrModal() {
+    if(qrModal) {
+        qrModal.classList.remove("show");
+        document.body.style.overflow = "";
+    }
+}
+
+if(qrTrigger) qrTrigger.addEventListener("click", openQrModal);
+if(qrModalClose) qrModalClose.addEventListener("click", closeQrModal);
+if(qrModalBackdrop) qrModalBackdrop.addEventListener("click", closeQrModal);
+
+/* Copy UPI ID Logic */
+const toastEl = document.getElementById("toast");
+function showToastMessage(msg) {
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    setTimeout(() => toastEl.classList.remove("show"), 3000);
+}
+
+document.querySelectorAll('.upi-copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        navigator.clipboard.writeText("tguniverse27@oksbi").then(() => {
+            showToastMessage("✅ UPI ID Copied!");
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    });
+});
 </script>
 
 <script>
