@@ -2376,8 +2376,8 @@ footer p{
 ========================================================= */
 @media(max-width:650px){
     .audio-player-container {
-        top: 85px;  
-        left: 15px; 
+        top: 75px;  
+        left: 10px; 
         transform: scale(0.9);
     }
     
