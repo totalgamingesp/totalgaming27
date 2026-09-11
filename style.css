@@ -2292,7 +2292,7 @@ footer p{
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.5; /* Normal time par thoda chhupa hua (transparent) lagega */
+    opacity: 1; 
 }
 
 /* Jab mouse upar jayega ya gaana bajega tabhi glow aayega */
