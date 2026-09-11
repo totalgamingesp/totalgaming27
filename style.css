@@ -2377,11 +2377,11 @@ footer p{
 @media(max-width:650px){
     .audio-player-container {
         top: 75px;  
-        left: 10px; 
-        transform: scale(0.9);
+        left: 5px; 
+        transform: scale(0.7);
     }
     
     .audio-list-panel {
-        width: 220px; 
+        width: 200px; 
     }
 }
