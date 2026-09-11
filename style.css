@@ -2283,8 +2283,8 @@ footer p{
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: rgba(0, 234, 255, 0.05); /* Ekdam halka transparent background */
-    border: 1px solid rgba(0, 234, 255, 0.2); /* Halka border */
+    background: rgba(0, 234, 255, 0.15); /* Ekdam halka transparent background */
+    border: 1px solid rgba(0, 234, 255, 0.4); /* Halka border */
     box-shadow: none; /* Permanent glow hata diya */
     backdrop-filter: blur(8px); /* Glass jaisa effect */
     cursor: pointer;
@@ -2298,9 +2298,9 @@ footer p{
 /* Jab mouse upar jayega ya gaana bajega tabhi glow aayega */
 .speaker-btn:hover, .speaker-btn.active {
     opacity: 1; /* Pura clear dikhega */
-    background: rgba(0, 234, 255, 0.15);
-    border-color: rgba(0, 234, 255, 0.6);
-    box-shadow: 0 0 15px rgba(0, 234, 255, 0.4);
+    background: rgba(0, 234, 255, 0.3);
+    border-color: rgba(0, 234, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.5);
     transform: scale(1.1);
 }
 
