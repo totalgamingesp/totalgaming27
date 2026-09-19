@@ -968,6 +968,47 @@ footer p{
 .posts-container::-webkit-scrollbar-thumb{ background:rgba(255,255,255,0.1); border-radius:10px; }
 .posts-container::-webkit-scrollbar-thumb:hover{ background:#00e5ff; }
 
+/* =========================================================
+   FIXED DONATE BUTTON STYLES (TOP RIGHT)
+========================================================= */
+.donate-floating-btn {
+    position: fixed;
+    top: 90px;
+    right: 40px;
+    z-index: 999;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 0, 102, 0.15); /* Pinkish/Reddish Glow Theme */
+    border: 1px solid rgba(255, 0, 102, 0.4);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1; 
+}
+
+.donate-floating-btn:hover {
+    background: rgba(255, 0, 102, 0.3);
+    border-color: rgba(255, 0, 102, 0.8);
+    box-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
+    transform: scale(1.1);
+}
+
+@media(max-width:650px){
+    .donate-floating-btn {
+        top: 75px;  
+        right: 15px; 
+        transform: scale(0.85);
+    }
+    
+    .donate-floating-btn:hover {
+        transform: scale(0.95);
+    }
+}
 </style>
 
 </head>
@@ -985,6 +1026,15 @@ footer p{
     </div>
     <a href="index.html" class="back-btn">← BACK TO HOME</a>
 </nav>
+
+<!-- =========================================================
+     FIXED DONATE BUTTON (TOP RIGHT)
+========================================================= -->
+<button class="donate-floating-btn" id="donateFloatBtn" title="Support Developer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </svg>
+</button>
 
 <!-- =========================
      HERO
@@ -1072,6 +1122,44 @@ footer p{
     </div>
 
 </main>
+
+<!-- =========================================================
+     FLOATING BUTTON QR / DONATE MODAL
+========================================================= -->
+<div class="qr-modal" id="qrModal">
+    <div class="qr-modal-backdrop" id="qrModalBackdrop"></div>
+    <div class="qr-modal-content">
+        <button class="qr-modal-close" id="qrModalClose">✖</button>
+        <div class="modal-header-tag">SCAN TO PAY ANY AMOUNT</div>
+        
+        <div class="modal-qr-frame">
+            <img src="my-qr.png" alt="Scan QR Enlarge" class="modal-qr-img">
+        </div>
+
+        <!-- COPYABLE UPI ID IN MODAL -->
+        <div class="upi-id-box modal-upi-box upi-copy-btn" title="Click to copy UPI ID">
+            <span class="upi-label">UPI ID:</span>
+            <span class="upi-text">pijush2k6420@oksbi</span>
+        </div>
+
+        <div class="modal-pay-instruction">
+            <span>Accepting all UPI Apps • PhonePe • GPay • Paytm</span>
+        </div>
+
+        <!-- Enforced Large Prominent Bilingual Disclaimer in Modal -->
+        <div class="modal-disclaimer-box">
+            <h4>⚠️ महत्वपूर्ण सूचना / IMPORTANT DISCLAIMER</h4>
+            <div class="modal-disclaimer-body">
+               <p>
+                    🔴 <strong>HINDI:</strong> यह QR कोड किसी भी ऑफिशियल TG प्लेयर का नहीं है। यह पेमेंट सीधे इस वेबसाइट के <strong>@TG.Universe-07</strong> को व्यक्तिगत मोटिवेशन के लिए जाएगी। यह पूरी तरह से स्वैच्छिक (आपकी मर्ज़ी से) सपोर्ट है।
+                </p>
+                <p>
+                    🔴 <strong>ENGLISH:</strong> This QR does NOT belong to any official Total Gaming player or organisation. All donations go directly to the <strong>@TG.Universe-07</strong> to Motivate & support development. Purely voluntary.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- =========================
      COMPACT SLEEK FOOTER
@@ -1633,6 +1721,43 @@ function loadCommunityPosts(user){
         console.error("COMMUNITY LOAD ERROR:", error);
     });
 }
+
+/* =========================================================
+   QR MODAL LOGIC FOR COMMUNITY PAGE
+========================================================= */
+const qrModal = document.getElementById("qrModal");
+const qrModalClose = document.getElementById("qrModalClose");
+const qrModalBackdrop = document.getElementById("qrModalBackdrop");
+const donateFloatBtn = document.getElementById("donateFloatBtn");
+
+function openQrModal() {
+    if(qrModal) {
+        qrModal.classList.add("show");
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function closeQrModal() {
+    if(qrModal) {
+        qrModal.classList.remove("show");
+        document.body.style.overflow = "";
+    }
+}
+
+if(qrModalClose) qrModalClose.addEventListener("click", closeQrModal);
+if(qrModalBackdrop) qrModalBackdrop.addEventListener("click", closeQrModal);
+if(donateFloatBtn) donateFloatBtn.addEventListener("click", openQrModal);
+
+/* Copy UPI ID Logic */
+document.querySelectorAll('.upi-copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        navigator.clipboard.writeText("pijush2k6420@oksbi").then(() => {
+            showToast("✅ UPI ID Copied!");
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    });
+});
 
 </script>
 </body>

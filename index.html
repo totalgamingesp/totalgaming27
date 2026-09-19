@@ -63,6 +63,15 @@
     <audio id="mainAudioPlayer"></audio>
 </div>
 
+<!-- =========================================================
+     FIXED DONATE BUTTON (TOP RIGHT)
+========================================================= -->
+<button class="donate-floating-btn" id="donateFloatBtn" title="Support Developer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </svg>
+</button>
+
 <div class="menu-panel" id="menuPanel">
     <a href="javascript:void(0)" id="myProfileBtn">👤 My Profile</a>
     <a href="#home">🏠 Home</a>
@@ -932,6 +941,7 @@ const qrTrigger = document.getElementById("qrTrigger");
 const qrModal = document.getElementById("qrModal");
 const qrModalClose = document.getElementById("qrModalClose");
 const qrModalBackdrop = document.getElementById("qrModalBackdrop");
+const donateFloatBtn = document.getElementById("donateFloatBtn"); /* NEW BUTTON */
 
 function openQrModal() {
     if(qrModal) {
@@ -950,6 +960,7 @@ function closeQrModal() {
 if(qrTrigger) qrTrigger.addEventListener("click", openQrModal);
 if(qrModalClose) qrModalClose.addEventListener("click", closeQrModal);
 if(qrModalBackdrop) qrModalBackdrop.addEventListener("click", closeQrModal);
+if(donateFloatBtn) donateFloatBtn.addEventListener("click", openQrModal); /* NEW LINK */
 
 /* Copy UPI ID Logic */
 const toastEl = document.getElementById("toast");
@@ -962,7 +973,7 @@ function showToastMessage(msg) {
 
 document.querySelectorAll('.upi-copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        navigator.clipboard.writeText("tguniverse27@oksbi").then(() => {
+        navigator.clipboard.writeText("pijush2k6420@oksbi").then(() => {
             showToastMessage("✅ UPI ID Copied!");
         }).catch(err => {
             console.error('Failed to copy text: ', err);
