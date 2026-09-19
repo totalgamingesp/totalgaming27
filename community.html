@@ -1028,8 +1028,165 @@ footer p{
     transform: scale(1.1);
 }
 
-/* Note: Mobile rules for .donate-floating-btn moved into main media query above */
+/* =========================================================
+   DONATE MODAL STYLES (COPIED FROM STYLE.CSS)
+========================================================= */
+.qr-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 20px;
+}
 
+.qr-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.qr-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 5, 15, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.qr-modal-content {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(160deg, #13172e, #090b18);
+    border: 1.5px solid rgba(0, 234, 255, 0.4);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 234, 255, 0.25);
+    border-radius: 26px;
+    padding: 35px 28px 25px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.qr-modal.show .qr-modal-content {
+    transform: scale(1);
+}
+
+.qr-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-modal-close:hover {
+    background: #ff1744;
+    transform: rotate(90deg);
+}
+
+.modal-header-tag {
+    font-family: "Orbitron", sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #00e5ff;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.modal-qr-frame {
+    display: inline-flex;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 35px rgba(0, 234, 255, 0.5);
+    border: 3px solid #00e5ff;
+    margin-bottom: 15px;
+}
+
+.modal-qr-img {
+    width: 310px;
+    height: 310px;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+}
+
+.upi-id-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.upi-id-box:hover {
+    background: rgba(0, 234, 255, 0.1);
+    border-color: #00eaff;
+}
+
+.upi-label {
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.upi-text {
+    color: #00eaff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.modal-pay-instruction {
+    color: #a5b4fc;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.modal-disclaimer-box {
+    text-align: left;
+    background: rgba(255, 23, 68, 0.08);
+    border: 1px solid rgba(255, 23, 68, 0.35);
+    border-left: 4px solid #ff1744;
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+
+.modal-disclaimer-box h4 {
+    color: #ff4d6d;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.modal-disclaimer-body p {
+    color: #f1f5f9;
+    font-size: 12px;
+    line-height: 1.55;
+    margin: 0;
+    margin-bottom: 8px;
+}
 </style>
 
 </head>
@@ -1147,23 +1304,23 @@ footer p{
 <!-- =========================================================
      FLOATING BUTTON QR / DONATE MODAL
 ========================================================= -->
-<div class="qr-modal" id="qrModal">
-    <div class="qr-modal-backdrop" id="qrModalBackdrop"></div>
+<div class="qr-modal" id="donateFloatModal">
+    <div class="qr-modal-backdrop" id="donateFloatBackdrop"></div>
     <div class="qr-modal-content">
-        <button class="qr-modal-close" id="qrModalClose">✖</button>
+        <button class="qr-modal-close" id="donateFloatClose">✖</button>
         <div class="modal-header-tag">SCAN TO PAY ANY AMOUNT</div>
         
         <div class="modal-qr-frame">
-            <img src="my-qr.png" alt="Scan QR Enlarge" class="modal-qr-img"> 
+            <img src="my-qr.png" alt="Scan QR Enlarge" class="modal-qr-img">
         </div>
 
         <!-- COPYABLE UPI ID IN MODAL -->
-        <div class="upi-id-box modal-upi-box upi-copy-btn" title="Click to copy UPI ID">
+        <div class="upi-id-box modal-upi-box upi-copy-btn" id="copyFloatingUpi" title="Click to copy UPI ID">
             <span class="upi-label">UPI ID:</span>
             <span class="upi-text">pijush2k6420@oksbi</span>
         </div>
 
-        <div class="modal-pay-instruction">
+        <div class="modal-pay-instruction" style="margin-top: 10px;">
             <span>Accepting all UPI Apps • PhonePe • GPay • Paytm</span>
         </div>
 
@@ -1174,7 +1331,7 @@ footer p{
                <p>
                     🔴 <strong>HINDI:</strong> यह QR कोड किसी भी ऑफिशियल TG प्लेयर का नहीं है। यह पेमेंट सीधे इस वेबसाइट के <strong>@TG.Universe-07</strong> को व्यक्तिगत मोटिवेशन के लिए जाएगी। यह पूरी तरह से स्वैच्छिक (आपकी मर्ज़ी से) सपोर्ट है।
                 </p>
-                <p>
+                <p style="margin-bottom:0;">
                     🔴 <strong>ENGLISH:</strong> This QR does NOT belong to any official Total Gaming player or organisation. All donations go directly to the <strong>@TG.Universe-07</strong> to Motivate & support development. Purely voluntary.
                 </p>
             </div>
@@ -1744,41 +1901,41 @@ function loadCommunityPosts(user){
 }
 
 /* =========================================================
-   QR MODAL LOGIC FOR COMMUNITY PAGE
+   DONATE FLOATING BUTTON MODAL LOGIC
 ========================================================= */
-const qrModal = document.getElementById("qrModal");
-const qrModalClose = document.getElementById("qrModalClose");
-const qrModalBackdrop = document.getElementById("qrModalBackdrop");
 const donateFloatBtn = document.getElementById("donateFloatBtn");
+const donateFloatModal = document.getElementById("donateFloatModal");
+const donateFloatClose = document.getElementById("donateFloatClose");
+const donateFloatBackdrop = document.getElementById("donateFloatBackdrop");
+const copyFloatingUpi = document.getElementById("copyFloatingUpi");
 
-function openQrModal() {
-    if(qrModal) {
-        qrModal.classList.add("show");
+function openDonateFloat() {
+    if(donateFloatModal) {
+        donateFloatModal.classList.add("show");
         document.body.style.overflow = "hidden";
     }
 }
 
-function closeQrModal() {
-    if(qrModal) {
-        qrModal.classList.remove("show");
+function closeDonateFloat() {
+    if(donateFloatModal) {
+        donateFloatModal.classList.remove("show");
         document.body.style.overflow = "";
     }
 }
 
-if(qrModalClose) qrModalClose.addEventListener("click", closeQrModal);
-if(qrModalBackdrop) qrModalBackdrop.addEventListener("click", closeQrModal);
-if(donateFloatBtn) donateFloatBtn.addEventListener("click", openQrModal);
+if(donateFloatBtn) donateFloatBtn.addEventListener("click", openDonateFloat);
+if(donateFloatClose) donateFloatClose.addEventListener("click", closeDonateFloat);
+if(donateFloatBackdrop) donateFloatBackdrop.addEventListener("click", closeDonateFloat);
 
-/* Copy UPI ID Logic */
-document.querySelectorAll('.upi-copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+if (copyFloatingUpi) {
+    copyFloatingUpi.addEventListener("click", () => {
         navigator.clipboard.writeText("pijush2k6420@oksbi").then(() => {
             showToast("✅ UPI ID Copied!");
         }).catch(err => {
             console.error('Failed to copy text: ', err);
         });
     });
-});
+}
 
 </script>
 </body>
